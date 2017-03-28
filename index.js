@@ -131,7 +131,7 @@ module.exports = class Cli {
 		const color    = state ? chalk.green : chalk.red;
 		const errorMsg = state ? '' : msg;
 
-		this.echoIndent(`${chalk.bold(`${name}:`)}       ${color(`${mark}  ${value} ${errorMsg}`)}`);
+		this.echoIndent(`${chalk.bold(`${name}`)}  ${color(`${mark}  ${value} ${errorMsg}`)}`);
 	}
 
 	static printStatus(status) {
