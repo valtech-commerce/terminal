@@ -89,8 +89,20 @@ module.exports = class Cli {
 		echo(str);
 	}
 
+	static echoIndent(str) {
+		echo(cleanUp(str));
+	}
+
 	static print(str) {
-		echo(STATIC.color(cleanUp(`${str}\n`)));
+		echo(STATIC.color(cleanUp(str)));
+	}
+
+	static println(str) {
+		this.print(`${str}\n`);
+	}
+
+	static spacer(nb = 1) {
+		this.print('\n'.repeat(nb - 1));
 	}
 
 	static warning(text, newline = true) {
@@ -113,6 +125,15 @@ module.exports = class Cli {
 		this.errorBox(`${trans('sudo')} ${emoji.get('cry')}`);
 	}
 
+	static printState(options) {
+		const { state, name, value, msg } = options;
+		const mark     = state ? '✓' : '✘';
+		const color    = state ? chalk.green : chalk.red;
+		const errorMsg = state ? '' : msg;
+
+		this.echoIndent(`${chalk.bold(`${name}:`)}       ${color(`${mark}  ${value} ${errorMsg}`)}`);
+	}
+
 	static printStatus(status) {
 		const colors = {
 			not_added: 'green', // eslint-disable-line camelcase
@@ -122,7 +143,7 @@ module.exports = class Cli {
 			deleted:   'red'
 		};
 
-		echo('\n');
+		this.spacer(2);
 
 		['not_added', 'created', 'modified', 'renamed', 'deleted'].forEach((type) => {
 			if (status[type].length) {
@@ -132,7 +153,7 @@ module.exports = class Cli {
 			}
 		});
 
-		echo('\n');
+		this.spacer(2);
 	}
 
 
@@ -158,7 +179,7 @@ module.exports = class Cli {
 
 	static completionBox() {
 		box(`${chalk.green('✓')}  ${trans('complete')}`, STATIC.bgcolor);
-		echo('\n');
+		this.spacer(2);
 	}
 
 
