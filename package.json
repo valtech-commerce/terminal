@@ -1,6 +1,6 @@
 {
   "name":        "@absolunet/terminal",
-  "version":     "0.0.4",
+  "version":     "0.0.5",
   "description": "Terminal utilities",
   "definition":  "",
   "homepage":    "https://github.com/absolunet/node-terminal",
@@ -16,7 +16,7 @@
   },
 
   "devDependencies": {
-    "@absolunet/tester": "0.0.4"
+    "@absolunet/tester": "0.0.5"
  },
 
   "dependencies": {

@@ -169,6 +169,10 @@ module.exports = class Cli {
 		`, STATIC.bgcolor);
 	}
 
+	static infoBox(text) {
+		box(text, STATIC.bgcolor);
+	}
+
 	static warningBox(text) {
 		box(text, chalk.bgYellow.black);
 	}
