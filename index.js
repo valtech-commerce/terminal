@@ -10,7 +10,7 @@ const chalk  = require('chalk');
 const redent = require('redent');
 const pad    = require('@absolunet/terminal-pad');
 
-const { spawnSync, execSync } = require('child_process');
+const { spawnSync, execSync, exec } = require('child_process');
 
 
 
@@ -84,6 +84,14 @@ module.exports = class Cli {
 
 
 
+
+	static exit(text) {
+		if (text) {
+			this.errorBox(text);
+		}
+
+		process.exit(2); // eslint-disable-line no-process-exit
+	}
 
 	static echo(str) {
 		echo(str);
@@ -193,6 +201,14 @@ module.exports = class Cli {
 
 	static run(cmd) {
 		execSync(cmd, { stdio:'inherit' });
+	}
+
+	static runPromise(cmd) {
+		return new Promise((resolve) => {
+			exec(cmd, { stdio:'inherit' }, (error, stdout, stderr) => {
+				resolve({ error, stdout, stderr });
+			});
+		});
 	}
 
 	static runAndRead(cmd) {

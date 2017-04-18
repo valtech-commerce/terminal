@@ -1,6 +1,6 @@
 {
   "name":        "@absolunet/terminal",
-  "version":     "0.0.5",
+  "version":     "0.1.0",
   "description": "Terminal utilities",
   "definition":  "",
   "homepage":    "https://github.com/absolunet/node-terminal",
@@ -10,7 +10,7 @@
   "repository": { "url":   "git://github.com/absolunet/node-terminal.git", "type":"git" },
   "bugs":       { "url": "https://github.com/absolunet/node-terminal/issues" },
 
-  "engines": { "node": ">= 7.7.4" },
+  "engines": { "node": ">= 7.9.0" },
   "scripts": {
     "test": "mocha"
   },
