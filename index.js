@@ -1,12 +1,13 @@
 //--------------------------------------------------------
-//-- Termimal utilities
+//-- Terminal utilities
 //--------------------------------------------------------
 'use strict';
 
 const echo = console.log;  // eslint-disable-line no-console
 
-const emoji  = require('node-emoji');
 const chalk  = require('chalk');
+const emoji  = require('node-emoji');
+const ora    = require('ora');
 const redent = require('redent');
 const pad    = require('@absolunet/terminal-pad');
 
@@ -19,11 +20,13 @@ const { spawnSync, execSync, exec } = require('child_process');
 
 //-- Static properties
 const STATIC = global.___AbsolunetTerminal___ ? global.___AbsolunetTerminal___ : global.___AbsolunetTerminal___ = {
-	lang:    'en',
-	logo:    '?',
-	color:   'blue',
-	bgcolor: 'bgBlue',
-	scripts: {
+	lang:        'en',
+	logo:        '?',
+	colorName:   'blue',
+	color:        chalk.blue,
+	bgcolor:      chalk.white.bgBlue,
+	spinnerType: 'dots3',
+	scripts:     {
 		path:   '.',
 		titles: {}
 	}
@@ -68,11 +71,13 @@ const box = (text, style, padding = true) => {
 
 module.exports = class Cli {
 
-	static setDefault(logo, color, lang = 'en') {
-		STATIC.logo    = logo;
-		STATIC.color   = chalk[color];
-		STATIC.bgcolor = chalk.white[`bg${color.charAt(0).toUpperCase()}${color.slice(1)}`];
-		STATIC.lang    = lang;
+	static setDefault({ logo = '?', color = 'blue', lang = 'en', spinnerType = 'dots3' }) {
+		STATIC.logo        = logo;
+		STATIC.colorName   = color;
+		STATIC.color       = chalk[color];
+		STATIC.bgcolor     = chalk.white[`bg${color.charAt(0).toUpperCase()}${color.slice(1)}`];
+		STATIC.lang        = lang;
+		STATIC.spinnerType = spinnerType;
 	}
 
 	static setScriptsFiles(path, titles) {
@@ -192,6 +197,19 @@ module.exports = class Cli {
 	static completionBox() {
 		box(`${chalk.green('✓')}  ${trans('complete')}`, STATIC.bgcolor);
 		this.spacer(2);
+	}
+
+
+
+
+
+
+	static startSpinner(text) {
+		return ora({
+			text:    text,
+			spinner: STATIC.spinnerType,
+			color:   STATIC.colorName
+		}).start();
 	}
 
 
