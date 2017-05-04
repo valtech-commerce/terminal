@@ -235,7 +235,7 @@ module.exports = class Cli {
 					errorOuput = stderr.replace(mysqlWarning, '');
 				}
 
-				if (errorMsg.trim() || stderr.trim()) {
+				if (errorMsg.trim() || errorOuput.trim()) {
 
 					this.error(`
 						${errorMsg || ''}
