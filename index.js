@@ -221,21 +221,18 @@ module.exports = class Cli {
 		execSync(cmd, { stdio:'inherit' });
 	}
 
-	static runPromise(cmd, options = {}) {
-		const mysqlWarning = /Warning: Using a password on the command line interface can be insecure\./g;
-
+	static runPromise(cmd, options = { ignoreError:'' }) {
 		return new Promise((resolve) => {
 			exec(cmd, { stdio:'inherit' }, (error, stdout, stderr) => {
+				let errorMsg = error ? error.toString().trim() : '';
+				let errorOuput = stderr.trim();
 
-				let errorMsg = error ? error.toString() : '';
-				let errorOuput = stderr;
-
-				if (options.ignoreMySQLPasswordWarning) {
-					errorMsg  = errorMsg.replace(mysqlWarning, '');
-					errorOuput = stderr.replace(mysqlWarning, '');
+				if (options.ignoreError) {
+					errorMsg  = errorMsg.replace(options.ignoreError, '').trim();
+					errorOuput = stderr.replace(options.ignoreError, '').trim();
 				}
 
-				if (errorMsg.trim() || errorOuput.trim()) {
+				if (errorMsg || errorOuput) {
 
 					this.error(`
 						${errorMsg || ''}
