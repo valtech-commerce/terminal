@@ -35,6 +35,10 @@ const STATIC = global.___AbsolunetTerminal___ ? global.___AbsolunetTerminal___ :
 
 
 const DICTIONARY = {
+	silentError: {
+		fr: `Une erreur silencieuse s'est produite`,
+		en: `A silent error has occurred`
+	},
 	sudo: {
 		fr: 'Ça sert à rien de me forcer avec un sudo',
 		en: 'It is useless to force me with a sudo'
@@ -224,22 +228,45 @@ module.exports = class Cli {
 	static runPromise(cmd, options = { ignoreError:'' }) {
 		return new Promise((resolve) => {
 			exec(cmd, { stdio:'inherit' }, (error, stdout, stderr) => {
-				let errorMsg = error ? error.toString().trim() : '';
+				const output   = stdout.trim();
 				let errorOuput = stderr.trim();
+				let errorMsg   = error ? error.toString().trim() : '';
 
 				if (options.ignoreError) {
 					errorMsg  = errorMsg.replace(options.ignoreError, '').trim();
 					errorOuput = stderr.replace(options.ignoreError, '').trim();
 				}
 
-				if (errorMsg || errorOuput) {
+				// Error
+				if (errorMsg) {
+
+					// Show normal output
+					if (output) {
+						this.echo(output);
+					}
+
+					// Make the silence talk
+					if (!errorOuput) {
+						this.error(trans('silentError'));
+					}
 
 					this.error(`
 						${errorMsg || ''}
-						${stdout || ''}
 						${errorOuput || ''}
 					`);
+
 					this.exit();
+
+
+				// Warning
+				} else if (errorOuput) {
+
+					// Show normal output
+					if (output) {
+						this.echo(output);
+					}
+
+					this.warning(errorOuput);
 				}
 
 				resolve({ error, stdout, stderr });
