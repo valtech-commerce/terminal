@@ -73,7 +73,7 @@ const box = (text, style, padding = true) => {
 
 
 
-module.exports = class Cli {
+module.exports = class {
 
 	static setDefault({ logo = '?', color = 'blue', lang = 'en', spinnerType = 'dots3' }) {
 		STATIC.logo        = logo;
@@ -225,48 +225,51 @@ module.exports = class Cli {
 		execSync(cmd, { stdio:'inherit' });
 	}
 
-	static runPromise(cmd, options = { ignoreError:'' }) {
+	static runPromise(cmd, { ignoreError = '', silent = false } = {}) {
+
 		return new Promise((resolve) => {
 			exec(cmd, { stdio:'inherit' }, (error, stdout, stderr) => {
 				const output   = stdout.trim();
 				let errorOuput = stderr.trim();
 				let errorMsg   = error ? error.toString().trim() : '';
 
-				if (options.ignoreError) {
-					errorMsg  = errorMsg.replace(options.ignoreError, '').trim();
-					errorOuput = stderr.replace(options.ignoreError, '').trim();
+				if (ignoreError) {
+					errorMsg  = errorMsg.replace(ignoreError, '').trim();
+					errorOuput = stderr.replace(ignoreError, '').trim();
 				}
 
 				// Error
-				if (errorMsg) {
+				if (!silent) {
+					if (errorMsg) {
 
-					// Show normal output
-					if (output) {
-						this.echo(output);
+						// Show normal output
+						if (output) {
+							this.echo(output);
+						}
+
+						// Make the silence talk
+						if (!errorOuput) {
+							this.error(trans('silentError'));
+						}
+
+						this.error(`
+							${errorMsg || ''}
+							${errorOuput || ''}
+						`);
+
+						this.exit();
+
+
+					// Warning
+					} else if (errorOuput) {
+
+						// Show normal output
+						if (output) {
+							this.echo(output);
+						}
+
+						this.warning(errorOuput);
 					}
-
-					// Make the silence talk
-					if (!errorOuput) {
-						this.error(trans('silentError'));
-					}
-
-					this.error(`
-						${errorMsg || ''}
-						${errorOuput || ''}
-					`);
-
-					this.exit();
-
-
-				// Warning
-				} else if (errorOuput) {
-
-					// Show normal output
-					if (output) {
-						this.echo(output);
-					}
-
-					this.warning(errorOuput);
 				}
 
 				resolve({ error, stdout, stderr });
