@@ -19,6 +19,28 @@ $ npm install @absolunet/terminal
 
 ```js
 const terminal = require('@absolunet/terminal');
+
+terminal.setDefault({
+	logo:  '🍭',
+	color: 'magenta'
+});
+
+terminal.titleBox('Start');
+
+terminal.startSpinner('Checking dependencies');
+
+terminal.runPromise('npm outdated', { silent:true }).then(({ stdout }) => {
+	spinner.stop();
+
+	if (stdout) {
+		terminal.spacer();
+		terminal.failure('Please update your project');
+	} else {
+		terminal.success('You are up to date!');
+	}
+
+	terminal.completionBox();
+});
 ```
 
 
@@ -270,7 +292,8 @@ A [simple-git](https://www.npmjs.com/package/simple-git) status object
 <br>
 
 ### `startSpinner(text)`
-Outputs a project themed waiting spinner
+Outputs a project themed waiting spinner<br>
+Returns a [ora spinner](https://www.npmjs.com/package/ora) object
 
 #### text
 *Required*<br>
@@ -370,7 +393,7 @@ Terminal command
 <br>
 
 ### `runPromise(cmd[, options])`
-Execute a terminal command
+Execute a terminal command<br>
 `Promise` returns a `object` of terminal output `{ error, stdout, stderr }`
 
 #### cmd
@@ -395,7 +418,8 @@ Silence all errors
 <br>
 
 ### `runAndRead(cmd)`
-Get a raw terminal command output 
+Get a raw terminal command output <br>
+Returns a `string` of terminal output
 
 #### cmd
 *Required*<br>
@@ -408,7 +432,8 @@ Terminal command
 <br>
 
 ### `runAndGet(cmd)`
-Get a terminal command output in a one-liner
+Get a terminal command output in a one-liner<br>
+Returns a `string` of terminal output
 
 #### cmd
 *Required*<br>
