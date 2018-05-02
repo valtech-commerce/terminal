@@ -364,9 +364,13 @@ Text to output
 
 <br>
 
-### `completionBox()`
+### `completionBox([showDuration])`
 Outputs a project themed completion box
 
+#### showDuration
+Type: `boolean`<br>
+Default: `true`<br>
+Show amount of time since last TitleBox
 
 
 
@@ -446,7 +450,7 @@ Terminal command
 <br>
 
 ### `runAndEcho(cmd)`
-Execute a terminal command and output a cleaned up result 
+Execute a terminal command and output a cleaned up result
 
 #### cmd
 *Required*<br>

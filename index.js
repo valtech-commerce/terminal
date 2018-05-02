@@ -5,11 +5,12 @@
 
 const echo = console.log;  // eslint-disable-line no-console
 
-const chalk  = require('chalk');
-const emoji  = require('node-emoji');
-const ora    = require('ora');
-const redent = require('redent');
-const pad    = require('@absolunet/terminal-pad');
+const chalk    = require('chalk');
+const emoji    = require('node-emoji');
+const ora      = require('ora');
+const prettyMs = require('pretty-ms');
+const redent   = require('redent');
+const pad      = require('@absolunet/terminal-pad');
 
 const { spawnSync, execSync, exec } = require('child_process');
 
@@ -43,9 +44,13 @@ const DICTIONARY = {
 		fr: 'Ça sert à rien de me forcer avec un sudo',
 		en: 'It is useless to force me with a sudo'
 	},
-	complete: {
+	completed: {
 		fr: 'Complété',
-		en: 'Complete'
+		en: 'Completed'
+	},
+	after: {
+		fr: 'après',
+		en: 'after'
 	}
 };
 
@@ -179,6 +184,8 @@ module.exports = class {
 
 
 	static titleBox(text) {
+		STATIC.titleboxStart = new Date();
+
 		box(`
 			${chalk.bgBlack('        ')}
 			${chalk.bgBlack(`   ${STATIC.logo}    `)}  ${text}
@@ -198,8 +205,12 @@ module.exports = class {
 		box(text, chalk.bgRed.white);
 	}
 
-	static completionBox() {
-		box(`${chalk.green('✓')}  ${trans('complete')}`, STATIC.bgcolor);
+	static completionBox(showDuration = true) {
+		const time = showDuration && STATIC.titleboxStart ? ` ${trans('after')} ${prettyMs(new Date() - STATIC.titleboxStart)}` : '';
+
+		box(`${chalk.green('✓')}  ${trans('completed')}${time}`, STATIC.bgcolor);
+
+		STATIC.titleboxStart = undefined;
 		this.spacer(2);
 	}
 

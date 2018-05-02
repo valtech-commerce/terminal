@@ -35,5 +35,24 @@ tester.lintJs();
 // 	terminal.titleBox(str);
 // 	terminal.warningBox(str);
 // 	terminal.errorBox(str);
-// 	terminal.completionBox();
+//
+//
+//	setTimeout(() => {
+//		terminal.completionBox();
+//		terminal.titleBox('Test1');
+//	}, 1150);
+//
+//	setTimeout(() => {
+//		terminal.completionBox();
+//		terminal.titleBox('Test2');
+//	}, 2000);
+//
+//	setTimeout(() => {
+//		terminal.titleBox('Test3');
+//	}, 3000);
+//
+//	setTimeout(() => {
+//		terminal.completionBox();
+//		terminal.completionBox();
+//	}, 3500);
 // });
