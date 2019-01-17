@@ -1,6 +1,6 @@
 {
   "name": "@absolunet/terminal",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "Terminal utilities",
   "definition": "",
   "homepage": "https://github.com/absolunet/node-terminal",
@@ -8,6 +8,9 @@
     "name": "Absolunet",
     "url": "https://absolunet.com"
   },
+  "keywords": [
+    "terminal"
+  ],
   "license": "MIT",
   "repository": {
     "url": "git://github.com/absolunet/node-terminal.git",
@@ -17,20 +20,21 @@
     "url": "https://github.com/absolunet/node-terminal/issues"
   },
   "engines": {
-    "node": ">= 10.0.0"
+    "node": ">= 11.6.0"
   },
+  "main": "index.js",
   "scripts": {
     "test": "ava test"
   },
   "devDependencies": {
-    "@absolunet/tester": "1.6.0"
+    "@absolunet/tester": "2.4.4"
   },
   "dependencies": {
-    "chalk": "^2.4.1",
+    "@absolunet/terminal-pad": "^0.0.2",
+    "chalk": "^2.4.2",
     "node-emoji": "^1.8.1",
-    "ora": "^2.1.0",
-    "pretty-ms": "^3.1.0",
-    "redent": "^2.0.0",
-    "@absolunet/terminal-pad": "^0.0.2"
+    "ora": "^3.0.0",
+    "pretty-ms": "^4.0.0",
+    "redent": "^2.0.0"
   }
 }

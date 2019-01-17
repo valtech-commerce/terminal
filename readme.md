@@ -1,9 +1,10 @@
 # @absolunet/terminal
 
-[![NPM version](https://img.shields.io/npm/v/@absolunet/terminal.svg)](https://www.npmjs.com/package/@absolunet/terminal)
-[![Travis build](https://api.travis-ci.org/absolunet/node-terminal.svg?branch=master)](https://travis-ci.org/absolunet/node-terminal/builds)
-[![Dependencies](https://david-dm.org/absolunet/node-terminal/status.svg)](https://david-dm.org/absolunet/node-terminal)
-[![Dev dependencies](https://david-dm.org/absolunet/node-terminal/dev-status.svg)](https://david-dm.org/absolunet/node-terminal?type=dev)
+[![npm](https://img.shields.io/npm/v/@absolunet/terminal.svg)](https://www.npmjs.com/package/@absolunet/terminal)
+[![npm dependencies](https://david-dm.org/absolunet/node-terminal/status.svg)](https://david-dm.org/absolunet/node-terminal)
+[![npms](https://badges.npms.io/%40absolunet%2Fterminal.svg)](https://npms.io/search?q=%40absolunet%2Fterminal)
+[![Travis CI](https://api.travis-ci.org/absolunet/node-terminal.svg?branch=master)](https://travis-ci.org/absolunet/node-terminal/builds)
+[![Code style ESLint](https://img.shields.io/badge/code_style-@absolunet/node-659d32.svg)](https://github.com/absolunet/eslint-config-node)
 
 > Terminal utilities
 
@@ -255,7 +256,7 @@ Outputs a colored state of a property
 Type: `Object`
 
 ##### state
-*Required*  
+*Required*
 Type: `boolean`<br>
 If a success or a failure
 

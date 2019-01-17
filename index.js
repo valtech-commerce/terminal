@@ -3,24 +3,17 @@
 //--------------------------------------------------------
 'use strict';
 
-const echo = console.log;  // eslint-disable-line no-console
-
-const chalk    = require('chalk');
-const emoji    = require('node-emoji');
-const ora      = require('ora');
-const prettyMs = require('pretty-ms');
-const redent   = require('redent');
-const pad      = require('@absolunet/terminal-pad');
-
+const chalk                         = require('chalk');
 const { spawnSync, execSync, exec } = require('child_process');
-
-
-
-
+const emoji                         = require('node-emoji');
+const ora                           = require('ora');
+const prettyMs                      = require('pretty-ms');
+const redent                        = require('redent');
+const pad                           = require('@absolunet/terminal-pad');
 
 
 //-- Static properties
-const STATIC = global.___AbsolunetTerminal___ ? global.___AbsolunetTerminal___ : global.___AbsolunetTerminal___ = {
+const __ = {
 	lang:        'en',
 	logo:        '?',
 	colorName:   'blue',
@@ -32,7 +25,6 @@ const STATIC = global.___AbsolunetTerminal___ ? global.___AbsolunetTerminal___ :
 		titles: {}
 	}
 };
-
 
 
 const DICTIONARY = {
@@ -54,16 +46,19 @@ const DICTIONARY = {
 	}
 };
 
+
+const echo = console.log;  // eslint-disable-line no-console
+
 const trans = (key) => {
-	return DICTIONARY[key][STATIC.lang];
+	return DICTIONARY[key][__.lang];
 };
 
 const cleanUp = (text = '') => {
-	return redent(text, 2).replace(/\t/g, '  ');
+	return redent(text, 2).replace(/\t/ug, '  ');
 };
 
 const box = (text, style, padding = true) => {
-	let content = cleanUp(text).replace(/^\n+/g, '').replace(/\n+\s*$/g, '');
+	let content = cleanUp(text).replace(/^\n+/ug, '').replace(/\n+\s*$/ug, '');
 	content = padding ? `\n${content}\n` : content;
 
 	echo('\n');
@@ -78,20 +73,20 @@ const box = (text, style, padding = true) => {
 
 
 
-module.exports = class {
+class Terminal {
 
-	static setDefault({ logo = '?', color = 'blue', lang = 'en', spinnerType = 'dots3' }) {
-		STATIC.logo        = logo;
-		STATIC.colorName   = color;
-		STATIC.color       = chalk[color];
-		STATIC.bgcolor     = chalk.white[`bg${color.charAt(0).toUpperCase()}${color.slice(1)}`];
-		STATIC.lang        = lang;
-		STATIC.spinnerType = spinnerType;
+	setDefault({ logo = '?', color = 'blue', lang = 'en', spinnerType = 'dots3' }) {
+		__.logo        = logo;
+		__.colorName   = color;
+		__.color       = chalk[color];
+		__.bgcolor     = chalk.white[`bg${color.charAt(0).toUpperCase()}${color.slice(1)}`];
+		__.lang        = lang;
+		__.spinnerType = spinnerType;
 	}
 
-	static setScriptsFiles(path, titles) {
-		STATIC.scripts.path   = path;
-		STATIC.scripts.titles = titles;
+	setScriptsFiles(path, titles) {
+		__.scripts.path   = path;
+		__.scripts.titles = titles;
 	}
 
 
@@ -99,55 +94,55 @@ module.exports = class {
 
 
 
-	static exit(text) {
+	exit(text) {
 		if (text) {
 			this.errorBox(text);
 		}
 
-		process.exit(2); // eslint-disable-line no-process-exit
+		process.exit(2); // eslint-disable-line no-process-exit, unicorn/no-process-exit
 	}
 
-	static echo(str) {
+	echo(str) {
 		echo(str);
 	}
 
-	static echoIndent(str) {
+	echoIndent(str) {
 		echo(cleanUp(str));
 	}
 
-	static print(str) {
-		echo(STATIC.color(cleanUp(str)));
+	print(str) {
+		echo(__.color(cleanUp(str)));
 	}
 
-	static println(str) {
+	println(str) {
 		this.print(`${str}\n`);
 	}
 
-	static spacer(nb = 1) {
+	spacer(nb = 1) {
 		this.print('\n'.repeat(nb - 1));
 	}
 
-	static warning(text, newline = true) {
+	warning(text, newline = true) {
 		echo(chalk.yellow(cleanUp(`${text}${newline ? '\n' : ''}`)));
 	}
 
-	static error(text) {
+	error(text) {
 		echo(chalk.red(cleanUp(`\n${text}\n`)));
 	}
 
-	static success(str) {
+	success(str) {
 		echo(chalk.green(cleanUp(`✓  ${str}\n`)));
 	}
 
-	static failure(str) {
+	failure(str) {
 		echo(chalk.red(cleanUp(`✘  ${str}\n`)));
 	}
 
-	static dontSudoMe() {
+	dontSudoMe() {
 		this.errorBox(`${trans('sudo')} ${emoji.get('cry')}`);
 	}
 
-	static printState(options) {
+	printState(options) {
 		const { state, name, value, msg } = options;
 		const mark     = state ? '✓' : '✘';
 		const color    = state ? chalk.green : chalk.red;
@@ -156,7 +151,7 @@ module.exports = class {
 		this.echoIndent(`${chalk.bold(`${name}`)}  ${color(`${mark}  ${value} ${errorMsg}`)}`);
 	}
 
-	static printStatus(status) {
+	printStatus(status) {
 		const colors = {
 			not_added: 'green', // eslint-disable-line camelcase
 			created:   'green',
@@ -168,7 +163,7 @@ module.exports = class {
 		this.spacer(2);
 
 		['not_added', 'created', 'modified', 'renamed', 'deleted'].forEach((type) => {
-			if (status[type].length) {
+			if (status[type].length !== 0) {
 				status[type].forEach((file) => {
 					echo(cleanUp(`${chalk[colors[type]](pad(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`));
 				});
@@ -183,34 +178,34 @@ module.exports = class {
 
 
 
-	static titleBox(text) {
-		STATIC.titleboxStart = new Date();
+	titleBox(text) {
+		__.titleboxStart = new Date();
 
 		box(`
-			${chalk.bgBlack('        ')}
-			${chalk.bgBlack(`   ${STATIC.logo}    `)}  ${text}
-			${chalk.bgBlack('        ')}
-		`, STATIC.bgcolor);
+			${chalk.reset('        ')}${__.bgcolor(' ')}
+			${chalk.reset(`   ${__.logo}    `)}${__.bgcolor(' ')} ${text}
+			${chalk.reset('        ')}${__.bgcolor(' ')}
+		`, __.bgcolor);
 	}
 
-	static infoBox(text) {
-		box(text, STATIC.bgcolor);
+	infoBox(text) {
+		box(text, __.bgcolor);
 	}
 
-	static warningBox(text) {
+	warningBox(text) {
 		box(text, chalk.bgYellow.black);
 	}
 
-	static errorBox(text) {
+	errorBox(text) {
 		box(text, chalk.bgRed.white);
 	}
 
-	static completionBox(showDuration = true) {
-		const time = showDuration && STATIC.titleboxStart ? ` ${trans('after')} ${prettyMs(new Date() - STATIC.titleboxStart)}` : '';
+	completionBox(showDuration = true) {
+		const time = showDuration && __.titleboxStart ? ` ${trans('after')} ${prettyMs(new Date() - __.titleboxStart)}` : '';
 
-		box(`${chalk.green('✓')}  ${trans('completed')}${time}`, STATIC.bgcolor);
+		box(`${chalk.green('✓')}  ${trans('completed')}${time}`, __.bgcolor);
 
-		STATIC.titleboxStart = undefined;
+		__.titleboxStart = undefined;
 		this.spacer(2);
 	}
 
@@ -219,11 +214,11 @@ module.exports = class {
 
 
 
-	static startSpinner(text) {
+	startSpinner(text) {
 		return ora({
 			text:    text,
-			spinner: STATIC.spinnerType,
-			color:   STATIC.colorName
+			spinner: __.spinnerType,
+			color:   __.colorName
 		}).start();
 	}
 
@@ -232,11 +227,11 @@ module.exports = class {
 
 
 
-	static run(cmd) {
+	run(cmd) {
 		execSync(cmd, { stdio:'inherit' });
 	}
 
-	static runPromise(cmd, { ignoreError = '', silent = false } = {}) {
+	runPromise(cmd, { ignoreError = '', silent = false } = {}) {
 
 		return new Promise((resolve) => {
 			exec(cmd, { stdio:'inherit' }, (error, stdout, stderr) => {
@@ -288,11 +283,11 @@ module.exports = class {
 		});
 	}
 
-	static runAndRead(cmd) {
-		return execSync(cmd, { encoding:'utf8' });
+	runAndRead(cmd) {
+		return execSync(cmd, { stdio:['inherit', 'pipe', 'inherit'], encoding:'utf8' });
 	}
 
-	static runAndGet(cmd) {
+	runAndGet(cmd) {
 		const lines = [];
 
 		this.runAndRead(cmd).split(`\n`).forEach((line) => {
@@ -304,7 +299,7 @@ module.exports = class {
 		return lines.join(' / ');
 	}
 
-	static runAndEcho(cmd) {
+	runAndEcho(cmd) {
 		this.runAndRead(cmd).split(`\n`).forEach((line) => {
 			if (line) {
 				echo(cleanUp(line));
@@ -312,16 +307,19 @@ module.exports = class {
 		});
 	}
 
-	static runTask(title, cmd) {
+	runTask(title, cmd) {
 		this.titleBox(title);
 		this.run(cmd);
 		this.completionBox();
 	}
 
-	static runScript(file, ...arg) {
-		this.titleBox(`${STATIC.scripts.titles[file]}  ${chalk.underline(file)}`);
-		spawnSync('bash', [`${STATIC.scripts.path}/${file}.sh`].concat(arg), { stdio:'inherit' });
+	runScript(file, ...arg) {
+		this.titleBox(`${__.scripts.titles[file]}  ${chalk.underline(file)}`);
+		spawnSync('bash', [`${__.scripts.path}/${file}.sh`].concat(arg), { stdio:'inherit' });
 		this.completionBox();
 	}
 
-};
+}
+
+
+module.exports = new Terminal();
