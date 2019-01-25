@@ -183,7 +183,7 @@ class Terminal {
 
 		box(`
 			${chalk.reset('        ')}${__.bgcolor(' ')}
-			${chalk.reset(`   ${__.logo}    `)}${__.bgcolor(' ')} ${text}
+			${chalk.reset(`   ${__.logo}   `)}${__.bgcolor(' ')} ${text}
 			${chalk.reset('        ')}${__.bgcolor(' ')}
 		`, __.bgcolor);
 	}
