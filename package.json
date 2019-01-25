@@ -1,6 +1,6 @@
 {
   "name": "@absolunet/terminal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Terminal utilities",
   "definition": "",
   "homepage": "https://github.com/absolunet/node-terminal",
@@ -20,7 +20,7 @@
     "url": "https://github.com/absolunet/node-terminal/issues"
   },
   "engines": {
-    "node": ">= 11.6.0"
+    "node": ">= 11.7.0"
   },
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "@absolunet/tester": "2.4.4"
   },
   "dependencies": {
-    "@absolunet/terminal-pad": "^0.0.2",
+    "@absolunet/terminal-pad": "^1.0.0",
     "chalk": "^2.4.2",
     "node-emoji": "^1.8.1",
     "ora": "^3.0.0",
