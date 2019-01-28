@@ -9,6 +9,7 @@ const emoji                         = require('node-emoji');
 const ora                           = require('ora');
 const prettyMs                      = require('pretty-ms');
 const redent                        = require('redent');
+const stringWidth                   = require('string-width');
 const pad                           = require('@absolunet/terminal-pad');
 
 
@@ -61,9 +62,14 @@ const box = (text, style, padding = true) => {
 	let content = cleanUp(text).replace(/^\n+/ug, '').replace(/\n+\s*$/ug, '');
 	content = padding ? `\n${content}\n` : content;
 
+	const lines = content.split('\n');
+	const max = Math.max(...lines.map((line) => { return stringWidth(line); }));
+	const padLength = max < 79 ? 80 : max + 2;
+
 	echo('\n');
-	content.split('\n').forEach((line) => {
-		echo(style(pad(line, 80)));
+
+	lines.forEach((line) => {
+		echo(style(pad(line, padLength)));
 	});
 	echo('\n');
 };
