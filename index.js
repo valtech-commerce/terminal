@@ -198,7 +198,7 @@ class Terminal {
 
 		box(`
 			${chalk.reset('        ')}${__.bgColor(' ')}
-			${chalk.reset(`   ${__.logo}${extraPadding ? ' ' : ''}   `)}${__.bgColor(' ')} ${text} ${stringWidth(__.logo)} ${stringLength(__.logo)} ${__.logo.length}
+			${chalk.reset(`   ${__.logo}${extraPadding ? ' ' : ''}   `)}${__.bgColor(' ')} ${text}
 			${chalk.reset('        ')}${__.bgColor(' ')}
 		`, __.bgColor, true, extraPadding && __.logo.length === 2);
 	}
