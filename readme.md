@@ -19,11 +19,14 @@ $ npm install @absolunet/terminal
 ## Usage
 
 ```js
-const terminal = require('@absolunet/terminal');
+const terminal  = require('@absolunet/terminal');
+const { chalk } = terminal;
 
 terminal.setDefault({
-	logo:  '🍭',
-	color: 'magenta'
+	logo:         '🍭',
+	textColor:    chalk.magenta,
+	bgColor:      chalk.white.bgMagenta,
+	spinnerColor: 'magenta'
 });
 
 terminal.titleBox('Start');
@@ -47,6 +50,14 @@ terminal.runPromise('npm outdated', { silent:true }).then(({ stdout }) => {
 
 ## API - Base
 
+### `chalk`
+Returns `chalk` instance
+
+
+
+
+<br>
+
 ### `setDefault([options])`
 Define project theme options to be used
 
@@ -55,13 +66,23 @@ Type: `Object`
 
 ##### logo
 Type: `string`<br>
-Default: '?'<br>
+Default: '•'<br>
 Emoji to be used as logo in TitleBox
 
-##### color
+##### textColor
+Type: `Function`<br>
+Default: chalk.blue<br>
+[Chalk definition](https://www.npmjs.com/package/chalk) to be used in project colored outputs
+
+##### bgColor
+Type: `Function`<br>
+Default: chalk.white.bgBlue<br>
+[Chalk definition](https://www.npmjs.com/package/chalk) to be used in project colored outputs
+
+##### spinnerColor
 Type: `string`<br>
 Default: 'blue'<br>
-[Color](https://www.npmjs.com/package/chalk) to be used in project colored outputs
+[Color](https://www.npmjs.com/package/chalk) to be used with spinner
 
 ##### lang
 Type: `string`<br>

@@ -9,19 +9,20 @@ const emoji                         = require('node-emoji');
 const ora                           = require('ora');
 const prettyMs                      = require('pretty-ms');
 const redent                        = require('redent');
+const stringLength                  = require('string-length');
 const stringWidth                   = require('string-width');
 const pad                           = require('@absolunet/terminal-pad');
 
 
 //-- Static properties
 const __ = {
-	lang:        'en',
-	logo:        '?',
-	colorName:   'blue',
-	color:        chalk.blue,
-	bgcolor:      chalk.white.bgBlue,
-	spinnerType: 'dots3',
-	scripts:     {
+	lang:         'en',
+	logo:         '•',
+	textColor:    chalk.blue,
+	bgColor:      chalk.white.bgBlue,
+	spinnerColor: 'blue',
+	spinnerType:  'dots3',
+	scripts:      {
 		path:   '.',
 		titles: {}
 	}
@@ -58,7 +59,7 @@ const cleanUp = (text = '') => {
 	return redent(text, 2).replace(/\t/ug, '  ');
 };
 
-const box = (text, style, padding = true) => {
+const box = (text, style, padding = true, extraPadding) => {
 	let content = cleanUp(text).replace(/^\n+/ug, '').replace(/\n+\s*$/ug, '');
 	content = padding ? `\n${content}\n` : content;
 
@@ -68,8 +69,10 @@ const box = (text, style, padding = true) => {
 
 	echo('\n');
 
+	let i = 0;
 	lines.forEach((line) => {
-		echo(style(pad(line, padLength)));
+		echo(style(pad(line, padLength) + (extraPadding && i === 2 ? ' ' : '')));
+		++i;
 	});
 	echo('\n');
 };
@@ -81,13 +84,17 @@ const box = (text, style, padding = true) => {
 
 class Terminal {
 
-	setDefault({ logo = '?', color = 'blue', lang = 'en', spinnerType = 'dots3' }) {
-		__.logo        = logo;
-		__.colorName   = color;
-		__.color       = chalk[color];
-		__.bgcolor     = chalk.white[`bg${color.charAt(0).toUpperCase()}${color.slice(1)}`];
-		__.lang        = lang;
-		__.spinnerType = spinnerType;
+	get chalk() {
+		return chalk;
+	}
+
+	setDefault({ logo = '?', textColor = chalk.blue, bgColor = chalk.white.bgBlue, spinnerColor = 'blue', lang = 'en', spinnerType = 'dots3' }) {
+		__.logo         = logo;
+		__.textColor    = textColor;
+		__.bgColor      = bgColor;
+		__.spinnerColor = spinnerColor;
+		__.lang         = lang;
+		__.spinnerType  = spinnerType;
 	}
 
 	setScriptsFiles(path, titles) {
@@ -117,7 +124,7 @@ class Terminal {
 	}
 
 	print(str) {
-		echo(__.color(cleanUp(str)));
+		echo(__.textColor(cleanUp(str)));
 	}
 
 	println(str) {
@@ -171,7 +178,7 @@ class Terminal {
 		['not_added', 'created', 'modified', 'renamed', 'deleted'].forEach((type) => {
 			if (status[type].length !== 0) {
 				status[type].forEach((file) => {
-					echo(cleanUp(`${chalk[colors[type]](pad(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`));
+					this.echoIndent(`${chalk[colors[type]](pad(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`);
 				});
 			}
 		});
@@ -187,15 +194,17 @@ class Terminal {
 	titleBox(text) {
 		__.titleboxStart = new Date();
 
+		const extraPadding = __.logo.length === stringWidth(__.logo) && __.logo.length === stringLength(__.logo);
+
 		box(`
-			${chalk.reset('        ')}${__.bgcolor(' ')}
-			${chalk.reset(`   ${pad(__.logo, 2)}   `)}${__.bgcolor(' ')} ${text}
-			${chalk.reset('        ')}${__.bgcolor(' ')}
-		`, __.bgcolor);
+			${chalk.reset('        ')}${__.bgColor(' ')}
+			${chalk.reset(`   ${__.logo}${extraPadding ? ' ' : ''}   `)}${__.bgColor(' ')} ${text} ${stringWidth(__.logo)} ${stringLength(__.logo)} ${__.logo.length}
+			${chalk.reset('        ')}${__.bgColor(' ')}
+		`, __.bgColor, true, extraPadding && __.logo.length === 2);
 	}
 
 	infoBox(text) {
-		box(text, __.bgcolor);
+		box(text, __.bgColor);
 	}
 
 	warningBox(text) {
@@ -209,7 +218,7 @@ class Terminal {
 	completionBox(showDuration = true) {
 		const time = showDuration && __.titleboxStart ? ` ${trans('after')} ${prettyMs(new Date() - __.titleboxStart)}` : '';
 
-		box(`${chalk.green('✓')}  ${trans('completed')}${time}`, __.bgcolor);
+		box(`✓  ${trans('completed')}${time}`, __.bgColor);
 
 		__.titleboxStart = undefined;
 		this.spacer(2);
@@ -224,7 +233,7 @@ class Terminal {
 		return ora({
 			text:    text,
 			spinner: __.spinnerType,
-			color:   __.colorName
+			color:   __.spinnerColor
 		}).start();
 	}
 
@@ -308,7 +317,7 @@ class Terminal {
 	runAndEcho(cmd) {
 		this.runAndRead(cmd).split(`\n`).forEach((line) => {
 			if (line) {
-				echo(cleanUp(line));
+				this.echoIndent(line);
 			}
 		});
 	}
