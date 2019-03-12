@@ -19,8 +19,8 @@ $ npm install @absolunet/terminal
 ## Usage
 
 ```js
-const terminal  = require('@absolunet/terminal');
-const { chalk } = terminal;
+const { terminal } = require('@absolunet/terminal');
+const { chalk }    = terminal;
 
 terminal.setDefault({
 	logo:         '🍭',
@@ -45,6 +45,14 @@ terminal.runPromise('npm outdated', { silent:true }).then(({ stdout }) => {
 
 	terminal.completionBox();
 });
+
+
+// Extend it
+const { Terminal } = require('@absolunet/terminal');
+
+class MyBetterTerminal extends Terminal {
+
+}
 ```
 
 

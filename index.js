@@ -337,4 +337,20 @@ class Terminal {
 }
 
 
-module.exports = new Terminal();
+
+let instance;
+
+// eslint-disable-next-line accessor-pairs
+module.exports = {
+
+	Terminal: Terminal,
+
+	get terminal() {
+		if (!instance) {
+			instance = new Terminal();
+		}
+
+		return instance;
+	}
+
+};
