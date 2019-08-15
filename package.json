@@ -24,19 +24,25 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "ava test"
+    "test": "ava test/index.js",
+    "test:output": "node test/output.js",
+    "installer": "node manager.js --task=installer",
+    "outdated": "node manager.js --task=outdated",
+    "build": "node manager.js --task=build",
+    "deploy": "node manager.js --task=deploy"
   },
   "devDependencies": {
-    "@absolunet/tester": "2.5.0"
+    "@absolunet/manager": "^1.1.0",
+    "@absolunet/tester": "2.6.8"
   },
   "dependencies": {
     "@absolunet/terminal-pad": "^1.0.0",
     "chalk": "^2.4.2",
     "node-emoji": "^1.10.0",
     "ora": "^3.2.0",
-    "pretty-ms": "^4.0.0",
-    "redent": "^2.0.0",
-    "string-length": "^2.0.0",
-    "string-width": "^3.1.0"
+    "pretty-ms": "^5.0.0",
+    "redent": "^3.0.0",
+    "string-length": "^3.1.0",
+    "string-width": "^4.1.0"
   }
 }
