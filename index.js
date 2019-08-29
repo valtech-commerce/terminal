@@ -5,6 +5,7 @@
 
 const chalk                         = require('chalk');
 const { spawnSync, execSync, exec } = require('child_process');
+const figures                       = require('figures');
 const emoji                         = require('node-emoji');
 const ora                           = require('ora');
 const prettyMs                      = require('pretty-ms');
@@ -30,8 +31,8 @@ const __ = {
 };
 
 const ICONS = {
-	success: '✓',
-	failure: '✘'
+	success: figures.tick,
+	failure: figures.cross
 };
 
 

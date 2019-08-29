@@ -20,7 +20,7 @@
     "url": "https://github.com/absolunet/node-terminal/issues"
   },
   "engines": {
-    "node": ">= 11.11.0"
+    "node": ">= 12.9.1"
   },
   "main": "index.js",
   "scripts": {
@@ -32,14 +32,15 @@
     "deploy": "node manager.js --task=deploy"
   },
   "devDependencies": {
-    "@absolunet/manager": "^1.1.0",
-    "@absolunet/tester": "2.6.8"
+    "@absolunet/manager": "1.1.0",
+    "@absolunet/tester": "2.6.9"
   },
   "dependencies": {
     "@absolunet/terminal-pad": "^1.0.0",
     "chalk": "^2.4.2",
+    "figures": "^3.0.0",
     "node-emoji": "^1.10.0",
-    "ora": "^3.2.0",
+    "ora": "^3.4.0",
     "pretty-ms": "^5.0.0",
     "redent": "^3.0.0",
     "string-length": "^3.1.0",
