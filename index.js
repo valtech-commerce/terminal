@@ -64,7 +64,7 @@ const DICTIONARY = {
 class Terminal {
 
 	/**
-	 * Chalk instance.
+	 * {@link https://www.npmjs.com/package/chalk Chalk} instance.
 	 *
 	 * @type {Chalk}
 	 */
@@ -73,17 +73,44 @@ class Terminal {
 	}
 
 	/**
+	 * Default values.
+	 *
+	 * @type {{bgColor: Chalk, indent: number, spinnerType: string, logo: string, lang: string, scripts: {path: string, titles: {}}, textColor: Chalk, spinnerColor: string}}
+	 */
+	get defaults() {
+		const { ...defaults } = __;
+		delete defaults.scripts;
+		delete defaults.timer;
+
+		return defaults;
+	}
+
+	/**
+	 * Scripts path and titles.
+	 *
+	 * @type {{path: string, titles: {[string]: string}}}
+	 */
+	get scripts() {
+		return { ...__.scripts };
+	}
+
+
+
+
+
+
+	/**
 	 * Set the default terminal properties.
 	 *
-	 * @param {object} properties
-	 * @param {number} [properties.indent=2]
-	 * @param {string} [properties.logo="?"]
-	 * @param {Chalk}  [properties.textColor=this.chalk.blue]
-	 * @param {Chalk}  [properties.bgColor=this.chalk.white.bgBlue]
-	 * @param {string} [properties.spinnerColor="blue"]
-	 * @param {string} [properties.lang="en"]
-	 * @param {string} [properties.spinnerType="dots3"]
-	 * @returns {Terminal}
+	 * @param {object} properties - Properties
+	 * @param {number} [properties.indent=2] - Indentation used.
+	 * @param {string} [properties.logo="?"] - Emoji to be used as logo in TitleBox.
+	 * @param {Chalk}  [properties.textColor=this.chalk.blue] - {@link https://www.npmjs.com/package/chalk Chalk definition} to be used in project colored outputs.
+	 * @param {Chalk}  [properties.bgColor=this.chalk.white.bgBlue] - {@link https://www.npmjs.com/package/chalk Chalk definition} to be used in project colored outputs.
+	 * @param {string} [properties.spinnerColor="blue"] - {@link https://www.npmjs.com/package/chalk Color} to be used with spinner.
+	 * @param {string} [properties.lang="en"] - Language to be used in localized outputs (fr|en)
+	 * @param {string} [properties.spinnerType="dots3"] - {@link https://www.npmjs.com/package/cli-spinners Spinner} theme
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	setDefaults({ indent = 2, logo = '?', textColor = this.chalk.blue, bgColor = this.chalk.white.bgBlue, spinnerColor = 'blue', lang = 'en', spinnerType = 'dots3' }) {
 		__.indent       = indent;
@@ -103,8 +130,8 @@ class Terminal {
 	 * @see this.setDefaults()
 	 * @deprecated
 	 *
-	 * @param {object} properties
-	 * @returns {Terminal}
+	 * @param {object} properties - Properties
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	setDefault(properties) {
 		return this.setDefaults(properties);
@@ -113,8 +140,8 @@ class Terminal {
 	/**
 	 * Set the default output language.
 	 *
-	 * @param {string} lang
-	 * @returns {Terminal}
+	 * @param {string} lang - Language (fr|en)
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	setLang(lang) {
 		__.lang = lang;
@@ -125,9 +152,9 @@ class Terminal {
 	/**
 	 * Set executable script files root path and associate the file names with a human title.
 	 *
-	 * @param {string} path
-	 * @param {{[string]: string}} titles
-	 * @returns {Terminal}
+	 * @param {string} path - Path to scripts files.
+	 * @param {{[string]: string}} titles - Matching object of script filename to title to be use via `runScript`.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	setScriptsFiles(path, titles) {
 		__.scripts.path   = path;
@@ -139,7 +166,7 @@ class Terminal {
 	/**
 	 * Exit the process and show an optional exit message in an error box.
 	 *
-	 * @param {string} [text]
+	 * @param {string} [text] - ErrorBox message to display.
 	 */
 	exit(text) {
 		if (text) {
@@ -152,8 +179,8 @@ class Terminal {
 	/**
 	 * Clean up the string content and adjust intent.
 	 *
-	 * @param {string} text
-	 * @returns {string}
+	 * @param {string} text - Text to clean.
+	 * @returns {string} - Cleaned text
 	 */
 	cleanUp(text = '') {
 		return redent(text, this.defaults.indent).replace(/\t/ug, '  ');
@@ -162,9 +189,9 @@ class Terminal {
 	/**
 	 * Translate the given key in current language.
 	 *
-	 * @param {string} key
-	 * @param {string} [lang=this.defaults.lang]
-	 * @returns {string}
+	 * @param {string} key - Translation key.
+	 * @param {string} [lang=this.defaults.lang] - Language (fr|en).
+	 * @returns {string} - Translated text.
 	 */
 	trans(key, lang = this.defaults.lang) {
 		return DICTIONARY[key][lang] || '';
@@ -173,9 +200,9 @@ class Terminal {
 	/**
 	 * Add translations in the translation dictionary.
 	 *
-	 * @param {string} key
-	 * @param {{[string]: string}} values
-	 * @returns {Terminal}
+	 * @param {string} key - Translation key.
+	 * @param {{[string]: string}} values - Translations for each language.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	addTrans(key, values) {
 		DICTIONARY[key] = values;
@@ -184,52 +211,52 @@ class Terminal {
 	}
 
 	/**
-	 * Output a string in the terminal.
+	 * Output a text in the terminal.
 	 *
-	 * @param {string} string
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	echo(string) {
-		console.log(string); // eslint-disable-line no-console
+	echo(text) {
+		console.log(text); // eslint-disable-line no-console
 
 		return this;
 	}
 
 	/**
-	 * Echo a string after cleaning and indenting it.
+	 * Echo a text after cleaning and indenting it.
 	 *
-	 * @param {string} string
-	 * @returns {Terminal}
+	 * @param {string} text - Text to echo.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	echoIndent(string) {
-		return this.echo(this.cleanUp(string));
+	echoIndent(text) {
+		return this.echo(this.cleanUp(text));
 	}
 
 	/**
 	 * Print a string with default color and indentation.
 	 *
-	 * @param {string} string
-	 * @returns {Terminal}
+	 * @param {string} text - Text to print.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	print(string) {
-		return this.echo(this.defaults.textColor(this.cleanUp(string)));
+	print(text) {
+		return this.echo(this.defaults.textColor(this.cleanUp(text)));
 	}
 
 	/**
-	 * Print a string with new line at the end.
+	 * Print a string with default color, indentation and new line at the end.
 	 *
-	 * @param {string} string
-	 * @returns {Terminal}
+	 * @param {string} text - Text to print.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	println(string) {
-		return this.print(`${string}\n`);
+	println(text) {
+		return this.print(`${text}\n`);
 	}
 
 	/**
 	 * Print one or multiple line breaks.
 	 *
-	 * @param {number} [number=1]
-	 * @returns {Terminal}
+	 * @param {number} [number=1] - Number of line breaks to print.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	spacer(number = 1) {
 		return this.print('\n'.repeat(number - 1));
@@ -238,9 +265,9 @@ class Terminal {
 	/**
 	 * Display a warning message.
 	 *
-	 * @param {string} text
-	 * @param {boolean} [newline=true]
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @param {boolean} [newline=true] - Add a newline.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	warning(text, newline = true) {
 		return this.echo(this.chalk.yellow(this.cleanUp(`${text}${newline ? '\n' : ''}`)));
@@ -249,8 +276,8 @@ class Terminal {
 	/**
 	 * Display an error message.
 	 *
-	 * @param {string} text
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	error(text) {
 		return this.echo(this.chalk.red(this.cleanUp(`\n${text}\n`)));
@@ -259,27 +286,27 @@ class Terminal {
 	/**
 	 * Display a success message with a check mark icon.
 	 *
-	 * @param {string} string
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	success(string) {
-		return this.echo(this.chalk.green(this.cleanUp(`${ICONS.success}  ${string}\n`)));
+	success(text) {
+		return this.echo(this.chalk.green(this.cleanUp(`${ICONS.success}  ${text}\n`)));
 	}
 
 	/**
-	 * Display a failure message with an X mark icon.
+	 * Display a failure message with an ⨉ mark icon.
 	 *
-	 * @param {string} string
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	failure(string) {
-		return this.echo(this.chalk.red(this.cleanUp(`${ICONS.failure}  ${string}\n`)));
+	failure(text) {
+		return this.echo(this.chalk.red(this.cleanUp(`${ICONS.failure}  ${text}\n`)));
 	}
 
 	/**
 	 * Display an error message indicating not to use "sudo".
 	 *
-	 * @returns {Terminal}
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	dontSudoMe() {
 		return this.errorBox(`${this.trans('sudo')} ${emoji.get('cry')}`);
@@ -289,12 +316,12 @@ class Terminal {
 	 * Print the given state.
 	 * If the state is falsy, the given message will be display.
 	 *
-	 * @param {object}  options
-	 * @param {boolean} options.state
-	 * @param {string}  options.name
-	 * @param {string}  options.value
-	 * @param {string}  options.msg
-	 * @returns {Terminal}
+	 * @param {object}  options - Options.
+	 * @param {boolean} options.state - If a success or a failure.
+	 * @param {string}  options.name - Name of the property.
+	 * @param {string}  options.value - Value of the property.
+	 * @param {string}  [options.msg] - Detailled error message in case of failure.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	printState({ state, name, value, msg }) {
 		const mark         = ICONS[state ? 'success' : 'failure'];
@@ -308,8 +335,8 @@ class Terminal {
 	 * Print the given files status depending if they were not added, created, modified, renamed or deleted, with a Git flavor.
 	 * The available status are: "not_added", "created", "modified", "renamed" and "deleted".
 	 *
-	 * @param {{[string]: string[]|{from: string, to: string}[] }}status
-	 * @returns {Terminal}
+	 * @param {{[string]: string[]|{from: string, to: string}[] }} status - A {@link https://www.npmjs.com/package/simple-git simple-git} status object.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	printStatus(status) {
 		const colors = {
@@ -338,11 +365,11 @@ class Terminal {
 	/**
 	 * Print a text in a box.
 	 *
-	 * @param {string}  text
-	 * @param {Chalk}   style
-	 * @param {boolean} [padding=true]
-	 * @param {boolean} [extraPadding=false]
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @param {Chalk} [style] - {@link https://www.npmjs.com/package/chalk Chalk definition}.
+	 * @param {boolean} [padding=true] - Add vertical padding.
+	 * @param {boolean} [extraPadding=false] - Needs extra padding.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	box(text, style = this.defaults.bgColor, padding = true, extraPadding = false) {
 		let content = this.cleanUp(text).replace(/^\n+/ug, '').replace(/\n+\s*$/ug, '');
@@ -364,7 +391,7 @@ class Terminal {
 	/**
 	 * Start timer.
 	 *
-	 * @returns {Terminal}
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	startTimer() {
 		__.timer = new Date();
@@ -382,9 +409,9 @@ class Terminal {
 	}
 
 	/**
-	 * Stop title box and retrieve the time elapsed between the call and the last startTimer() call.
+	 * Stop timer and retrieve the time elapsed between the call and the last startTimer() call.
 	 *
-	 * @returns {number}
+	 * @returns {number} - Number of milliseconds.
 	 */
 	stopTimer() {
 		const { timer } = __;
@@ -397,8 +424,8 @@ class Terminal {
 	 * Print a title in a box.
 	 * The logo will be shown as well.
 	 *
-	 * @param {string} text
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	titleBox(text) {
 		this.startTimer();
@@ -417,8 +444,8 @@ class Terminal {
 	/**
 	 * Display an informative message box.
 	 *
-	 * @param {string} text
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	infoBox(text) {
 		return this.box(text, this.defaults.bgColor);
@@ -427,8 +454,8 @@ class Terminal {
 	/**
 	 * Display a warning message box.
 	 *
-	 * @param {string} text
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	warningBox(text) {
 		return this.box(text, this.chalk.bgYellow.black);
@@ -437,8 +464,8 @@ class Terminal {
 	/**
 	 * Display an error message box.
 	 *
-	 * @param {string} text
-	 * @returns {Terminal}
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	errorBox(text) {
 		return this.box(text, this.chalk.bgRed.white);
@@ -447,8 +474,8 @@ class Terminal {
 	/**
 	 * Display a completion box by using the timer if wanted and started.
 	 *
-	 * @param {boolean} [showDuration=true]
-	 * @returns {Terminal}
+	 * @param {boolean} [showDuration=true] - Show amount of time since last TitleBox
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	completionBox(showDuration = true) {
 		const time = showDuration && __.timer ? ` ${this.trans('after')} ${prettyMs(this.stopTimer())}` : '';
@@ -463,8 +490,8 @@ class Terminal {
 	/**
 	 * Start a spinner with a given text.
 	 *
-	 * @param text
-	 * @returns {ora.Ora}
+	 * @param text - Text to output.
+	 * @returns {ora.Ora} - {@link https://www.npmjs.com/package/ora ora spinner} object
 	 */
 	startSpinner(text) {
 		const { spinnerType: spinner, spinnerColor: color } = this.defaults;
@@ -475,11 +502,11 @@ class Terminal {
 	/**
 	 * Run a command in sync mode.
 	 *
-	 * @param {string} cmd
-	 * @returns {Terminal}
+	 * @param {string} command - Command to run.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	run(cmd) {
-		execSync(cmd, { stdio: 'inherit' });
+	run(command) {
+		execSync(command, { stdio: 'inherit' });
 
 		return this;
 	}
@@ -487,15 +514,15 @@ class Terminal {
 	/**
 	 * Run a command in async mode.
 	 *
-	 * @param {string}  cmd
-	 * @param {object}  [options={}]
-	 * @param {string} [options.ignoreError='']
-	 * @param silent    [options.silent=false]
-	 * @returns {Promise<{error: string, stdout: string, stderr: string}>}
+	 * @param {string} command - Command to run.
+	 * @param {object} [options={}] - Options
+	 * @param {string} [options.ignoreError=''] - Error message string to ignore.
+	 * @param {boolean} [options.silent=false] - Silence all errors.
+	 * @returns {Promise<{error: string, stdout: string, stderr: string}>} - Terminal outputs
 	 */
-	runPromise(cmd, { ignoreError = '', silent = false } = {}) {
+	runPromise(command, { ignoreError = '', silent = false } = {}) {
 		return new Promise((resolve) => {
-			exec(cmd, { stdio: 'inherit' }, (error, stdout, stderr) => {
+			exec(command, { stdio: 'inherit' }, (error, stdout, stderr) => {
 				const output     = stdout.trim();
 				let errorOutput  = stderr.trim();
 				let errorMessage = (error || '').toString().trim();
@@ -537,41 +564,41 @@ class Terminal {
 	/**
 	 * Run a command in sync mode and get its output.
 	 *
-	 * @param {string} cmd
-	 * @returns {string}
+	 * @param {string} command - Command to run.
+	 * @returns {string} - Output.
 	 */
-	runAndRead(cmd) {
-		return execSync(cmd, { stdio: ['inherit', 'pipe', 'inherit'], encoding: 'utf8' });
+	runAndRead(command) {
+		return execSync(command, { stdio: ['inherit', 'pipe', 'inherit'], encoding: 'utf8' });
 	}
 
 	/**
-	 * Run a command in sync mode and get its output line by line, by expluding empty lines.
+	 * Run a command in sync mode and get its output line by line, by excluding empty lines.
 	 *
-	 * @param {string} cmd
-	 * @returns {string[]}
+	 * @param {string} command - Command to run.
+	 * @returns {string[]} - Output.
 	 */
-	runAndReadLines(cmd) {
-		return this.runAndRead(cmd).split('\n').filter(Boolean);
+	runAndReadLines(command) {
+		return this.runAndRead(command).split('\n').filter(Boolean);
 	}
 
 	/**
 	 * Run a command in sync mode and get its output separated by a slash.
 	 *
-	 * @param {string} cmd
-	 * @returns {string}
+	 * @param {string} command - Command to run.
+	 * @returns {string} - Output.
 	 */
-	runAndGet(cmd) {
-		return this.runAndReadLines(cmd).join(' / ');
+	runAndGet(command) {
+		return this.runAndReadLines(command).join(' / ');
 	}
 
 	/**
 	 * Run a command in sync mode and echo its output.
 	 *
-	 * @param {string} cmd
-	 * @returns {Terminal}
+	 * @param {string} command - Command to run.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	runAndEcho(cmd) {
-		this.runAndReadLines(cmd).forEach((line) => {
+	runAndEcho(command) {
+		this.runAndReadLines(command).forEach((line) => {
 			this.echo(line);
 		});
 
@@ -581,13 +608,13 @@ class Terminal {
 	/**
 	 * Print the task to be executed, run the command in sync mode and display a completion box.
 	 *
-	 * @param {string} title
-	 * @param {string} cmd
-	 * @returns {Terminal}
+	 * @param {string} title - Title explaining the command.
+	 * @param {string} command - Command to run.
+	 * @returns {Terminal} - Terminal instance.
 	 */
-	runTask(title, cmd) {
+	runTask(title, command) {
 		this.titleBox(title);
-		this.run(cmd);
+		this.run(command);
 		this.completionBox();
 
 		return this;
@@ -597,9 +624,9 @@ class Terminal {
 	 * Print the script file title to be run, run shell script file in sync mode from configured scripts path and
 	 * given file with given parameters and display a completion box.
 	 *
-	 * @param {string} file
-	 * @param {...string[]} [options]
-	 * @returns {Terminal}
+	 * @param {string} file - Script filename under path defined via setScriptsFiles.
+	 * @param {...string[]} [options] - Arguments to pass to the script.
+	 * @returns {Terminal} - Terminal instance.
 	 */
 	runScript(file, ...options) {
 		this.titleBox(`${this.scripts.titles[file]}  ${this.chalk.underline(file)}`);
@@ -607,28 +634,6 @@ class Terminal {
 		this.completionBox();
 
 		return this;
-	}
-
-	/**
-	 * Default values.
-	 *
-	 * @type {{bgColor: Chalk, indent: number, spinnerType: string, logo: string, lang: string, scripts: {path: string, titles: {}}, textColor: Chalk, spinnerColor: string}}
-	 */
-	get defaults() {
-		const { ...defaults } = __;
-		delete defaults.scripts;
-		delete defaults.timer;
-
-		return defaults;
-	}
-
-	/**
-	 * Scripts path and titles.
-	 *
-	 * @type {{path: string, titles: {[string]: string}}}
-	 */
-	get scripts() {
-		return { ...__.scripts };
 	}
 
 }

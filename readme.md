@@ -22,7 +22,7 @@ $ npm install @absolunet/terminal
 const { terminal } = require('@absolunet/terminal');
 const { chalk }    = terminal;
 
-terminal.setDefault({
+terminal.setDefaults({
 	logo:         '🍭',
 	textColor:    chalk.magenta,
 	bgColor:      chalk.white.bgMagenta,
@@ -59,18 +59,40 @@ class MyBetterTerminal extends Terminal {
 ## API - Base
 
 ### `chalk`
-Returns `chalk` instance
+Chalk instance.
 
 
 
 
 <br>
 
-### `setDefault([options])`
-Define project theme options to be used
+### `defaults`
+Default values.
+
+
+
+
+<br>
+
+### `scripts`
+Scripts path and titles.
+
+
+
+
+<br>
+
+### `setDefaults(options)`
+Set the default terminal properties.
 
 #### options
+*Required*<br>
 Type: `Object`
+
+##### indent
+Type: `number`<br>
+Default: 2<br>
+Indentation used
 
 ##### logo
 Type: `string`<br>
@@ -95,7 +117,7 @@ Default: 'blue'<br>
 ##### lang
 Type: `string`<br>
 Default: 'en'<br>
-Lang to be used in localizec outputs [fr|en]
+Language to be used in localized outputs (fr|en)
 
 ##### spinnerType
 Type: `string`<br>
@@ -107,28 +129,93 @@ Default: 'dots3'<br>
 
 <br>
 
-### `setScriptsFiles(path, titles)`
-Exits the current thread
+### `setLang(lang)`
+Set the default output language.
 
-#### path
+#### lang
+*Required*<br>
 Type: `string`<br>
-Path to scripts files
-
-#### titles
-Type: `Object`<br>
-Matching object of script filename to title to be use via `runScript`
+Language [fr|en]
 
 
 
 
 <br>
 
-### `exit([text])`
-Exits the current thread
+### `setScriptsFiles(path, titles)`
+Set executable script files root path and associate the file names with a human title.
+
+#### path
+*Required*<br>
+Type: `string`<br>
+Path to scripts files.
+
+#### titles
+*Required*<br>
+Type: `Object`<br>
+Matching object of script filename to title to be use via `runScript`.
+
+
+
+
+<br>
+
+### `exit(*[text]*)`
+Exit the process and show an optional exit message in an error box.
 
 #### text
 Type: `string`<br>
 ErrorBox message to display
+
+
+
+
+<br>
+
+### `cleanUp(text)`
+Clean up the string content and adjust intent.<br>
+Returns cleaned text.
+
+#### text
+*Required*<br>
+Type: `string`<br>
+Text to clean.
+
+
+
+
+<br>
+
+### `trans(key *[, lang]*)`
+Translate the given key in current language.<br>
+Returns translated text.
+
+#### key
+*Required*<br>
+Type: `string`<br>
+Translation key.
+
+#### lang
+Type: `string`<br>
+Language (fr|en).
+
+
+
+
+<br>
+
+### `addTrans(key, values)`
+Add translations in the translation dictionary.
+
+#### key
+*Required*<br>
+Type: `string`<br>
+Translation key.
+
+#### values
+*Required*<br>
+Type: `object`<br>
+Translations for each language.
 
 
 
@@ -142,82 +229,84 @@ ErrorBox message to display
 
 ## API - Text outputs
 
-### `echo(str)`
-Outputs a string
-
-#### str
-*Required*<br>
-Type: `string` <br>
-Text to output
-
-
-
-
-<br>
-
-### `echoIndent(str)`
-Outputs a indented string
-
-#### str
-*Required*<br>
-Type: `string`<br>
-Text to output
-
-
-
-<br>
-
-### `print(str)`
-Outputs a indented project colored string
-
-#### str
-*Required*<br>
-Type: `string`<br>
-Text to output
-
-
-
-
-<br>
-
-### `println(str)`
-Outputs a indented project colored string with an added newline
-
-#### str
-*Required*<br>
-Type: `string`<br>
-Text to output
-
-
-
-
-<br>
-
-### `spacer([nb])`
-Outputs newlines
-
-#### nb
-Type: `number`<br>
-Default: 1<br>
-Text to output
-
-
-
-
-<br>
-
-### `warning(text[, newline])`
-Outputs a colored string
+### `echo(text)`
+Output a text in the terminal.
 
 #### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
+
+
+
+
+
+<br>
+
+### `echoIndent(text)`
+Echo a text after cleaning and indenting it.
+
+#### text
+*Required*<br>
+Type: `string`<br>
+Text to echo.
+
+
+
+
+<br>
+
+### `print(text)`
+Print a string with default color and indentation.
+
+#### text
+*Required*<br>
+Type: `string`<br>
+Text to print.
+
+
+
+
+<br>
+
+### `println(text)`
+Print a string with default color, indentation and new line at the end.
+
+#### text
+*Required*<br>
+Type: `string`<br>
+Text to print.
+
+
+
+
+<br>
+
+### `spacer(*[number]*)`
+Print one or multiple line breaks.
+
+#### number
+Type: `number`<br>
+Default: 1<br>
+Number of line breaks to print.
+
+
+
+
+<br>
+
+### `warning(text *[, newline]*)`
+Display a warning message.
+
+#### text
+*Required*<br>
+Type: `string`<br>
+Text to output.
 
 #### newline
 Type: `boolean`<br>
 Default: true<br>
-Add a newline
+Add a newline.
 
 
 
@@ -225,37 +314,37 @@ Add a newline
 <br>
 
 ### `error(text)`
-Outputs a colored string
+Display an error message.
 
 #### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
 
 
 
 
 <br>
 
-### `success(str)`
-Outputs a colored string with a ✓
+### `success(text)`
+Display a success message with a check mark icon.
 
-#### str
+#### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
 
 
 
 <br>
 
-### `failure(str)`
-Outputs a colored string with a ✘
+### `failure(text)`
+Display a failure message with an ⨉ mark icon.
 
-#### str
+#### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
 
 
 
@@ -270,7 +359,7 @@ Text to output
 ## API - Formatted outputs
 
 ### `dontSudoMe()`
-Outputs an ErrorBox with a localized predefined message
+Display an error message indicating not to use "sudo".
 
 
 
@@ -278,7 +367,7 @@ Outputs an ErrorBox with a localized predefined message
 <br>
 
 ### `printState(options)`
-Outputs a colored state of a property
+Print the given state, if the state is falsy, the given message will be display.
 
 #### options
 *Required*<br>
@@ -309,7 +398,8 @@ Detailled error message in case of failure
 <br>
 
 ### `printStatus(status)`
-Outputs a colored `git status` report
+Print the given files status depending if they were not added, created, modified, renamed or deleted, with a Git flavor.
+The available status are: "not_added", "created", "modified", "renamed" and "deleted".
 
 #### status
 *Required*<br>
@@ -322,13 +412,13 @@ A [simple-git](https://www.npmjs.com/package/simple-git) status object
 <br>
 
 ### `startSpinner(text)`
-Outputs a project themed waiting spinner<br>
+Start a spinner with a given text.<br>
 Returns a [ora spinner](https://www.npmjs.com/package/ora) object
 
 #### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
 
 
 
@@ -342,13 +432,60 @@ Text to output
 
 ## API - Boxes
 
-### `titleBox(text)`
-Outputs a project themed boxed title
+
+### `box(text, style *[, padding, extraPadding]*)`
+Print a text in a box.
 
 #### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
+
+#### style
+Type: `Function`<br>
+Default: defaults.bgColor<br>
+[Chalk definition](https://www.npmjs.com/package/chalk).
+
+#### padding
+Type: `boolean`<br>
+Default: true<br>
+Add vertical padding.
+
+#### extraPadding
+Type: `boolean`<br>
+Default: false<br>
+Needs extra padding.
+
+
+
+
+### `startTimer()`
+Start timer.
+
+
+
+
+### `isTimerStarted()`
+Check if the timer was started.<br>
+Returns if timer started.
+
+
+
+
+### `stopTimer()`
+Stop timer and retrieve the time elapsed between the call and the last startTimer() call.<br>
+Returns the number of milliseconds.
+
+
+
+
+### `titleBox(text)`
+Print a title in a box, the logo will be shown as well.
+
+#### text
+*Required*<br>
+Type: `string`<br>
+Text to output.
 
 
 
@@ -356,12 +493,12 @@ Text to output
 <br>
 
 ### `infoBox(text)`
-Outputs a project colored boxed string
+Display an informative message box.
 
 #### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
 
 
 
@@ -369,12 +506,12 @@ Text to output
 <br>
 
 ### `warningBox(text)`
-Outputs a colored boxed string
+Display a warning message box.
 
 #### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
 
 
 
@@ -382,20 +519,20 @@ Text to output
 <br>
 
 ### `errorBox(text)`
-Outputs a colored boxed string
+Display an error message box.
 
 #### text
 *Required*<br>
 Type: `string`<br>
-Text to output
+Text to output.
 
 
 
 
 <br>
 
-### `completionBox([showDuration])`
-Outputs a project themed completion box
+### `completionBox(*[showDuration]*)`
+Display a completion box by using the timer if wanted and started.
 
 #### showDuration
 Type: `boolean`<br>
@@ -413,105 +550,119 @@ Show amount of time since last TitleBox
 
 ## API - Run command lines
 
-### `run(cmd)`
-Execute a terminal command
+### `run(command)`
+Run a command in sync mode.
 
-#### cmd
+#### command
 *Required*<br>
 Type: `string`<br>
-Terminal command
+Command to run.
 
 
 
 
 <br>
 
-### `runPromise(cmd[, options])`
-Execute a terminal command<br>
+### `runPromise(command *[, options]*)`
+Run a command in async mode.<br>
 `Promise` returns a `object` of terminal output `{ error, stdout, stderr }`
 
-#### cmd
+#### command
 *Required*<br>
 Type: `string`<br>
-Terminal command
+Command to run.
 
 #### options
 Type: `Object`
 
 ##### ignoreError
 Type: `string`<br>
-Error message string to ignore
+Error message string to ignore.
 
 ##### silent
 Type: `boolean`<br>
-Silence all errors
+Silence all errors.
 
 
 
 
 <br>
 
-### `runAndRead(cmd)`
-Get a raw terminal command output <br>
+### `runAndRead(command)`
+Run a command in sync mode and get its output.<br>
 Returns a `string` of terminal output
 
-#### cmd
+#### command
 *Required*<br>
 Type: `string`<br>
-Terminal command
+Command to run.
 
 
 
 
 <br>
 
-### `runAndGet(cmd)`
-Get a terminal command output in a one-liner<br>
+### `runAndReadLines(command)`
+Run a command in sync mode and get its output line by line, by excluding empty lines.<br>
+Returns an `Array` of `string` of terminal output
+
+#### command
+*Required*<br>
+Type: `string`<br>
+Command to run.
+
+
+
+
+<br>
+
+### `runAndGet(command)`
+Run a command in sync mode and get its output separated by a slash.<br>
 Returns a `string` of terminal output
 
-#### cmd
+#### command
 *Required*<br>
 Type: `string`<br>
-Terminal command
+Command to run.
 
 
 
 
 <br>
 
-### `runAndEcho(cmd)`
-Execute a terminal command and output a cleaned up result
+### `runAndEcho(command)`
+Run a command in sync mode and echo its output.
 
-#### cmd
+#### command
 *Required*<br>
 Type: `string`<br>
-Terminal command
+Command to run.
 
 
 
 
 <br>
 
-### `runTask(title, cmd)`
-Execute a terminal command and wrap output in a TitleBox and CompletionBox
+### `runTask(title, command)`
+Print the task to be executed, run the command in sync mode and display a completion box.
 
 #### title
 *Required*<br>
 Type: `string`<br>
 Task title to output
 
-#### cmd
+#### command
 *Required*<br>
 Type: `string`<br>
-Terminal command
+Command to run.
 
 
 
 
 <br>
 
-### `runScript(file[, ...arg])`
-Execute a script file
+### `runScript(file *[, ...arg]*)`
+Print the script file title to be run, run shell script file in sync mode from configured scripts path and given file with given parameters and display a completion box.
 
 #### file
 *Required*<br>
