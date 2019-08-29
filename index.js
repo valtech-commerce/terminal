@@ -115,7 +115,7 @@ class Terminal {
 	 * @param {string} [properties.spinnerType="dots3"] - {@link https://www.npmjs.com/package/cli-spinners Spinner} theme
 	 * @returns {Terminal} - Terminal instance.
 	 */
-	setDefaults({ indent = 2, logo = '?', textColor = this.chalk.blue, bgColor = this.chalk.white.bgBlue, spinnerColor = 'blue', lang = 'en', spinnerType = 'dots3' }) {
+	setDefaults({ indent = 2, logo = '?', textColor = this.chalk.blue, bgColor = this.chalk.white.bgBlue, spinnerColor = 'blue', borderColor = 'blue', lang = 'en', spinnerType = 'dots3' }) {
 		__.indent       = indent;
 		__.logo         = logo;
 		__.textColor    = textColor;
