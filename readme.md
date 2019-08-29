@@ -58,7 +58,7 @@ class MyBetterTerminal extends Terminal {
 
 ## API - Base
 
-### `chalk`
+### chalk
 Chalk instance.
 
 
@@ -66,7 +66,7 @@ Chalk instance.
 
 <br>
 
-### `defaults`
+### defaults
 Default values.
 
 
@@ -74,7 +74,7 @@ Default values.
 
 <br>
 
-### `scripts`
+### scripts
 Scripts path and titles.
 
 
@@ -82,7 +82,7 @@ Scripts path and titles.
 
 <br>
 
-### `setDefaults(options)`
+### setDefaults(options)
 Set the default terminal properties.
 
 #### options
@@ -129,7 +129,7 @@ Default: 'dots3'<br>
 
 <br>
 
-### `setLang(lang)`
+### setLang(lang)
 Set the default output language.
 
 #### lang
@@ -142,7 +142,7 @@ Language [fr|en]
 
 <br>
 
-### `setScriptsFiles(path, titles)`
+### setScriptsFiles(path, titles)
 Set executable script files root path and associate the file names with a human title.
 
 #### path
@@ -160,7 +160,7 @@ Matching object of script filename to title to be use via `runScript`.
 
 <br>
 
-### `exit(*[text]*)`
+### exit(*[text]*)
 Exit the process and show an optional exit message in an error box.
 
 #### text
@@ -172,7 +172,7 @@ ErrorBox message to display
 
 <br>
 
-### `cleanUp(text)`
+### cleanUp(text)
 Clean up the string content and adjust intent.<br>
 Returns cleaned text.
 
@@ -186,7 +186,7 @@ Text to clean.
 
 <br>
 
-### `trans(key *[, lang]*)`
+### trans(key *[, lang]*)
 Translate the given key in current language.<br>
 Returns translated text.
 
@@ -204,7 +204,7 @@ Language (fr|en).
 
 <br>
 
-### `addTrans(key, values)`
+### addTrans(key, values)
 Add translations in the translation dictionary.
 
 #### key
@@ -229,7 +229,7 @@ Translations for each language.
 
 ## API - Text outputs
 
-### `echo(text)`
+### echo(text)
 Output a text in the terminal.
 
 #### text
@@ -243,7 +243,7 @@ Text to output.
 
 <br>
 
-### `echoIndent(text)`
+### echoIndent(text)
 Echo a text after cleaning and indenting it.
 
 #### text
@@ -256,7 +256,7 @@ Text to echo.
 
 <br>
 
-### `print(text)`
+### print(text)
 Print a string with default color and indentation.
 
 #### text
@@ -269,7 +269,7 @@ Text to print.
 
 <br>
 
-### `println(text)`
+### println(text)
 Print a string with default color, indentation and new line at the end.
 
 #### text
@@ -282,7 +282,7 @@ Text to print.
 
 <br>
 
-### `spacer(*[number]*)`
+### spacer(*[number]*)
 Print one or multiple line breaks.
 
 #### number
@@ -295,7 +295,7 @@ Number of line breaks to print.
 
 <br>
 
-### `warning(text *[, newline]*)`
+### warning(text *[, newline]*)
 Display a warning message.
 
 #### text
@@ -313,7 +313,7 @@ Add a newline.
 
 <br>
 
-### `error(text)`
+### error(text)
 Display an error message.
 
 #### text
@@ -326,7 +326,7 @@ Text to output.
 
 <br>
 
-### `success(text)`
+### success(text)
 Display a success message with a check mark icon.
 
 #### text
@@ -338,7 +338,7 @@ Text to output.
 
 <br>
 
-### `failure(text)`
+### failure(text)
 Display a failure message with an ⨉ mark icon.
 
 #### text
@@ -358,7 +358,7 @@ Text to output.
 
 ## API - Formatted outputs
 
-### `dontSudoMe()`
+### dontSudoMe()
 Display an error message indicating not to use "sudo".
 
 
@@ -366,7 +366,7 @@ Display an error message indicating not to use "sudo".
 
 <br>
 
-### `printState(options)`
+### printState(options)
 Print the given state, if the state is falsy, the given message will be display.
 
 #### options
@@ -397,7 +397,7 @@ Detailled error message in case of failure
 
 <br>
 
-### `printStatus(status)`
+### printStatus(status)
 Print the given files status depending if they were not added, created, modified, renamed or deleted, with a Git flavor.
 The available status are: "not_added", "created", "modified", "renamed" and "deleted".
 
@@ -411,7 +411,7 @@ A [simple-git](https://www.npmjs.com/package/simple-git) status object
 
 <br>
 
-### `startSpinner(text)`
+### startSpinner(text)
 Start a spinner with a given text.<br>
 Returns a [ora spinner](https://www.npmjs.com/package/ora) object
 
@@ -433,7 +433,7 @@ Text to output.
 ## API - Boxes
 
 
-### `box(text, style *[, padding, extraPadding]*)`
+### box(text, style *[, padding, extraPadding]*)
 Print a text in a box.
 
 #### text
@@ -459,27 +459,27 @@ Needs extra padding.
 
 
 
-### `startTimer()`
+### startTimer()
 Start timer.
 
 
 
 
-### `isTimerStarted()`
+### isTimerStarted()
 Check if the timer was started.<br>
 Returns if timer started.
 
 
 
 
-### `stopTimer()`
+### stopTimer()
 Stop timer and retrieve the time elapsed between the call and the last startTimer() call.<br>
 Returns the number of milliseconds.
 
 
 
 
-### `titleBox(text)`
+### titleBox(text)
 Print a title in a box, the logo will be shown as well.
 
 #### text
@@ -492,7 +492,7 @@ Text to output.
 
 <br>
 
-### `infoBox(text)`
+### infoBox(text)
 Display an informative message box.
 
 #### text
@@ -505,7 +505,7 @@ Text to output.
 
 <br>
 
-### `warningBox(text)`
+### warningBox(text)
 Display a warning message box.
 
 #### text
@@ -518,7 +518,7 @@ Text to output.
 
 <br>
 
-### `errorBox(text)`
+### errorBox(text)
 Display an error message box.
 
 #### text
@@ -531,7 +531,7 @@ Text to output.
 
 <br>
 
-### `completionBox(*[showDuration]*)`
+### completionBox(*[showDuration]*)
 Display a completion box by using the timer if wanted and started.
 
 #### showDuration
@@ -550,7 +550,7 @@ Show amount of time since last TitleBox
 
 ## API - Run command lines
 
-### `run(command)`
+### run(command)
 Run a command in sync mode.
 
 #### command
@@ -563,7 +563,7 @@ Command to run.
 
 <br>
 
-### `runPromise(command *[, options]*)`
+### runPromise(command *[, options]*)
 Run a command in async mode.<br>
 `Promise` returns a `object` of terminal output `{ error, stdout, stderr }`
 
@@ -588,7 +588,7 @@ Silence all errors.
 
 <br>
 
-### `runAndRead(command)`
+### runAndRead(command)
 Run a command in sync mode and get its output.<br>
 Returns a `string` of terminal output
 
@@ -602,7 +602,7 @@ Command to run.
 
 <br>
 
-### `runAndReadLines(command)`
+### runAndReadLines(command)
 Run a command in sync mode and get its output line by line, by excluding empty lines.<br>
 Returns an `Array` of `string` of terminal output
 
@@ -616,7 +616,7 @@ Command to run.
 
 <br>
 
-### `runAndGet(command)`
+### runAndGet(command)
 Run a command in sync mode and get its output separated by a slash.<br>
 Returns a `string` of terminal output
 
@@ -630,7 +630,7 @@ Command to run.
 
 <br>
 
-### `runAndEcho(command)`
+### runAndEcho(command)
 Run a command in sync mode and echo its output.
 
 #### command
@@ -643,7 +643,7 @@ Command to run.
 
 <br>
 
-### `runTask(title, command)`
+### runTask(title, command)
 Print the task to be executed, run the command in sync mode and display a completion box.
 
 #### title
@@ -661,7 +661,7 @@ Command to run.
 
 <br>
 
-### `runScript(file *[, ...arg]*)`
+### runScript(file *[, ...arg]*)
 Print the script file title to be run, run shell script file in sync mode from configured scripts path and given file with given parameters and display a completion box.
 
 #### file
