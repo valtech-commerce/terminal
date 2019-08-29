@@ -31,6 +31,8 @@ terminal.setDefaults({
 	terminal.success(string);
 	terminal.failure(string);
 	terminal.dontSudoMe();
+	terminal.borderedBox('Hello');
+	terminal.borderedBox(string);
 	terminal.titleBox('Hello');
 	terminal.titleBox(string);
 	terminal.warningBox(string);

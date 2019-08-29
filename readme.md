@@ -109,6 +109,11 @@ Type: `Function`<br>
 Default: chalk.white.bgBlue<br>
 [Chalk definition](https://www.npmjs.com/package/chalk) to be used in project colored outputs
 
+##### borderColor
+Type: `string`<br>
+Default: 'blue'<br>
+[Color](https://www.npmjs.com/package/chalk) to be used in project colored outputs
+
 ##### spinnerColor
 Type: `string`<br>
 Default: 'blue'<br>
@@ -538,6 +543,19 @@ Display a completion box by using the timer if wanted and started.
 Type: `boolean`<br>
 Default: `true`<br>
 Show amount of time since last TitleBox
+
+
+
+
+<br>
+
+### borderedBox(text)
+Display a bordered box.
+
+#### text
+*Required*<br>
+Type: `string`<br>
+Text to output.
 
 
 

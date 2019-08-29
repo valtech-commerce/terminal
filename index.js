@@ -3,6 +3,7 @@
 //--------------------------------------------------------
 'use strict';
 
+const boxen                         = require('boxen');
 const chalk                         = require('chalk');
 const { spawnSync, execSync, exec } = require('child_process');
 const figures                       = require('figures');
@@ -22,6 +23,7 @@ const __ = {
 	logo:         '•',
 	textColor:    chalk.blue,
 	bgColor:      chalk.white.bgBlue,
+	borderColor:  'blue',
 	spinnerColor: 'blue',
 	spinnerType:  'dots3',
 	scripts:      {
@@ -75,7 +77,7 @@ class Terminal {
 	/**
 	 * Default values.
 	 *
-	 * @type {{bgColor: Chalk, indent: number, spinnerType: string, logo: string, lang: string, scripts: {path: string, titles: {}}, textColor: Chalk, spinnerColor: string}}
+	 * @type {{bgColor: Chalk, indent: number, spinnerType: string, logo: string, lang: string, scripts: {path: string, titles: {}}, textColor: Chalk, borderColor: string, spinnerColor: string}}
 	 */
 	get defaults() {
 		const { ...defaults } = __;
@@ -107,6 +109,7 @@ class Terminal {
 	 * @param {string} [properties.logo="?"] - Emoji to be used as logo in TitleBox.
 	 * @param {Chalk}  [properties.textColor=this.chalk.blue] - {@link https://www.npmjs.com/package/chalk Chalk definition} to be used in project colored outputs.
 	 * @param {Chalk}  [properties.bgColor=this.chalk.white.bgBlue] - {@link https://www.npmjs.com/package/chalk Chalk definition} to be used in project colored outputs.
+	 * @param {string} [properties.borderColor="blue"] - {@link https://www.npmjs.com/package/chalk Color} to be used in project colored outputs.
 	 * @param {string} [properties.spinnerColor="blue"] - {@link https://www.npmjs.com/package/chalk Color} to be used with spinner.
 	 * @param {string} [properties.lang="en"] - Language to be used in localized outputs (fr|en)
 	 * @param {string} [properties.spinnerType="dots3"] - {@link https://www.npmjs.com/package/cli-spinners Spinner} theme
@@ -117,6 +120,7 @@ class Terminal {
 		__.logo         = logo;
 		__.textColor    = textColor;
 		__.bgColor      = bgColor;
+		__.borderColor  = borderColor;
 		__.spinnerColor = spinnerColor;
 		__.lang         = lang;
 		__.spinnerType  = spinnerType;
@@ -483,6 +487,23 @@ class Terminal {
 		this.box(`${ICONS.success}  ${this.trans('completed')}${time}`, this.defaults.bgColor);
 
 		this.spacer(2);
+
+		return this;
+	}
+
+	/**
+	 * Display a bordered box.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {Terminal} - Terminal instance.
+	 */
+	borderedBox(text) {
+		this.echo(boxen(this.defaults.textColor(text), {
+			padding:     1,
+			margin:      1,
+			align:       'center',
+			borderColor: this.defaults.borderColor
+		}));
 
 		return this;
 	}
