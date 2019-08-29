@@ -1,4 +1,6 @@
 test
+manager.js
+.DS_Store
 .editorconfig
 .eslintrc.yaml
 .gitignore
