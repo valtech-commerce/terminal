@@ -58,6 +58,13 @@ const DICTIONARY = {
 };
 
 
+const parseExecOptions = (options) => {
+	const { cwd }     = options;
+	const environment = options.env || {};
+
+	return { cwd: cwd, env: { ...process.env, ...environment } };  // eslint-disable-line unicorn/prevent-abbreviations, no-process-env
+};
+
 
 
 
@@ -524,10 +531,13 @@ class Terminal {
 	 * Run a command in sync mode.
 	 *
 	 * @param {string} command - Command to run.
+	 * @param {object} [options] - Options.
+	 * @param {string} [options.cwd] - Current working directory of the command.
+	 * @param {object} [options.env] - Environment key-value pairs to add.
 	 * @returns {Terminal} - Terminal instance.
 	 */
-	run(command) {
-		execSync(command, { stdio: 'inherit' });
+	run(command, options = {}) {
+		execSync(command, { stdio: 'inherit', ...parseExecOptions(options) });
 
 		return this;
 	}
@@ -536,14 +546,19 @@ class Terminal {
 	 * Run a command in async mode.
 	 *
 	 * @param {string} command - Command to run.
-	 * @param {object} [options={}] - Options
+	 * @param {object} [options] - Options.
+	 * @param {string} [options.cwd] - Current working directory of the command.
+	 * @param {object} [options.env] - Environment key-value pairs to add.
 	 * @param {string} [options.ignoreError=''] - Error message string to ignore.
 	 * @param {boolean} [options.silent=false] - Silence all errors.
 	 * @returns {Promise<{error: string, stdout: string, stderr: string}>} - Terminal outputs
 	 */
-	runPromise(command, { ignoreError = '', silent = false } = {}) {
+	runPromise(command, options = {}) {
+		const ignoreError = options.ignoreError || '';
+		const silent      = options.silent      || false;
+
 		return new Promise((resolve) => {
-			exec(command, { stdio: 'inherit' }, (error, stdout, stderr) => {
+			exec(command, { stdio: 'inherit', ...parseExecOptions(options) }, (error, stdout, stderr) => {
 				const output     = stdout.trim();
 				let errorOutput  = stderr.trim();
 				let errorMessage = (error || '').toString().trim();
@@ -586,40 +601,52 @@ class Terminal {
 	 * Run a command in sync mode and get its output.
 	 *
 	 * @param {string} command - Command to run.
+	 * @param {object} [options] - Options.
+	 * @param {string} [options.cwd] - Current working directory of the command.
+	 * @param {object} [options.env] - Environment key-value pairs to add.
 	 * @returns {string} - Output.
 	 */
-	runAndRead(command) {
-		return execSync(command, { stdio: ['inherit', 'pipe', 'inherit'], encoding: 'utf8' });
+	runAndRead(command, options = {}) {
+		return execSync(command, { stdio: ['inherit', 'pipe', 'inherit'], encoding: 'utf8', ...parseExecOptions(options) });
 	}
 
 	/**
 	 * Run a command in sync mode and get its output line by line, by excluding empty lines.
 	 *
 	 * @param {string} command - Command to run.
+	 * @param {object} [options] - Options.
+	 * @param {string} [options.cwd] - Current working directory of the command.
+	 * @param {object} [options.env] - Environment key-value pairs to add.
 	 * @returns {string[]} - Output.
 	 */
-	runAndReadLines(command) {
-		return this.runAndRead(command).split('\n').filter(Boolean);
+	runAndReadLines(command, options = {}) {
+		return this.runAndRead(command, options).split('\n').filter(Boolean);
 	}
 
 	/**
 	 * Run a command in sync mode and get its output separated by a slash.
 	 *
 	 * @param {string} command - Command to run.
+	 * @param {object} [options] - Options.
+	 * @param {string} [options.cwd] - Current working directory of the command.
+	 * @param {object} [options.env] - Environment key-value pairs to add.
 	 * @returns {string} - Output.
 	 */
-	runAndGet(command) {
-		return this.runAndReadLines(command).join(' / ');
+	runAndGet(command, options = {}) {
+		return this.runAndReadLines(command, options).join(' / ');
 	}
 
 	/**
 	 * Run a command in sync mode and echo its output.
 	 *
 	 * @param {string} command - Command to run.
+	 * @param {object} [options] - Options.
+	 * @param {string} [options.cwd] - Current working directory of the command.
+	 * @param {object} [options.env] - Environment key-value pairs to add.
 	 * @returns {Terminal} - Terminal instance.
 	 */
-	runAndEcho(command) {
-		this.runAndReadLines(command).forEach((line) => {
+	runAndEcho(command, options = {}) {
+		this.runAndReadLines(command, options).forEach((line) => {
 			this.echo(line);
 		});
 
@@ -631,11 +658,14 @@ class Terminal {
 	 *
 	 * @param {string} title - Title explaining the command.
 	 * @param {string} command - Command to run.
+	 * @param {object} [options] - Options.
+	 * @param {string} [options.cwd] - Current working directory of the command.
+	 * @param {object} [options.env] - Environment key-value pairs to add.
 	 * @returns {Terminal} - Terminal instance.
 	 */
-	runTask(title, command) {
+	runTask(title, command, options = {}) {
 		this.titleBox(title);
-		this.run(command);
+		this.run(command, options);
 		this.completionBox();
 
 		return this;
