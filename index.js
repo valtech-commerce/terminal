@@ -3,17 +3,18 @@
 //--------------------------------------------------------
 'use strict';
 
-const boxen                         = require('boxen');
-const chalk                         = require('chalk');
-const { spawnSync, execSync, exec } = require('child_process');
-const figures                       = require('figures');
-const emoji                         = require('node-emoji');
-const ora                           = require('ora');
-const prettyMs                      = require('pretty-ms');
-const redent                        = require('redent');
-const stringLength                  = require('string-length');
-const stringWidth                   = require('string-width');
-const pad                           = require('@absolunet/terminal-pad');
+const boxen              = require('boxen');
+const chalk              = require('chalk');
+const { execSync, exec } = require('child_process');
+const spawn              = require('cross-spawn');
+const figures            = require('figures');
+const emoji              = require('node-emoji');
+const ora                = require('ora');
+const prettyMs           = require('pretty-ms');
+const redent             = require('redent');
+const stringLength       = require('string-length');
+const stringWidth        = require('string-width');
+const pad                = require('@absolunet/terminal-pad');
 
 
 //-- Static properties
@@ -651,7 +652,7 @@ class Terminal {
 	 */
 	runScript(file, ...options) {
 		this.titleBox(`${this.scripts.titles[file]}  ${this.chalk.underline(file)}`);
-		spawnSync('bash', [`${this.scripts.path}/${file}.sh`].concat(options), { stdio: 'inherit' });
+		spawn.sync('bash', [`${this.scripts.path}/${file}.sh`].concat(options), { stdio: 'inherit' });
 		this.completionBox();
 
 		return this;
