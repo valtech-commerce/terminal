@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API documentation
 - Arguments validation for all methods
 - Add options to `run` methods to specify a current working directory and environment variables
+- `.language` property
+- `.basicColor` property
+- `.spinnerType` property
 - `.colorizeText()` method
 - `.colorizeBackground()` method
 - `.confirmation()` method
@@ -24,13 +27,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Complete code refactor and standardization
 - Colors are now defined by Chalk keyword or hex string
-- No method returns instance anymore
+- All methods outputing are now chainable
 - Renamed `.defaults` to `.theme` with renamed and new values
 - Renamed `.setDefaults()` to `.setTheme()` with renamed and new options
 - Renamed `.printState()` option `msg` to `message`
 - Grouped `.box()` optional arguments under one argument with properties `colorizer`, `padding`, `extraPadding`
 - `.warning()` does not add newline by default anymore
-- `.confirmation()`, `.warning()`, `.error()`, `.success()`, `.failure()` now have a newline option
 - `.startSpinner()` does not return `ora` instance anymore
 - Maintenance updates
 
@@ -41,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.setLang()` method
 - `.setScriptsFiles()` method
 - `.cleanUp()` method
+- `.println()` method
 - `.trans()` method
 - `.addTrans()` method
 - `.startTimer()` method

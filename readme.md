@@ -22,22 +22,25 @@ import { terminal } from '@absolunet/terminal';
 
 terminal.setTheme({
 	logo:                  '🍭',
-	textColor:             'magenta',
+	textColor:             terminal.basicColor.magenta,
 	backgroundColor:       '#cc00cc',
-	textOnBackgroundColor: 'white',
-	spinnerColor:          'magenta'
+	textOnBackgroundColor: terminal.basicColor.white,
+	spinnerColor:          terminal.basicColor.magenta
 });
 
-terminal.titleBox('Start');
-
-terminal.startSpinner('Checking dependencies');
+terminal
+	.titleBox('Start');
+	.startSpinner('Checking dependencies')
+;
 
 terminal.runPromise('npm outdated', { silent:true }).then(({ stdout }) => {
 	terminal.stopSpinner();
 
 	if (stdout) {
-		terminal.spacer();
-		terminal.failure('Please update your project');
+		terminal
+			.spacer();
+			.failure('Please update your project')
+		;
 	} else {
 		terminal.success('You are up to date!');
 	}

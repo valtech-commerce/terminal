@@ -5,6 +5,7 @@ import boxen                     from 'boxen';
 import camelCase                 from 'camelcase';
 import chalk                     from 'chalk';
 import { execSync, exec }        from 'child_process';
+import cliSpinners               from 'cli-spinners';
 import figures                   from 'figures';
 import emoji                     from 'node-emoji';
 import ora                       from 'ora';
@@ -18,26 +19,25 @@ import pad                       from '@absolunet/terminal-pad';
 
 
 
-const HEX_COLOR = /^#[0-f]{6}$/ui;
-
-const isHex = (text) => {
-	return text.match(HEX_COLOR);
-};
-
-const chalkColorSchema = Joi.string().custom((value, helpers) => {
-	return chalk[value] ? value : helpers.message('Must be a Chalk keyword');
-});
-
-const colorSchema = Joi.alternatives().try(
-	Joi.string().pattern(HEX_COLOR, 'hex color'),
-	chalkColorSchema
-);
-
-
-
-const ICONS = {
-	success: figures.tick,
-	failure: figures.cross
+const BASIC_COLORS = {
+	black:         'black',
+	red:           'red',
+	green:         'green',
+	yellow:        'yellow',
+	blue:          'blue',
+	magenta:       'magenta',
+	cyan:          'cyan',
+	white:         'white',
+	blackBright:   'blackBright',
+	redBright:     'redBright',
+	greenBright:   'greenBright',
+	yellowBright:  'yellowBright',
+	blueBright:    'blueBright',
+	magentaBright: 'magentaBright',
+	cyanBright:    'cyanBright',
+	whiteBright:   'whiteBright',
+	gray:          'gray',
+	grey:          'grey'
 };
 
 const COLORS = {
@@ -47,6 +47,16 @@ const COLORS = {
 	warningBackground:      chalk.black.bgYellow,
 	errorText:              chalk.red,
 	errorBackground:        chalk.white.bgRed
+};
+
+const ICONS = {
+	success: figures.tick,
+	failure: figures.cross
+};
+
+const LANGUAGES = {
+	francais: 'fr',
+	english:  'en'
 };
 
 const DICTIONARY = {
@@ -68,6 +78,30 @@ const DICTIONARY = {
 	}
 };
 
+const HEX_COLOR = /^#[0-f]{6}$/ui;
+
+
+
+const basicColorSchema = Joi.string().valid(...Object.values(BASIC_COLORS));
+
+const colorSchema = Joi.alternatives().try(
+	basicColorSchema,
+	Joi.string().pattern(HEX_COLOR, 'hex color')
+);
+
+const requiredStringSchema = Joi.string().allow('').required();
+
+const runOptionsSchema = Joi.object({
+	directory:   Joi.string(),
+	environment: Joi.object().pattern(Joi.string(), Joi.string())
+});
+
+
+
+const isHex = (text) => {
+	return text.match(HEX_COLOR);
+};
+
 const translate = (self, key) => {
 	return DICTIONARY[key][self.theme.language] || '';
 };
@@ -76,12 +110,8 @@ const cleanUp = (self, text = '') => {
 	return redent(text, self.theme.indent).replace(/\t/ug, '  ');
 };
 
-const requiredStringSchema = Joi.string().allow('').required();
-
-
-
 const startTimer = (self) => {
-	__(self).set('timer', new Date());
+	__(self).set('timer', Date.now());
 };
 
 const stopTimer = (self) => {
@@ -90,13 +120,6 @@ const stopTimer = (self) => {
 
 	return start ? Date.now() - start : 0;
 };
-
-
-
-const runOptionsSchema = Joi.object({
-	directory:   Joi.string(),
-	environment: Joi.object().pattern(Joi.string(), Joi.string())
-});
 
 
 
@@ -113,26 +136,56 @@ class AbsolunetTerminal {
 	 */
 	constructor() {
 		this.setTheme({
-			language:              'en',
+			language:              this.language.english,
 			indent:                2,
 			logo:                  '•',
-			textColor:             'blue',
-			backgroundColor:       'blue',
-			textOnBackgroundColor: 'white',
-			borderColor:           'blue',
-			spinnerColor:          'blue',
-			spinnerType:           'dots3'
+			textColor:             this.basicColor.blue,
+			backgroundColor:       this.basicColor.blue,
+			textOnBackgroundColor: this.basicColor.white,
+			borderColor:           this.basicColor.blue,
+			spinnerColor:          this.basicColor.blue,
+			spinnerType:           this.spinnerType.dots3
 		});
+	}
+
+
+	/**
+	 * Get available languages.
+	 *
+	 * @type {Languages}
+	 */
+	get language() {
+		return { ...LANGUAGES };
+	}
+
+
+	/**
+	 * Get basic terminal colors (8 colors in normal and bright versions).
+	 *
+	 * @type {BasicColors}
+	 */
+	get basicColor() {
+		return { ...BASIC_COLORS };
+	}
+
+
+	/**
+	 * Get available spinner types.
+	 *
+	 * @type {SpinnerTypes}
+	 */
+	get spinnerType() {
+		return { ...cliSpinners };
 	}
 
 
 	/**
 	 * Get the terminal theme.
 	 *
-	 * @returns {object} Theme values.
+	 * @type {object}
 	 */
 	get theme() {
-		return __(this).get('theme');
+		return { ...__(this).get('theme') };
 	}
 
 
@@ -140,33 +193,30 @@ class AbsolunetTerminal {
 	 * Set the terminal theme.
 	 *
 	 * @param {object} options - Properties.
-	 * @param {string} [options.language] - Language to be used in localized outputs (fr|en).
+	 * @param {Language} [options.language] - Language to be used in localized outputs.
 	 * @param {number} [options.indent] - Indentation used.
 	 * @param {string} [options.logo] - Emoji to be used as logo in TitleBox.
-	 * @param {string} [options.textColor] - A {@link https://www.npmjs.com/package/chalk Chalk color} or hex value to be used in project colored outputs.
-	 * @param {string} [options.backgroundColor] - A {@link https://www.npmjs.com/package/chalk Chalk color} or hex value to be used in project colored outputs.
-	 * @param {string} [options.textOnBackgroundColor] - A {@link https://www.npmjs.com/package/chalk Chalk color} or hex value to be used in project colored outputs.
-	 * @param {string} [options.borderColor] - A {@link https://www.npmjs.com/package/chalk Chalk color} or hex value to be used in project colored outputs.
-	 * @param {string} [options.spinnerColor] - A {@link https://www.npmjs.com/package/chalk Chalk color} to be used with spinner.
-	 * @param {string|object} [options.spinnerType] - A {@link https://www.npmjs.com/package/cli-spinners Spinner} theme.
+	 * @param {BasicColor|HexColor} [options.textColor] - A color to be used in themed text outputs.
+	 * @param {BasicColor|HexColor} [options.backgroundColor] - A color to be used in themed box outputs.
+	 * @param {BasicColor|HexColor} [options.textOnBackgroundColor] - A color to be used in themed box outputs.
+	 * @param {BasicColor|HexColor} [options.borderColor] - A color to be used in themed bordered box outputs.
+	 * @param {BasicColor} [options.spinnerColor] - A color to be used with themed spinner.
+	 * @param {SpinnerType} [options.spinnerType] - A spinner look.
 	 */
 	setTheme(options) {
 		validateArgument('options', options, Joi.object({
-			language:              Joi.string().valid('fr', 'en'),
+			language:              Joi.string().valid(...Object.values(this.language)),
 			indent:                Joi.number().integer().min(0),
 			logo:                  Joi.string().custom((value, helpers) => { return stringLength(value) === 1 ? value : helpers.message('Must be one character'); }),
 			textColor:             colorSchema,
 			backgroundColor:       colorSchema,
 			textOnBackgroundColor: colorSchema,
 			borderColor:           colorSchema,
-			spinnerColor:          chalkColorSchema,
-			spinnerType:           Joi.alternatives().try(
-				Joi.string(),
-				Joi.object({
-					frames:   Joi.array().items(Joi.string()).required(),
-					interval: Joi.number().integer().min(0)
-				})
-			)
+			spinnerColor:          basicColorSchema,
+			spinnerType:           Joi.object({
+				frames:   Joi.array().items(Joi.string()).required(),
+				interval: Joi.number().integer().min(0)
+			})
 		}).required());
 
 		__(this).set('theme', { ...this.theme, ...options });
@@ -212,11 +262,14 @@ class AbsolunetTerminal {
 	 * Print a text in the terminal.
 	 *
 	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	echo(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		console.log(text); // eslint-disable-line no-console
+		process.stdout.write(`${text}\n`);
+
+		return this;
 	}
 
 
@@ -224,11 +277,14 @@ class AbsolunetTerminal {
 	 * Print a text after cleaning and indenting it.
 	 *
 	 * @param {string} text - Text to echo.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	echoIndent(text) {
 		validateArgument('text', text, requiredStringSchema);
 
 		this.echo(cleanUp(this, text));
+
+		return this;
 	}
 
 
@@ -236,24 +292,14 @@ class AbsolunetTerminal {
 	 * Print a string with default color and indentation.
 	 *
 	 * @param {string} text - Text to print.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	print(text) {
 		validateArgument('text', text, requiredStringSchema);
 
 		this.echo(this.colorizeText(cleanUp(this, text)));
-	}
 
-
-	/**
-	 * Print a string with default color, indentation and new line at the end.
-	 *
-	 * @param {string} text - Text to print.
-	 */
-	println(text) {
-		validateArgument('text', text, requiredStringSchema);
-
-		this.print(text);
-		this.spacer();
+		return this;
 	}
 
 
@@ -261,11 +307,14 @@ class AbsolunetTerminal {
 	 * Print one or multiple line breaks.
 	 *
 	 * @param {number} [number=1] - Number of line breaks to print.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	spacer(number = 1) {
 		validateArgument('number', number, Joi.number().integer().min(1));
 
 		this.print('\n'.repeat(number - 1));
+
+		return this;
 	}
 
 
@@ -273,17 +322,14 @@ class AbsolunetTerminal {
 	 * Display a confirmation message.
 	 *
 	 * @param {string} text - Text to output.
-	 * @param {boolean} [newline=false] - Add a newline.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
-	confirmation(text, newline = false) {
-		validateArgument('text',    text,    requiredStringSchema);
-		validateArgument('newline', newline, Joi.boolean());
+	confirmation(text) {
+		validateArgument('text', text, requiredStringSchema);
 
 		this.echo(COLORS.confirmationText(cleanUp(this, text)));
 
-		if (newline) {
-			this.spacer();
-		}
+		return this;
 	}
 
 
@@ -291,17 +337,14 @@ class AbsolunetTerminal {
 	 * Display a warning message.
 	 *
 	 * @param {string} text - Text to output.
-	 * @param {boolean} [newline=false] - Add a newline.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
-	warning(text, newline = false) {
-		validateArgument('text',    text,    requiredStringSchema);
-		validateArgument('newline', newline, Joi.boolean());
+	warning(text) {
+		validateArgument('text', text, requiredStringSchema);
 
 		this.echo(COLORS.warningText(cleanUp(this, text)));
 
-		if (newline) {
-			this.spacer();
-		}
+		return this;
 	}
 
 
@@ -309,17 +352,14 @@ class AbsolunetTerminal {
 	 * Display an error message.
 	 *
 	 * @param {string} text - Text to output.
-	 * @param {boolean} [newline=false] - Add a newline.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
-	error(text, newline = false) {
+	error(text) {
 		validateArgument('text', text, requiredStringSchema);
-		validateArgument('newline', newline, Joi.boolean());
 
 		this.echo(COLORS.errorText(cleanUp(this, text)));
 
-		if (newline) {
-			this.spacer();
-		}
+		return this;
 	}
 
 
@@ -327,13 +367,14 @@ class AbsolunetTerminal {
 	 * Display a success message with a check mark icon.
 	 *
 	 * @param {string} text - Text to output.
-	 * @param {boolean} [newline=true] - Add a newline.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
-	success(text, newline = true) {
+	success(text) {
 		validateArgument('text', text, requiredStringSchema);
-		validateArgument('newline', newline, Joi.boolean());
 
-		this.confirmation(`${ICONS.success}  ${text}`, newline);
+		this.confirmation(`${ICONS.success}  ${text}`).spacer();
+
+		return this;
 	}
 
 
@@ -341,13 +382,14 @@ class AbsolunetTerminal {
 	 * Display a failure message with an ⨉ mark icon.
 	 *
 	 * @param {string} text - Text to output.
-	 * @param {boolean} [newline=true] - Add a newline.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
-	failure(text, newline = true) {
+	failure(text) {
 		validateArgument('text', text, requiredStringSchema);
-		validateArgument('newline', newline, Joi.boolean());
 
-		this.error(`${ICONS.failure}  ${text}`, newline);
+		this.error(`${ICONS.failure}  ${text}`).spacer();
+
+		return this;
 	}
 
 
@@ -360,6 +402,7 @@ class AbsolunetTerminal {
 	 * @param {string}  options.name - Name of the property.
 	 * @param {string}  options.value - Value of the property.
 	 * @param {string}  [options.message] - Detailed error message in case of failure.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	printState(options) {
 		validateArgument('options', options, Joi.object({
@@ -374,6 +417,8 @@ class AbsolunetTerminal {
 		const errorMessage = options.state ? '' : options.message;
 
 		this.echoIndent(`${chalk.bold(`${options.name}`)}  ${colorize(`${mark}  ${options.value} ${errorMessage}`)}`);
+
+		return this;
 	}
 
 
@@ -382,6 +427,7 @@ class AbsolunetTerminal {
 	 * The available status are: "not_added", "created", "modified", "renamed" and "deleted".
 	 *
 	 * @param {{string: Array<string|{from: string, to: string}>}} status - A {@link https://www.npmjs.com/package/simple-git simple-git} status object.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	printStatus(status) {
 		validateArgument('status', status, Joi.object().pattern(
@@ -414,6 +460,8 @@ class AbsolunetTerminal {
 		});
 
 		this.spacer(2);
+
+		return this;
 	}
 
 
@@ -421,6 +469,7 @@ class AbsolunetTerminal {
 	 * Start the spinner with a given text.
 	 *
 	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	startSpinner(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -428,11 +477,15 @@ class AbsolunetTerminal {
 		const { spinnerType: spinner, spinnerColor: color } = this.theme;
 
 		__(this).set('spinner', ora({ text, spinner, color }).start());
+
+		return this;
 	}
 
 
 	/**
 	 * Stop the spinner.
+	 *
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	stopSpinner() {
 		const spinner = __(this).get('spinner');
@@ -442,14 +495,20 @@ class AbsolunetTerminal {
 		}
 
 		__(this).set('spinner', undefined);
+
+		return this;
 	}
 
 
 	/**
 	 * Display an error message indicating not to use "sudo".
+	 *
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	dontSudoMe() {
 		this.errorBox(`${translate(this, 'sudo')} ${emoji.get('cry')}`);
+
+		return this;
 	}
 
 
@@ -481,6 +540,7 @@ class AbsolunetTerminal {
 	 * @param {Function} [options.colorizer=this.colorizeBackground] - A background colorizer.
 	 * @param {boolean} [options.padding=true] - Add vertical padding.
 	 * @param {boolean} [options.extraPadding=false] - Needs extra padding.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	box(text, { colorizer = this.colorizeBackground.bind(this), padding = true, extraPadding = false } = {}) {
 		validateArgument('text',                 text,         requiredStringSchema);
@@ -500,6 +560,8 @@ class AbsolunetTerminal {
 			this.echo(colorizer(pad(line, padLength) + (extraPadding && i === 2 ? ' ' : '')));
 		});
 		this.spacer();
+
+		return this;
 	}
 
 
@@ -508,6 +570,7 @@ class AbsolunetTerminal {
 	 * The logo will be shown as well.
 	 *
 	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	titleBox(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -523,6 +586,8 @@ class AbsolunetTerminal {
 			${chalk.reset(`   ${logo}${extraPadding ? ' ' : ''}   `)}${this.colorizeBackground(' ')} ${text}
 			${chalk.reset('        ')}${this.colorizeBackground(' ')}
 		`, { padding: true, extraPadding: extraPadding && length === 2 });
+
+		return this;
 	}
 
 
@@ -530,11 +595,14 @@ class AbsolunetTerminal {
 	 * Display an informative message box.
 	 *
 	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	infoBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
 		this.box(text);
+
+		return this;
 	}
 
 
@@ -542,11 +610,14 @@ class AbsolunetTerminal {
 	 * Display a confirmation message box.
 	 *
 	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	confirmationBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
 		this.box(text, { colorizer: COLORS.confirmationBackground });
+
+		return this;
 	}
 
 
@@ -554,11 +625,14 @@ class AbsolunetTerminal {
 	 * Display a warning message box.
 	 *
 	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	warningBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
 		this.box(text, { colorizer: COLORS.warningBackground });
+
+		return this;
 	}
 
 
@@ -566,11 +640,14 @@ class AbsolunetTerminal {
 	 * Display an error message box.
 	 *
 	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	errorBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
 		this.box(text, { colorizer: COLORS.errorBackground });
+
+		return this;
 	}
 
 
@@ -578,6 +655,7 @@ class AbsolunetTerminal {
 	 * Display a completion box by using the timer if wanted and started.
 	 *
 	 * @param {boolean} [showDuration=true] - Show amount of time since last TitleBox.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	completionBox(showDuration = true) {
 		validateArgument('showDuration', showDuration, Joi.boolean());
@@ -586,6 +664,8 @@ class AbsolunetTerminal {
 		this.infoBox(`${ICONS.success}  ${translate(this, 'completed')}${time}`);
 
 		this.spacer(2);
+
+		return this;
 	}
 
 
@@ -593,6 +673,7 @@ class AbsolunetTerminal {
 	 * Display a bordered box.
 	 *
 	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	borderedBox(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -603,6 +684,8 @@ class AbsolunetTerminal {
 			align:       'center',
 			borderColor: this.theme.borderColor
 		}));
+
+		return this;
 	}
 
 

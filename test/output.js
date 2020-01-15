@@ -15,13 +15,27 @@ terminal.setTheme({
 	backgroundColor: '#008800',
 	textOnBackgroundColor: '#ff8888',
 	borderColor: '#ff88ff',
-	language: 'en',
+	language: terminal.language.francais,
 	indent: 4,
-	spinnerColor: 'green',
-	spinnerType: { frames: ['+', '-', '+', '|'], interval: 100 }
+	spinnerColor: terminal.basicColor.red,
+	spinnerType: terminal.spinnerType.dots1
 });
 
 
+/*
+terminal
+	.titleBox('Hey')
+	.startSpinner('xxxx')
+;
+
+setTimeout(() => {
+	terminal
+		.stopSpinner()
+		.completionBox()
+		.print('Test1')
+	;
+}, 3000);
+*/
 
 [
 	`
@@ -39,7 +53,6 @@ terminal.setTheme({
 	terminal.echo(string);
 	terminal.echoIndent(string);
 	terminal.print(string);
-	terminal.println(string);
 
 	terminal.confirmation(string);
 	terminal.warning(string);
@@ -75,4 +88,3 @@ terminal.setTheme({
 	}, 3500);
 
 });
-
