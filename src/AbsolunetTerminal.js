@@ -49,6 +49,14 @@ const COLORS = {
 	errorBackground:        chalk.white.bgRed
 };
 
+const STATUS_COLORS = {
+	not_added: chalk.green,  // eslint-disable-line camelcase
+	created:   chalk.green,
+	modified:  chalk.yellow,
+	renamed:   chalk.yellow,
+	deleted:   chalk.red
+};
+
 const ICONS = {
 	success: figures.tick,
 	failure: figures.cross
@@ -282,9 +290,7 @@ class AbsolunetTerminal {
 	echoIndent(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.echo(cleanUp(this, text));
-
-		return this;
+		return this.echo(cleanUp(this, text));
 	}
 
 
@@ -297,9 +303,7 @@ class AbsolunetTerminal {
 	print(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.echo(this.colorizeText(cleanUp(this, text)));
-
-		return this;
+		return this.echo(this.colorizeText(cleanUp(this, text)));
 	}
 
 
@@ -312,9 +316,7 @@ class AbsolunetTerminal {
 	spacer(number = 1) {
 		validateArgument('number', number, Joi.number().integer().min(1));
 
-		this.print('\n'.repeat(number - 1));
-
-		return this;
+		return this.print('\n'.repeat(number - 1));
 	}
 
 
@@ -327,9 +329,7 @@ class AbsolunetTerminal {
 	confirmation(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.echo(COLORS.confirmationText(cleanUp(this, text)));
-
-		return this;
+		return this.echo(COLORS.confirmationText(cleanUp(this, text)));
 	}
 
 
@@ -342,9 +342,7 @@ class AbsolunetTerminal {
 	warning(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.echo(COLORS.warningText(cleanUp(this, text)));
-
-		return this;
+		return this.echo(COLORS.warningText(cleanUp(this, text)));
 	}
 
 
@@ -357,9 +355,7 @@ class AbsolunetTerminal {
 	error(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.echo(COLORS.errorText(cleanUp(this, text)));
-
-		return this;
+		return this.echo(COLORS.errorText(cleanUp(this, text)));
 	}
 
 
@@ -372,9 +368,7 @@ class AbsolunetTerminal {
 	success(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.confirmation(`${ICONS.success}  ${text}`).spacer();
-
-		return this;
+		return this.confirmation(`${ICONS.success}  ${text}`).spacer();
 	}
 
 
@@ -387,9 +381,7 @@ class AbsolunetTerminal {
 	failure(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.error(`${ICONS.failure}  ${text}`).spacer();
-
-		return this;
+		return this.error(`${ICONS.failure}  ${text}`).spacer();
 	}
 
 
@@ -416,9 +408,7 @@ class AbsolunetTerminal {
 		const colorize     = COLORS[`${options.state ? 'confirmation' : 'error'}Text`];
 		const errorMessage = options.state ? '' : options.message;
 
-		this.echoIndent(`${chalk.bold(`${options.name}`)}  ${colorize(`${mark}  ${options.value} ${errorMessage}`)}`);
-
-		return this;
+		return this.echoIndent(`${chalk.bold(`${options.name}`)}  ${colorize(`${mark}  ${options.value} ${errorMessage}`)}`);
 	}
 
 
@@ -429,10 +419,10 @@ class AbsolunetTerminal {
 	 * @param {{string: Array<string|{from: string, to: string}>}} status - A {@link https://www.npmjs.com/package/simple-git simple-git} status object.
 	 * @returns {AbsolunetTerminal} Current instance.
 	 */
-	printStatus(status) {
+	printGitStatus(status) {
 		validateArgument('status', status, Joi.object().pattern(
-			Joi.string().valid('not_added', 'created', 'modified', 'renamed', 'deleted'),
-			Joi.alternatives().try(
+			Joi.string().valid(...Object.keys(STATUS_COLORS)),
+			Joi.array().items(
 				Joi.string(),
 				Joi.object({
 					from: Joi.string(),
@@ -441,27 +431,24 @@ class AbsolunetTerminal {
 			)
 		).required());
 
-		const colorize = {
-			not_added: COLORS.confirmationText, // eslint-disable-line camelcase
-			created:   COLORS.confirmationText,
-			modified:  COLORS.warningText,
-			renamed:   COLORS.warningText,
-			deleted:   COLORS.errorText
-		};
+		const output = Object.keys(STATUS_COLORS)
+			.flatMap((type) => {
+				if (status[type] && status[type].length !== 0) {
+					return status[type].map((file) => {
+						return `${STATUS_COLORS[type](pad(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`;
+					});
+				}
 
-		this.spacer(2);
+				return [];
+			})
+			.join('\n')
+		;
 
-		Object.keys(colorize).forEach((type) => {
-			if (status[type].length !== 0) {
-				status[type].forEach((file) => {
-					this.echoIndent(`${colorize[type](pad(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`);
-				});
-			}
-		});
-
-		this.spacer(2);
-
-		return this;
+		return this
+			.spacer(2)
+			.echoIndent(output)
+			.spacer(2)
+		;
 	}
 
 
@@ -474,9 +461,11 @@ class AbsolunetTerminal {
 	startSpinner(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		const { spinnerType: spinner, spinnerColor: color } = this.theme;
-
-		__(this).set('spinner', ora({ text, spinner, color }).start());
+		__(this).set('spinner', ora({
+			text,
+			spinner: this.theme.spinnerType,
+			color:   this.theme.spinnerColor
+		}).start());
 
 		return this;
 	}
@@ -506,9 +495,7 @@ class AbsolunetTerminal {
 	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	dontSudoMe() {
-		this.errorBox(`${translate(this, 'sudo')} ${emoji.get('cry')}`);
-
-		return this;
+		return this.errorBox(`${translate(this, 'sudo')} ${emoji.get('cry')}`);
 	}
 
 
@@ -555,13 +542,15 @@ class AbsolunetTerminal {
 		const max       = Math.max(...lines.map((line) => { return stringWidth(line); }));
 		const padLength = max < 79 ? 80 : max + 2;
 
-		this.spacer();
-		lines.forEach((line, i) => {
-			this.echo(colorizer(pad(line, padLength) + (extraPadding && i === 2 ? ' ' : '')));
-		});
-		this.spacer();
+		const output = lines.map((line, i) => {
+			return colorizer(pad(line, padLength) + (extraPadding && i === 2 ? ' ' : ''));
+		}).join('\n');
 
-		return this;
+		return this
+			.spacer()
+			.echo(output)
+			.spacer()
+		;
 	}
 
 
@@ -581,13 +570,11 @@ class AbsolunetTerminal {
 		const { length } = logo;
 		const extraPadding = length === stringWidth(logo) && length === stringLength(logo);
 
-		this.box(`
+		return this.box(`
 			${chalk.reset('        ')}${this.colorizeBackground(' ')}
 			${chalk.reset(`   ${logo}${extraPadding ? ' ' : ''}   `)}${this.colorizeBackground(' ')} ${text}
 			${chalk.reset('        ')}${this.colorizeBackground(' ')}
 		`, { padding: true, extraPadding: extraPadding && length === 2 });
-
-		return this;
 	}
 
 
@@ -600,9 +587,7 @@ class AbsolunetTerminal {
 	infoBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.box(text);
-
-		return this;
+		return this.box(text);
 	}
 
 
@@ -615,9 +600,7 @@ class AbsolunetTerminal {
 	confirmationBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.box(text, { colorizer: COLORS.confirmationBackground });
-
-		return this;
+		return this.box(text, { colorizer: COLORS.confirmationBackground });
 	}
 
 
@@ -630,9 +613,7 @@ class AbsolunetTerminal {
 	warningBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.box(text, { colorizer: COLORS.warningBackground });
-
-		return this;
+		return this.box(text, { colorizer: COLORS.warningBackground });
 	}
 
 
@@ -645,9 +626,7 @@ class AbsolunetTerminal {
 	errorBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.box(text, { colorizer: COLORS.errorBackground });
-
-		return this;
+		return this.box(text, { colorizer: COLORS.errorBackground });
 	}
 
 
@@ -661,11 +640,8 @@ class AbsolunetTerminal {
 		validateArgument('showDuration', showDuration, Joi.boolean());
 
 		const time = showDuration && __(this, 'timer') ? ` ${translate(this, 'after')} ${prettyMs(stopTimer(this))}` : '';
-		this.infoBox(`${ICONS.success}  ${translate(this, 'completed')}${time}`);
 
-		this.spacer(2);
-
-		return this;
+		return this.infoBox(`${ICONS.success}  ${translate(this, 'completed')}${time}`).spacer(2);
 	}
 
 
@@ -678,14 +654,12 @@ class AbsolunetTerminal {
 	borderedBox(text) {
 		validateArgument('text', text, requiredStringSchema);
 
-		this.echo(boxen(this.colorizeText(text), {
+		return this.echo(boxen(this.colorizeText(text), {
 			padding:     1,
 			margin:      1,
 			align:       'center',
 			borderColor: this.theme.borderColor
 		}));
-
-		return this;
 	}
 
 
@@ -768,12 +742,14 @@ class AbsolunetTerminal {
 								this.error(translate(this, 'silentError'));
 							}
 
-							this.error(`
-								${errorMessage || ''}
-								${errorOutput || ''}
-							`);
+							this
+								.error(`
+									${errorMessage || ''}
+									${errorOutput || ''}
+								`)
+								.exit()
+							;
 
-							this.exit();
 						} else {
 							this.warning(errorOutput);
 						}
@@ -849,9 +825,7 @@ class AbsolunetTerminal {
 		validateArgument('command', command, Joi.string().required());
 		validateArgument('options', options, runOptionsSchema);
 
-		this.runAndReadLines(command, options).forEach((line) => {
-			this.echo(line);
-		});
+		this.echo(this.runAndReadLines(command, options).join('\n'));
 	}
 
 

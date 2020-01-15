@@ -65,6 +65,14 @@ const COLORS = {
   errorText: _chalk.default.red,
   errorBackground: _chalk.default.white.bgRed
 };
+const STATUS_COLORS = {
+  not_added: _chalk.default.green,
+  // eslint-disable-line camelcase
+  created: _chalk.default.green,
+  modified: _chalk.default.yellow,
+  renamed: _chalk.default.yellow,
+  deleted: _chalk.default.red
+};
 const ICONS = {
   success: _figures.default.tick,
   failure: _figures.default.cross
@@ -278,8 +286,7 @@ class AbsolunetTerminal {
 
   echoIndent(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.echo(cleanUp(this, text));
-    return this;
+    return this.echo(cleanUp(this, text));
   }
   /**
    * Print a string with default color and indentation.
@@ -291,8 +298,7 @@ class AbsolunetTerminal {
 
   print(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.echo(this.colorizeText(cleanUp(this, text)));
-    return this;
+    return this.echo(this.colorizeText(cleanUp(this, text)));
   }
   /**
    * Print one or multiple line breaks.
@@ -304,8 +310,7 @@ class AbsolunetTerminal {
 
   spacer(number = 1) {
     (0, _joi.validateArgument)('number', number, _joi.Joi.number().integer().min(1));
-    this.print('\n'.repeat(number - 1));
-    return this;
+    return this.print('\n'.repeat(number - 1));
   }
   /**
    * Display a confirmation message.
@@ -317,8 +322,7 @@ class AbsolunetTerminal {
 
   confirmation(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.echo(COLORS.confirmationText(cleanUp(this, text)));
-    return this;
+    return this.echo(COLORS.confirmationText(cleanUp(this, text)));
   }
   /**
    * Display a warning message.
@@ -330,8 +334,7 @@ class AbsolunetTerminal {
 
   warning(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.echo(COLORS.warningText(cleanUp(this, text)));
-    return this;
+    return this.echo(COLORS.warningText(cleanUp(this, text)));
   }
   /**
    * Display an error message.
@@ -343,8 +346,7 @@ class AbsolunetTerminal {
 
   error(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.echo(COLORS.errorText(cleanUp(this, text)));
-    return this;
+    return this.echo(COLORS.errorText(cleanUp(this, text)));
   }
   /**
    * Display a success message with a check mark icon.
@@ -356,8 +358,7 @@ class AbsolunetTerminal {
 
   success(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.confirmation(`${ICONS.success}  ${text}`).spacer();
-    return this;
+    return this.confirmation(`${ICONS.success}  ${text}`).spacer();
   }
   /**
    * Display a failure message with an ⨉ mark icon.
@@ -369,8 +370,7 @@ class AbsolunetTerminal {
 
   failure(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.error(`${ICONS.failure}  ${text}`).spacer();
-    return this;
+    return this.error(`${ICONS.failure}  ${text}`).spacer();
   }
   /**
    * Display the given state.
@@ -395,8 +395,7 @@ class AbsolunetTerminal {
     const mark = ICONS[options.state ? 'success' : 'failure'];
     const colorize = COLORS[`${options.state ? 'confirmation' : 'error'}Text`];
     const errorMessage = options.state ? '' : options.message;
-    this.echoIndent(`${_chalk.default.bold(`${options.name}`)}  ${colorize(`${mark}  ${options.value} ${errorMessage}`)}`);
-    return this;
+    return this.echoIndent(`${_chalk.default.bold(`${options.name}`)}  ${colorize(`${mark}  ${options.value} ${errorMessage}`)}`);
   }
   /**
    * Display the given files status depending if they were not added, created, modified, renamed or deleted, with a Git flavor.
@@ -407,29 +406,21 @@ class AbsolunetTerminal {
    */
 
 
-  printStatus(status) {
-    (0, _joi.validateArgument)('status', status, _joi.Joi.object().pattern(_joi.Joi.string().valid('not_added', 'created', 'modified', 'renamed', 'deleted'), _joi.Joi.alternatives().try(_joi.Joi.string(), _joi.Joi.object({
+  printGitStatus(status) {
+    (0, _joi.validateArgument)('status', status, _joi.Joi.object().pattern(_joi.Joi.string().valid(...Object.keys(STATUS_COLORS)), _joi.Joi.array().items(_joi.Joi.string(), _joi.Joi.object({
       from: _joi.Joi.string(),
       to: _joi.Joi.string()
     }))).required());
-    const colorize = {
-      not_added: COLORS.confirmationText,
-      // eslint-disable-line camelcase
-      created: COLORS.confirmationText,
-      modified: COLORS.warningText,
-      renamed: COLORS.warningText,
-      deleted: COLORS.errorText
-    };
-    this.spacer(2);
-    Object.keys(colorize).forEach(type => {
-      if (status[type].length !== 0) {
-        status[type].forEach(file => {
-          this.echoIndent(`${colorize[type]((0, _terminalPad.default)(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`);
+    const output = Object.keys(STATUS_COLORS).flatMap(type => {
+      if (status[type] && status[type].length !== 0) {
+        return status[type].map(file => {
+          return `${STATUS_COLORS[type]((0, _terminalPad.default)(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`;
         });
       }
-    });
-    this.spacer(2);
-    return this;
+
+      return [];
+    }).join('\n');
+    return this.spacer(2).echoIndent(output).spacer(2);
   }
   /**
    * Start the spinner with a given text.
@@ -441,14 +432,10 @@ class AbsolunetTerminal {
 
   startSpinner(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    const {
-      spinnerType: spinner,
-      spinnerColor: color
-    } = this.theme;
     (0, _privateRegistry.default)(this).set('spinner', (0, _ora.default)({
       text,
-      spinner,
-      color
+      spinner: this.theme.spinnerType,
+      color: this.theme.spinnerColor
     }).start());
     return this;
   }
@@ -477,8 +464,7 @@ class AbsolunetTerminal {
 
 
   dontSudoMe() {
-    this.errorBox(`${translate(this, 'sudo')} ${_nodeEmoji.default.get('cry')}`);
-    return this;
+    return this.errorBox(`${translate(this, 'sudo')} ${_nodeEmoji.default.get('cry')}`);
   }
   /**
    * Exit the process and show an optional exit message in an error box.
@@ -524,12 +510,10 @@ class AbsolunetTerminal {
       return (0, _stringWidth.default)(line);
     }));
     const padLength = max < 79 ? 80 : max + 2;
-    this.spacer();
-    lines.forEach((line, i) => {
-      this.echo(colorizer((0, _terminalPad.default)(line, padLength) + (extraPadding && i === 2 ? ' ' : '')));
-    });
-    this.spacer();
-    return this;
+    const output = lines.map((line, i) => {
+      return colorizer((0, _terminalPad.default)(line, padLength) + (extraPadding && i === 2 ? ' ' : ''));
+    }).join('\n');
+    return this.spacer().echo(output).spacer();
   }
   /**
    * Display a title in a box.
@@ -550,7 +534,7 @@ class AbsolunetTerminal {
       length
     } = logo;
     const extraPadding = length === (0, _stringWidth.default)(logo) && length === (0, _stringLength.default)(logo);
-    this.box(`
+    return this.box(`
 			${_chalk.default.reset('        ')}${this.colorizeBackground(' ')}
 			${_chalk.default.reset(`   ${logo}${extraPadding ? ' ' : ''}   `)}${this.colorizeBackground(' ')} ${text}
 			${_chalk.default.reset('        ')}${this.colorizeBackground(' ')}
@@ -558,7 +542,6 @@ class AbsolunetTerminal {
       padding: true,
       extraPadding: extraPadding && length === 2
     });
-    return this;
   }
   /**
    * Display an informative message box.
@@ -570,8 +553,7 @@ class AbsolunetTerminal {
 
   infoBox(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.box(text);
-    return this;
+    return this.box(text);
   }
   /**
    * Display a confirmation message box.
@@ -583,10 +565,9 @@ class AbsolunetTerminal {
 
   confirmationBox(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.box(text, {
+    return this.box(text, {
       colorizer: COLORS.confirmationBackground
     });
-    return this;
   }
   /**
    * Display a warning message box.
@@ -598,10 +579,9 @@ class AbsolunetTerminal {
 
   warningBox(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.box(text, {
+    return this.box(text, {
       colorizer: COLORS.warningBackground
     });
-    return this;
   }
   /**
    * Display an error message box.
@@ -613,10 +593,9 @@ class AbsolunetTerminal {
 
   errorBox(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.box(text, {
+    return this.box(text, {
       colorizer: COLORS.errorBackground
     });
-    return this;
   }
   /**
    * Display a completion box by using the timer if wanted and started.
@@ -629,9 +608,7 @@ class AbsolunetTerminal {
   completionBox(showDuration = true) {
     (0, _joi.validateArgument)('showDuration', showDuration, _joi.Joi.boolean());
     const time = showDuration && (0, _privateRegistry.default)(this, 'timer') ? ` ${translate(this, 'after')} ${(0, _prettyMs.default)(stopTimer(this))}` : '';
-    this.infoBox(`${ICONS.success}  ${translate(this, 'completed')}${time}`);
-    this.spacer(2);
-    return this;
+    return this.infoBox(`${ICONS.success}  ${translate(this, 'completed')}${time}`).spacer(2);
   }
   /**
    * Display a bordered box.
@@ -643,13 +620,12 @@ class AbsolunetTerminal {
 
   borderedBox(text) {
     (0, _joi.validateArgument)('text', text, requiredStringSchema);
-    this.echo((0, _boxen.default)(this.colorizeText(text), {
+    return this.echo((0, _boxen.default)(this.colorizeText(text), {
       padding: 1,
       margin: 1,
       align: 'center',
       borderColor: this.theme.borderColor
     }));
-    return this;
   }
   /**
    * Process run options.
@@ -746,10 +722,9 @@ class AbsolunetTerminal {
               }
 
               this.error(`
-								${errorMessage || ''}
-								${errorOutput || ''}
-							`);
-              this.exit();
+									${errorMessage || ''}
+									${errorOutput || ''}
+								`).exit();
             } else {
               this.warning(errorOutput);
             }
@@ -829,9 +804,7 @@ class AbsolunetTerminal {
   runAndEcho(command, options = {}) {
     (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
     (0, _joi.validateArgument)('options', options, runOptionsSchema);
-    this.runAndReadLines(command, options).forEach(line => {
-      this.echo(line);
-    });
+    this.echo(this.runAndReadLines(command, options).join('\n'));
   }
   /**
    * Print the task to be executed, run the command in sync mode and display a completion box.

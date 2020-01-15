@@ -22,6 +22,13 @@ terminal.setTheme({
 });
 
 
+terminal.printGitStatus({
+	modified: [],
+	created: ['added1.md', 'added2.md'],
+	renamed: [{ from: 'old.md', to: 'new.md' }],
+	deleted: ['noooooo.md']
+});
+
 /*
 terminal
 	.titleBox('Hey')

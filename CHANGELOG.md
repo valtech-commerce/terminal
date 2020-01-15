@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed `.defaults` to `.theme` with renamed and new values
 - Renamed `.setDefaults()` to `.setTheme()` with renamed and new options
 - Renamed `.printState()` option `msg` to `message`
+- Renamed `.printStatus()` to `.printGitStatus()`
 - Grouped `.box()` optional arguments under one argument with properties `colorizer`, `padding`, `extraPadding`
 - `.warning()` does not add newline by default anymore
 - `.startSpinner()` does not return `ora` instance anymore
