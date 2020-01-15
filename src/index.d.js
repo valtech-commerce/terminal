@@ -38,8 +38,8 @@
  * @property {BasicColor} magentaBright - Bright magenta.
  * @property {BasicColor} cyanBright - Bright cyan.
  * @property {BasicColor} whiteBright - Bright white.
- * @property {BasicColor} gray - A blackBright alias.
- * @property {BasicColor} grey - A blackBright alias.
+ * @property {BasicColor} gray - A <code>blackBright</code> alias.
+ * @property {BasicColor} grey - A <code>blackBright</code> alias.
  */
 
 /**

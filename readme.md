@@ -33,7 +33,7 @@ terminal
 	.startSpinner('Checking dependencies')
 ;
 
-terminal.runPromise('npm outdated', { silent:true }).then(({ stdout }) => {
+terminal.process.runAsync('npm outdated', { silent:true }).then(({ stdout }) => {
 	terminal.stopSpinner();
 
 	if (stdout) {
@@ -50,11 +50,16 @@ terminal.runPromise('npm outdated', { silent:true }).then(({ stdout }) => {
 
 
 // Extend it
-import { Terminal } from '@absolunet/terminal';
+import { Terminal, Process } from '@absolunet/terminal';
 
 class MyBetterTerminal extends Terminal {
 
 }
+
+class MyBetterProcess extends Process {
+
+}
+
 ```
 
 

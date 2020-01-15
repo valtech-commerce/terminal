@@ -1,7 +1,8 @@
 //--------------------------------------------------------
 //-- @absolunet/terminal
 //--------------------------------------------------------
-import AbsolunetTerminal from './AbsolunetTerminal';
+import AbsolunetTerminal        from './AbsolunetTerminal';
+import AbsolunetTerminalProcess from './AbsolunetTerminalProcess';
 
 const terminal = new AbsolunetTerminal();
 
@@ -23,6 +24,15 @@ const terminal = new AbsolunetTerminal();
  * @type {AbsolunetTerminal}
  **/
 export { AbsolunetTerminal as Terminal };
+
+
+/**
+ * Class definition of Process.
+ *
+ * @name Process
+ * @type {AbsolunetTerminalProcess}
+ **/
+export { AbsolunetTerminalProcess as Process };
 
 
 /**

@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.confirmation()` method
 - `.stopSpinner()` method
 - `.confirmationBox()` method
-- `.processRunOptions()` method
+- `.process.parseOptions()` method
 
 ### Changed
 - Complete code refactor and standardization
@@ -30,8 +30,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All methods outputing are now chainable
 - Renamed `.defaults` to `.theme` with renamed and new values
 - Renamed `.setDefaults()` to `.setTheme()` with renamed and new options
-- Renamed `.printState()` option `msg` to `message`
 - Renamed `.printStatus()` to `.printGitStatus()`
+- Renamed `.run()` to `.process.run()`
+- Renamed `.runPromise()` to `.process.runAsync()`
+- Renamed `.runAndRead()` to `.process.runAndRead()`
+- Renamed `.runAndReadLines()` to `.process.runAndReadLines()`
+- Renamed `.runAndGet()` to `.process.runAndGet()`
+- Renamed `.runAndEcho()` to `.process.runAndEcho()`
+- Renamed `.runTask()` to `.process.runTask()`
+- Renamed `.printState()` option `msg` to `message`
 - Grouped `.box()` optional arguments under one argument with properties `colorizer`, `padding`, `extraPadding`
 - `.warning()` does not add newline by default anymore
 - `.startSpinner()` does not return `ora` instance anymore

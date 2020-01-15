@@ -6,9 +6,17 @@ Object.defineProperty(exports, "Terminal", {
     return _AbsolunetTerminal.default;
   }
 });
+Object.defineProperty(exports, "Process", {
+  enumerable: true,
+  get: function () {
+    return _AbsolunetTerminalProcess.default;
+  }
+});
 exports.terminal = void 0;
 
 var _AbsolunetTerminal = _interopRequireDefault(require("./AbsolunetTerminal"));
+
+var _AbsolunetTerminalProcess = _interopRequireDefault(require("./AbsolunetTerminalProcess"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

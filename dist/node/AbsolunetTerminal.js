@@ -8,8 +8,6 @@ var _camelcase = _interopRequireDefault(require("camelcase"));
 
 var _chalk = _interopRequireDefault(require("chalk"));
 
-var _child_process = require("child_process");
-
 var _cliSpinners = _interopRequireDefault(require("cli-spinners"));
 
 var _figures = _interopRequireDefault(require("figures"));
@@ -31,6 +29,8 @@ var _joi = require("@absolunet/joi");
 var _privateRegistry = _interopRequireDefault(require("@absolunet/private-registry"));
 
 var _terminalPad = _interopRequireDefault(require("@absolunet/terminal-pad"));
+
+var _AbsolunetTerminalProcess = _interopRequireDefault(require("./AbsolunetTerminalProcess"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82,21 +82,17 @@ const LANGUAGES = {
   english: 'en'
 };
 const DICTIONARY = {
-  silentError: {
-    fr: `Une erreur silencieuse s'est produite`,
-    en: `A silent error has occurred`
-  },
   sudo: {
-    fr: 'Ça sert à rien de me forcer avec un sudo',
-    en: 'It is useless to force me with a sudo'
+    en: 'It is useless to force me with a sudo',
+    fr: 'Ça sert à rien de me forcer avec un sudo'
   },
   completed: {
-    fr: 'Complété',
-    en: 'Completed'
+    en: 'Completed',
+    fr: 'Complété'
   },
   after: {
-    fr: 'après',
-    en: 'after'
+    en: 'after',
+    fr: 'après'
   }
 };
 const HEX_COLOR = /^#[0-f]{6}$/ui;
@@ -106,11 +102,6 @@ const basicColorSchema = _joi.Joi.string().valid(...Object.values(BASIC_COLORS))
 const colorSchema = _joi.Joi.alternatives().try(basicColorSchema, _joi.Joi.string().pattern(HEX_COLOR, 'hex color'));
 
 const requiredStringSchema = _joi.Joi.string().allow('').required();
-
-const runOptionsSchema = _joi.Joi.object({
-  directory: _joi.Joi.string(),
-  environment: _joi.Joi.object().pattern(_joi.Joi.string(), _joi.Joi.string())
-});
 
 const isHex = text => {
   return text.match(HEX_COLOR);
@@ -154,6 +145,17 @@ class AbsolunetTerminal {
       spinnerColor: this.basicColor.blue,
       spinnerType: this.spinnerType.dots3
     });
+    (0, _privateRegistry.default)(this).set('process', new _AbsolunetTerminalProcess.default(this));
+  }
+  /**
+   * Get process methods.
+   *
+   * @type {AbsolunetTerminalProcess}
+   */
+
+
+  get process() {
+    return (0, _privateRegistry.default)(this).get('process');
   }
   /**
    * Get available languages.
@@ -626,204 +628,6 @@ class AbsolunetTerminal {
       align: 'center',
       borderColor: this.theme.borderColor
     }));
-  }
-  /**
-   * Process run options.
-   *
-   * @param {object} [options] - Options.
-   * @param {string} [options.directory] - Current working directory of the command.
-   * @param {object} [options.environment] - Environment key-value pairs to add.
-   * @returns {{ cwd: string, env: { string: string }}} Parsed run options.
-   */
-
-
-  processRunOptions(options) {
-    (0, _joi.validateArgument)('options', options, runOptionsSchema);
-    const {
-      directory
-    } = options;
-    const environment = options.environment || {};
-    return {
-      cwd: directory,
-      env: { ...process.env,
-        ...environment
-      }
-    }; // eslint-disable-line unicorn/prevent-abbreviations, no-process-env
-  }
-  /**
-   * Run a command in sync mode.
-   *
-   * @param {string} command - Command to run.
-   * @param {object} [options] - Options.
-   * @param {string} [options.directory] - Current working directory of the command.
-   * @param {object} [options.environment] - Environment key-value pairs to add.
-   */
-
-
-  run(command, options = {}) {
-    (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
-    (0, _joi.validateArgument)('options', options, runOptionsSchema);
-    (0, _child_process.execSync)(command, {
-      stdio: 'inherit',
-      ...this.processRunOptions(options)
-    });
-  }
-  /**
-   * Run a command in async mode.
-   *
-   * @param {string} command - Command to run.
-   * @param {object} [options] - Options.
-   * @param {string} [options.directory] - Current working directory of the command.
-   * @param {object} [options.environment] - Environment key-value pairs to add.
-   * @param {string} [options.ignoreError=''] - Error message string to ignore.
-   * @param {boolean} [options.silent=false] - Silence all errors.
-   * @returns {Promise<{error: string, stdout: string, stderr: string}>} Terminal outputs.
-   */
-
-
-  runPromise(command, {
-    directory,
-    environment,
-    ignoreError = '',
-    silent = false
-  } = {}) {
-    (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
-    (0, _joi.validateArgument)('options.directory', directory, _joi.Joi.string());
-    (0, _joi.validateArgument)('options.environment', environment, _joi.Joi.object().pattern(_joi.Joi.string(), _joi.Joi.string()));
-    (0, _joi.validateArgument)('options.ignoreError', ignoreError, _joi.Joi.string().allow(''));
-    (0, _joi.validateArgument)('options.silent', silent, _joi.Joi.boolean());
-    return new Promise(resolve => {
-      (0, _child_process.exec)(command, {
-        stdio: 'inherit',
-        ...this.processRunOptions({
-          directory,
-          environment
-        })
-      }, (error, stdout, stderr) => {
-        const output = stdout.trim();
-        let errorOutput = stderr.trim();
-        let errorMessage = (error || '').toString().trim();
-
-        if (ignoreError) {
-          errorMessage = errorMessage.replace(ignoreError, '').trim();
-          errorOutput = stderr.replace(ignoreError, '').trim();
-        } // Error
-
-
-        if (!silent) {
-          if (errorMessage || errorOutput) {
-            if (output) {
-              this.echo(output);
-            }
-
-            if (errorMessage) {
-              if (!errorOutput) {
-                this.error(translate(this, 'silentError'));
-              }
-
-              this.error(`
-									${errorMessage || ''}
-									${errorOutput || ''}
-								`).exit();
-            } else {
-              this.warning(errorOutput);
-            }
-          }
-        }
-
-        resolve({
-          error,
-          stdout,
-          stderr
-        });
-      });
-    });
-  }
-  /**
-   * Run a command in sync mode and get its output.
-   *
-   * @param {string} command - Command to run.
-   * @param {object} [options] - Options.
-   * @param {string} [options.directory] - Current working directory of the command.
-   * @param {object} [options.environment] - Environment key-value pairs to add.
-   * @returns {string} Output.
-   */
-
-
-  runAndRead(command, options = {}) {
-    (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
-    (0, _joi.validateArgument)('options', options, runOptionsSchema);
-    return (0, _child_process.execSync)(command, {
-      stdio: ['inherit', 'pipe', 'inherit'],
-      encoding: 'utf8',
-      ...this.processRunOptions(options)
-    });
-  }
-  /**
-   * Run a command in sync mode and get its output line by line, by excluding empty lines.
-   *
-   * @param {string} command - Command to run.
-   * @param {object} [options] - Options.
-   * @param {string} [options.directory] - Current working directory of the command.
-   * @param {object} [options.environment] - Environment key-value pairs to add.
-   * @returns {Array<string>} Output.
-   */
-
-
-  runAndReadLines(command, options = {}) {
-    (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
-    (0, _joi.validateArgument)('options', options, runOptionsSchema);
-    return this.runAndRead(command, options).split('\n').filter(Boolean);
-  }
-  /**
-   * Run a command in sync mode and get its output separated by a slash.
-   *
-   * @param {string} command - Command to run.
-   * @param {object} [options] - Options.
-   * @param {string} [options.directory] - Current working directory of the command.
-   * @param {object} [options.environment] - Environment key-value pairs to add.
-   * @returns {string} Output.
-   */
-
-
-  runAndGet(command, options = {}) {
-    (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
-    (0, _joi.validateArgument)('options', options, runOptionsSchema);
-    return this.runAndReadLines(command, options).join(' / ');
-  }
-  /**
-   * Run a command in sync mode and echo its output.
-   *
-   * @param {string} command - Command to run.
-   * @param {object} [options] - Options.
-   * @param {string} [options.directory] - Current working directory of the command.
-   * @param {object} [options.environment] - Environment key-value pairs to add.
-   */
-
-
-  runAndEcho(command, options = {}) {
-    (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
-    (0, _joi.validateArgument)('options', options, runOptionsSchema);
-    this.echo(this.runAndReadLines(command, options).join('\n'));
-  }
-  /**
-   * Print the task to be executed, run the command in sync mode and display a completion box.
-   *
-   * @param {string} title - Title explaining the command.
-   * @param {string} command - Command to run.
-   * @param {object} [options] - Options.
-   * @param {string} [options.directory] - Current working directory of the command.
-   * @param {object} [options.environment] - Environment key-value pairs to add.
-   */
-
-
-  runTask(title, command, options = {}) {
-    (0, _joi.validateArgument)('title', title, _joi.Joi.string().required());
-    (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
-    (0, _joi.validateArgument)('options', options, runOptionsSchema);
-    this.titleBox(title);
-    this.run(command, options);
-    this.completionBox();
   }
 
 }
