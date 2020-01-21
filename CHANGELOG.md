@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+
+
+
+## [3.0.0] - 2020-01-21
 ### Added
 - API documentation
 - Arguments validation for all methods
@@ -241,7 +245,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/absolunet/node-terminal/compare/2.1.1...HEAD
+[Unreleased]: https://github.com/absolunet/node-terminal/compare/3.0.0...HEAD
+[3.0.0]:      https://github.com/absolunet/node-terminal/compare/2.1.1...3.0.0
 [2.1.1]:      https://github.com/absolunet/node-terminal/compare/2.1.0...2.1.1
 [2.1.0]:      https://github.com/absolunet/node-terminal/compare/2.0.0...2.1.0
 [2.0.0]:      https://github.com/absolunet/node-terminal/compare/1.2.1...2.0.0
