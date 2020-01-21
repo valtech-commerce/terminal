@@ -3,6 +3,12 @@
 //--------------------------------------------------------
 'use strict';
 
-const manager = require('@absolunet/manager');
+const { manager } = require('@absolunet/manager');
 
-manager.singleScriptsRunner();
+
+manager.init({
+	repositoryType: 'single-package',
+	dist: {
+		node: true
+	}
+});

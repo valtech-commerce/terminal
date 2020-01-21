@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Global - @absolunet/terminal API documentation</title>
+
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta http-equiv="cleartype" content="on">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon"    href="../assets__/icons/favicon.ico">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-57.png">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-72.png"  sizes="72x72">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-76.png"  sizes="76x76">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-114.png" sizes="114x114">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-120.png" sizes="120x120">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-144.png" sizes="144x144">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-152.png" sizes="152x152">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-167.png" sizes="167x167">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-180.png" sizes="180x180">
+	<link rel="image_src"        href="../assets__/icons/touch-512.png">
+	<link rel="icon"             href="../assets__/icons/icon-64.png"  sizes="64x64">
+	<link rel="icon"             href="../assets__/icons/icon-96.png"  sizes="96x96">
+	<link rel="icon"             href="../assets__/icons/icon-192.png" sizes="192x192">
+	<link rel="icon"             href="../assets__/icons/icon-195.png" sizes="195x195">
+	<link rel="icon"             href="../assets__/icons/icon-196.png" sizes="196x196">
+	<link rel="icon"             href="../assets__/icons/icon-228.png" sizes="228x228">
+
+	<meta name="application-name"                content="@absolunet/terminal">
+	<meta name="msapplication-TileColor"         content="#2b2d3c">
+	<meta name="msapplication-square70x70logo"   content="../assets__/icons/tile-small.png">
+	<meta name="msapplication-square150x150logo" content="../assets__/icons/tile-medium.png">
+	<meta name="msapplication-wide310x150logo"   content="../assets__/icons/tile-wide.png">
+	<meta name="msapplication-square310x310logo" content="../assets__/icons/tile-large.png">
+
+	<link href="../assets__/main.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Fira+Mono:400,500,700|Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+	
+	<!-- @absolunet/manager@2.0.0 (c) 2011-2020 Absolunet -->
+</head>
+<body>
+	
+
+	<header>
+		<p class="package"><a href="../">@absolunet/terminal</a><span class="version">2.1.1</span></p>
+		<a href="https://github.com/absolunet/node-terminal" class="github" data-external="external">View on GitHub</a>
+	</header>
+
+	<div class="container">
+		<nav><div>
+			<h2><a href="index.html">API Home</a></h2><h3>Modules</h3><ul><li><a href="module-@absolunet_terminal.html">@absolunet/terminal</a><ul class='members'><li data-type='member'><a href="module-@absolunet_terminal.html#~Terminal">Terminal</a></li><li data-type='member'><a href="module-@absolunet_terminal.html#~Process">Process</a></li><li data-type='member'><a href="module-@absolunet_terminal.html#~terminal">terminal</a></li></ul></li></ul><h3>Classes</h3><ul><li><a href="AbsolunetTerminal.html">AbsolunetTerminal</a><ul class='members'><li data-type='member'><a href="AbsolunetTerminal.html#process">process</a></li><li data-type='member'><a href="AbsolunetTerminal.html#language">language</a></li><li data-type='member'><a href="AbsolunetTerminal.html#basicColor">basicColor</a></li><li data-type='member'><a href="AbsolunetTerminal.html#spinnerType">spinnerType</a></li><li data-type='member'><a href="AbsolunetTerminal.html#theme">theme</a></li></ul><ul class='methods'><li data-type='method'><a href="AbsolunetTerminal.html#setTheme">setTheme</a></li><li data-type='method'><a href="AbsolunetTerminal.html#colorizeText">colorizeText</a></li><li data-type='method'><a href="AbsolunetTerminal.html#colorizeBackground">colorizeBackground</a></li><li data-type='method'><a href="AbsolunetTerminal.html#echo">echo</a></li><li data-type='method'><a href="AbsolunetTerminal.html#echoIndent">echoIndent</a></li><li data-type='method'><a href="AbsolunetTerminal.html#print">print</a></li><li data-type='method'><a href="AbsolunetTerminal.html#spacer">spacer</a></li><li data-type='method'><a href="AbsolunetTerminal.html#confirmation">confirmation</a></li><li data-type='method'><a href="AbsolunetTerminal.html#warning">warning</a></li><li data-type='method'><a href="AbsolunetTerminal.html#error">error</a></li><li data-type='method'><a href="AbsolunetTerminal.html#success">success</a></li><li data-type='method'><a href="AbsolunetTerminal.html#failure">failure</a></li><li data-type='method'><a href="AbsolunetTerminal.html#printState">printState</a></li><li data-type='method'><a href="AbsolunetTerminal.html#printGitStatus">printGitStatus</a></li><li data-type='method'><a href="AbsolunetTerminal.html#startSpinner">startSpinner</a></li><li data-type='method'><a href="AbsolunetTerminal.html#stopSpinner">stopSpinner</a></li><li data-type='method'><a href="AbsolunetTerminal.html#dontSudoMe">dontSudoMe</a></li><li data-type='method'><a href="AbsolunetTerminal.html#exit">exit</a></li><li data-type='method'><a href="AbsolunetTerminal.html#box">box</a></li><li data-type='method'><a href="AbsolunetTerminal.html#titleBox">titleBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#infoBox">infoBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#confirmationBox">confirmationBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#warningBox">warningBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#errorBox">errorBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#completionBox">completionBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#borderedBox">borderedBox</a></li></ul></li><li><a href="AbsolunetTerminalProcess.html">AbsolunetTerminalProcess</a><ul class='members'><li data-type='member'><a href="AbsolunetTerminalProcess.html#terminal">terminal</a></li></ul><ul class='methods'><li data-type='method'><a href="AbsolunetTerminalProcess.html#parseOptions">parseOptions</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#run">run</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAsync">runAsync</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndRead">runAndRead</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndReadLines">runAndReadLines</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndGet">runAndGet</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndEcho">runAndEcho</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runTask">runTask</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Language">Language</a></li><li><a href="global.html#Languages">Languages</a></li><li><a href="global.html#BasicColor">BasicColor</a></li><li><a href="global.html#BasicColors">BasicColors</a></li><li><a href="global.html#HexColor">HexColor</a></li><li><a href="global.html#SpinnerType">SpinnerType</a></li><li><a href="global.html#SpinnerTypes">SpinnerTypes</a></li></ul>
+		</div></nav>
+
+		<div id="main">
+		
+			<h1 class="page-title">Global</h1>
+		
+
+			
+
+
+
+
+<section>
+
+<div>
+    
+        </h2>
+        
+    
+</div>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<div class="member">
+<h4 class="name" id="Language">Language</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.d.js.html#line-1">index.d.js:1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Language.
+</div>
+
+
+
+
+
+
+
+</div>
+
+            
+                
+<div class="member">
+<h4 class="name" id="Languages">Languages</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.d.js.html#line-7">index.d.js:7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>english</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Language">Language</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">English.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>francais</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Language">Language</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Français.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description">
+    Available languages.
+</div>
+
+
+
+
+
+
+
+</div>
+
+            
+                
+<div class="member">
+<h4 class="name" id="BasicColor">BasicColor</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.d.js.html#line-15">index.d.js:15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Basic terminal color.
+</div>
+
+
+
+
+
+
+
+</div>
+
+            
+                
+<div class="member">
+<h4 class="name" id="BasicColors">BasicColors</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.d.js.html#line-21">index.d.js:21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>black</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Normal black.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>red</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Normal red.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>green</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Normal green.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>yellow</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Normal yellow.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Normal blue.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>magenta</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Normal magenta.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cyan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Normal cyan.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>white</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Normal white.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blackBright</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bright black.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>redBright</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bright red.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>greenBright</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bright green.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>yellowBright</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bright yellow.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blueBright</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bright blue.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>magentaBright</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bright magenta.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cyanBright</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bright cyan.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>whiteBright</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bright white.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A <code>blackBright</code> alias.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>grey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BasicColor">BasicColor</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A <code>blackBright</code> alias.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description">
+    Basic terminal colors (8 colors in normal and bright versions).
+</div>
+
+
+
+
+
+
+
+</div>
+
+            
+                
+<div class="member">
+<h4 class="name" id="HexColor">HexColor</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.d.js.html#line-45">index.d.js:45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    A hex triplet color (ex: #0099cc).
+</div>
+
+
+
+
+
+
+
+</div>
+
+            
+                
+<div class="member">
+<h4 class="name" id="SpinnerType">SpinnerType</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.d.js.html#line-51">index.d.js:51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>interval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Interval between frames in milliseconds.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>frames</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">List of each frame of the spinner.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description">
+    A <a href="https://www.npmjs.com/package/cli-spinners">spinner type</a>.
+</div>
+
+
+
+
+
+
+
+</div>
+
+            
+                
+<div class="member">
+<h4 class="name" id="SpinnerTypes">SpinnerTypes</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.d.js.html#line-59">index.d.js:59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Available spinner types.
+</div>
+
+
+
+
+
+
+
+</div>
+
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+		</div>
+	</div>
+
+	<footer>
+		MIT © 2011-2020 <span class="made">Made with <span class="adjective" data-component="adjective">&#x2764;</span> by <a href="https://absolunet.com" data-external="external">Absolunet</a></span>
+	</footer>
+
+	<script src="../assets__/main.js"></script>
+
+</body>
+</html>

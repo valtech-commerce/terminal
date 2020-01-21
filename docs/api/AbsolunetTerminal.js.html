@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>AbsolunetTerminal.js - @absolunet/terminal API documentation</title>
+
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta http-equiv="cleartype" content="on">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon"    href="../assets__/icons/favicon.ico">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-57.png">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-72.png"  sizes="72x72">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-76.png"  sizes="76x76">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-114.png" sizes="114x114">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-120.png" sizes="120x120">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-144.png" sizes="144x144">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-152.png" sizes="152x152">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-167.png" sizes="167x167">
+	<link rel="apple-touch-icon" href="../assets__/icons/touch-180.png" sizes="180x180">
+	<link rel="image_src"        href="../assets__/icons/touch-512.png">
+	<link rel="icon"             href="../assets__/icons/icon-64.png"  sizes="64x64">
+	<link rel="icon"             href="../assets__/icons/icon-96.png"  sizes="96x96">
+	<link rel="icon"             href="../assets__/icons/icon-192.png" sizes="192x192">
+	<link rel="icon"             href="../assets__/icons/icon-195.png" sizes="195x195">
+	<link rel="icon"             href="../assets__/icons/icon-196.png" sizes="196x196">
+	<link rel="icon"             href="../assets__/icons/icon-228.png" sizes="228x228">
+
+	<meta name="application-name"                content="@absolunet/terminal">
+	<meta name="msapplication-TileColor"         content="#2b2d3c">
+	<meta name="msapplication-square70x70logo"   content="../assets__/icons/tile-small.png">
+	<meta name="msapplication-square150x150logo" content="../assets__/icons/tile-medium.png">
+	<meta name="msapplication-wide310x150logo"   content="../assets__/icons/tile-wide.png">
+	<meta name="msapplication-square310x310logo" content="../assets__/icons/tile-large.png">
+
+	<link href="../assets__/main.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Fira+Mono:400,500,700|Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+	
+	<!-- @absolunet/manager@2.0.0 (c) 2011-2020 Absolunet -->
+</head>
+<body>
+	
+
+	<header>
+		<p class="package"><a href="../">@absolunet/terminal</a><span class="version">2.1.1</span></p>
+		<a href="https://github.com/absolunet/node-terminal" class="github" data-external="external">View on GitHub</a>
+	</header>
+
+	<div class="container">
+		<nav><div>
+			<h2><a href="index.html">API Home</a></h2><h3>Modules</h3><ul><li><a href="module-@absolunet_terminal.html">@absolunet/terminal</a><ul class='members'><li data-type='member'><a href="module-@absolunet_terminal.html#~Terminal">Terminal</a></li><li data-type='member'><a href="module-@absolunet_terminal.html#~Process">Process</a></li><li data-type='member'><a href="module-@absolunet_terminal.html#~terminal">terminal</a></li></ul></li></ul><h3>Classes</h3><ul><li><a href="AbsolunetTerminal.html">AbsolunetTerminal</a><ul class='members'><li data-type='member'><a href="AbsolunetTerminal.html#process">process</a></li><li data-type='member'><a href="AbsolunetTerminal.html#language">language</a></li><li data-type='member'><a href="AbsolunetTerminal.html#basicColor">basicColor</a></li><li data-type='member'><a href="AbsolunetTerminal.html#spinnerType">spinnerType</a></li><li data-type='member'><a href="AbsolunetTerminal.html#theme">theme</a></li></ul><ul class='methods'><li data-type='method'><a href="AbsolunetTerminal.html#setTheme">setTheme</a></li><li data-type='method'><a href="AbsolunetTerminal.html#colorizeText">colorizeText</a></li><li data-type='method'><a href="AbsolunetTerminal.html#colorizeBackground">colorizeBackground</a></li><li data-type='method'><a href="AbsolunetTerminal.html#echo">echo</a></li><li data-type='method'><a href="AbsolunetTerminal.html#echoIndent">echoIndent</a></li><li data-type='method'><a href="AbsolunetTerminal.html#print">print</a></li><li data-type='method'><a href="AbsolunetTerminal.html#spacer">spacer</a></li><li data-type='method'><a href="AbsolunetTerminal.html#confirmation">confirmation</a></li><li data-type='method'><a href="AbsolunetTerminal.html#warning">warning</a></li><li data-type='method'><a href="AbsolunetTerminal.html#error">error</a></li><li data-type='method'><a href="AbsolunetTerminal.html#success">success</a></li><li data-type='method'><a href="AbsolunetTerminal.html#failure">failure</a></li><li data-type='method'><a href="AbsolunetTerminal.html#printState">printState</a></li><li data-type='method'><a href="AbsolunetTerminal.html#printGitStatus">printGitStatus</a></li><li data-type='method'><a href="AbsolunetTerminal.html#startSpinner">startSpinner</a></li><li data-type='method'><a href="AbsolunetTerminal.html#stopSpinner">stopSpinner</a></li><li data-type='method'><a href="AbsolunetTerminal.html#dontSudoMe">dontSudoMe</a></li><li data-type='method'><a href="AbsolunetTerminal.html#exit">exit</a></li><li data-type='method'><a href="AbsolunetTerminal.html#box">box</a></li><li data-type='method'><a href="AbsolunetTerminal.html#titleBox">titleBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#infoBox">infoBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#confirmationBox">confirmationBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#warningBox">warningBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#errorBox">errorBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#completionBox">completionBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#borderedBox">borderedBox</a></li></ul></li><li><a href="AbsolunetTerminalProcess.html">AbsolunetTerminalProcess</a><ul class='members'><li data-type='member'><a href="AbsolunetTerminalProcess.html#terminal">terminal</a></li></ul><ul class='methods'><li data-type='method'><a href="AbsolunetTerminalProcess.html#parseOptions">parseOptions</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#run">run</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAsync">runAsync</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndRead">runAndRead</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndReadLines">runAndReadLines</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndGet">runAndGet</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndEcho">runAndEcho</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runTask">runTask</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Language">Language</a></li><li><a href="global.html#Languages">Languages</a></li><li><a href="global.html#BasicColor">BasicColor</a></li><li><a href="global.html#BasicColors">BasicColors</a></li><li><a href="global.html#HexColor">HexColor</a></li><li><a href="global.html#SpinnerType">SpinnerType</a></li><li><a href="global.html#SpinnerTypes">SpinnerTypes</a></li></ul>
+		</div></nav>
+
+		<div id="main">
+		
+			<h1 class="page-title">AbsolunetTerminal.js</h1>
+		
+
+			
+
+
+
+    
+    <section>
+        <article>
+            <pre id="line" class="line-numbers"><code class="language-js">//--------------------------------------------------------
+//-- AbsolunetTerminal
+//--------------------------------------------------------
+import boxen                     from 'boxen';
+import camelCase                 from 'camelcase';
+import chalk                     from 'chalk';
+import cliSpinners               from 'cli-spinners';
+import figures                   from 'figures';
+import emoji                     from 'node-emoji';
+import ora                       from 'ora';
+import prettyMs                  from 'pretty-ms';
+import redent                    from 'redent';
+import stringLength              from 'string-length';
+import stringWidth               from 'string-width';
+import { Joi, validateArgument } from '@absolunet/joi';
+import __                        from '@absolunet/private-registry';
+import pad                       from '@absolunet/terminal-pad';
+import AbsolunetTerminalProcess  from './AbsolunetTerminalProcess';
+
+
+
+const BASIC_COLORS = {
+	black:         'black',
+	red:           'red',
+	green:         'green',
+	yellow:        'yellow',
+	blue:          'blue',
+	magenta:       'magenta',
+	cyan:          'cyan',
+	white:         'white',
+	blackBright:   'blackBright',
+	redBright:     'redBright',
+	greenBright:   'greenBright',
+	yellowBright:  'yellowBright',
+	blueBright:    'blueBright',
+	magentaBright: 'magentaBright',
+	cyanBright:    'cyanBright',
+	whiteBright:   'whiteBright',
+	gray:          'gray',
+	grey:          'grey'
+};
+
+const COLORS = {
+	confirmationText:       chalk.green,
+	confirmationBackground: chalk.white.bgGreen,
+	warningText:            chalk.yellow,
+	warningBackground:      chalk.black.bgYellow,
+	errorText:              chalk.red,
+	errorBackground:        chalk.white.bgRed
+};
+
+const STATUS_COLORS = {
+	not_added: chalk.green,  // eslint-disable-line camelcase
+	created:   chalk.green,
+	modified:  chalk.yellow,
+	renamed:   chalk.yellow,
+	deleted:   chalk.red
+};
+
+const ICONS = {
+	success: figures.tick,
+	failure: figures.cross
+};
+
+const LANGUAGES = {
+	francais: 'fr',
+	english:  'en'
+};
+
+const DICTIONARY = {
+	sudo: {
+		en: 'It is useless to force me with a sudo',
+		fr: 'Ça sert à rien de me forcer avec un sudo'
+	},
+	completed: {
+		en: 'Completed',
+		fr: 'Complété'
+	},
+	after: {
+		en: 'after',
+		fr: 'après'
+	}
+};
+
+const HEX_COLOR = /^#[0-f]{6}$/ui;
+
+
+
+const basicColorSchema = Joi.string().valid(...Object.values(BASIC_COLORS));
+
+const colorSchema = Joi.alternatives().try(
+	basicColorSchema,
+	Joi.string().pattern(HEX_COLOR, 'hex color')
+);
+
+const requiredStringSchema = Joi.string().allow('').required();
+
+
+
+const isHex = (text) => {
+	return text.match(HEX_COLOR);
+};
+
+const translate = (self, key) => {
+	return DICTIONARY[key][self.theme.language] || '';
+};
+
+const cleanUp = (self, text = '') => {
+	return redent(text, self.theme.indent).replace(/\t/ug, '  ');
+};
+
+const startTimer = (self) => {
+	__(self).set('timer', Date.now());
+};
+
+const stopTimer = (self) => {
+	const start = __(self).get('timer');
+	__(self).set('timer', undefined);
+
+	return start ? Date.now() - start : 0;
+};
+
+
+
+
+
+
+/**
+ * Terminal utilities.
+ */
+class AbsolunetTerminal {
+
+	/**
+	 * Create a terminal instance.
+	 */
+	constructor() {
+		this.setTheme({
+			language:              this.language.english,
+			indent:                2,
+			logo:                  '•',
+			textColor:             this.basicColor.blue,
+			backgroundColor:       this.basicColor.blue,
+			textOnBackgroundColor: this.basicColor.white,
+			borderColor:           this.basicColor.blue,
+			spinnerColor:          this.basicColor.blue,
+			spinnerType:           this.spinnerType.dots3
+		});
+
+		__(this).set('process', new AbsolunetTerminalProcess(this));
+	}
+
+
+	/**
+	 * Get process methods.
+	 *
+	 * @type {AbsolunetTerminalProcess}
+	 */
+	get process() {
+		return __(this).get('process');
+	}
+
+
+	/**
+	 * Get available languages.
+	 *
+	 * @type {Languages}
+	 */
+	get language() {
+		return { ...LANGUAGES };
+	}
+
+
+	/**
+	 * Get basic terminal colors (8 colors in normal and bright versions).
+	 *
+	 * @type {BasicColors}
+	 */
+	get basicColor() {
+		return { ...BASIC_COLORS };
+	}
+
+
+	/**
+	 * Get available spinner types.
+	 *
+	 * @type {SpinnerTypes}
+	 */
+	get spinnerType() {
+		return { ...cliSpinners };
+	}
+
+
+	/**
+	 * Get the terminal theme.
+	 *
+	 * @type {object}
+	 */
+	get theme() {
+		return { ...__(this).get('theme') };
+	}
+
+
+	/**
+	 * Set the terminal theme.
+	 *
+	 * @param {object} options - Properties.
+	 * @param {Language} [options.language] - Language to be used in localized outputs.
+	 * @param {number} [options.indent] - Indentation used.
+	 * @param {string} [options.logo] - Emoji to be used as logo in TitleBox.
+	 * @param {BasicColor|HexColor} [options.textColor] - A color to be used in themed text outputs.
+	 * @param {BasicColor|HexColor} [options.backgroundColor] - A color to be used in themed box outputs.
+	 * @param {BasicColor|HexColor} [options.textOnBackgroundColor] - A color to be used in themed box outputs.
+	 * @param {BasicColor|HexColor} [options.borderColor] - A color to be used in themed bordered box outputs.
+	 * @param {BasicColor} [options.spinnerColor] - A color to be used with themed spinner.
+	 * @param {SpinnerType} [options.spinnerType] - A spinner look.
+	 */
+	setTheme(options) {
+		validateArgument('options', options, Joi.object({
+			language:              Joi.string().valid(...Object.values(this.language)),
+			indent:                Joi.number().integer().min(0),
+			logo:                  Joi.string().custom((value, helpers) => { return stringLength(value) === 1 ? value : helpers.message('Must be one character'); }),
+			textColor:             colorSchema,
+			backgroundColor:       colorSchema,
+			textOnBackgroundColor: colorSchema,
+			borderColor:           colorSchema,
+			spinnerColor:          basicColorSchema,
+			spinnerType:           Joi.object({
+				frames:   Joi.array().items(Joi.string()).required(),
+				interval: Joi.number().integer().min(0)
+			})
+		}).required());
+
+		__(this).set('theme', { ...this.theme, ...options });
+	}
+
+
+	/**
+	 * Colorize the string text following theme.
+	 *
+	 * @param {string} text - Text to colorize.
+	 * @returns {string} Colorized text.
+	 */
+	colorizeText(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		const colorize = isHex(this.theme.textColor) ? chalk.hex(this.theme.textColor) : chalk[this.theme.textColor];
+
+		return colorize(text);
+	}
+
+
+	/**
+	 * Colorize the string text and background following theme.
+	 *
+	 * @param {string} text - Text to colorize.
+	 * @returns {string} Colorized text.
+	 */
+	colorizeBackground(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		const color      = isHex(this.theme.textOnBackgroundColor) ? chalk.hex(this.theme.textOnBackgroundColor) : chalk[this.theme.textOnBackgroundColor];
+		const background = isHex(this.theme.backgroundColor)       ? chalk.bgHex(this.theme.backgroundColor)     : chalk[camelCase(['bg', this.theme.backgroundColor])];
+
+		return color(background(text));
+	}
+
+
+
+
+
+
+	/**
+	 * Print a text in the terminal.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	echo(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		process.stdout.write(`${text}\n`);
+
+		return this;
+	}
+
+
+	/**
+	 * Print a text after cleaning and indenting it.
+	 *
+	 * @param {string} text - Text to echo.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	echoIndent(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.echo(cleanUp(this, text));
+	}
+
+
+	/**
+	 * Print a string with default color and indentation.
+	 *
+	 * @param {string} text - Text to print.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	print(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.echo(this.colorizeText(cleanUp(this, text)));
+	}
+
+
+	/**
+	 * Print one or multiple line breaks.
+	 *
+	 * @param {number} [number=1] - Number of line breaks to print.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	spacer(number = 1) {
+		validateArgument('number', number, Joi.number().integer().min(1));
+
+		return this.print('\n'.repeat(number - 1));
+	}
+
+
+	/**
+	 * Display a confirmation message.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	confirmation(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.echo(COLORS.confirmationText(cleanUp(this, text)));
+	}
+
+
+	/**
+	 * Display a warning message.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	warning(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.echo(COLORS.warningText(cleanUp(this, text)));
+	}
+
+
+	/**
+	 * Display an error message.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	error(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.echo(COLORS.errorText(cleanUp(this, text)));
+	}
+
+
+	/**
+	 * Display a success message with a check mark icon.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	success(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.confirmation(`${ICONS.success}  ${text}`).spacer();
+	}
+
+
+	/**
+	 * Display a failure message with an ⨉ mark icon.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	failure(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.error(`${ICONS.failure}  ${text}`).spacer();
+	}
+
+
+	/**
+	 * Display the given state.
+	 * If the state is falsy, the given message will be display.
+	 *
+	 * @param {object}  options - Options.
+	 * @param {boolean} options.state - If a success or a failure.
+	 * @param {string}  options.name - Name of the property.
+	 * @param {string}  options.value - Value of the property.
+	 * @param {string}  [options.message] - Detailed error message in case of failure.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	printState(options) {
+		validateArgument('options', options, Joi.object({
+			state:   Joi.boolean().required(),
+			name:    Joi.string().required(),
+			value:   Joi.string().required(),
+			message: Joi.string()
+		}).required());
+
+		const mark         = ICONS[options.state ? 'success' : 'failure'];
+		const colorize     = COLORS[`${options.state ? 'confirmation' : 'error'}Text`];
+		const errorMessage = options.state ? '' : options.message;
+
+		return this.echoIndent(`${chalk.bold(`${options.name}`)}  ${colorize(`${mark}  ${options.value} ${errorMessage}`)}`);
+	}
+
+
+	/**
+	 * Display the given files status depending if they were not added, created, modified, renamed or deleted, with a Git flavor.
+	 * The available status are: "not_added", "created", "modified", "renamed" and "deleted".
+	 *
+	 * @param {{string: Array&lt;string|{from: string, to: string}>}} status - A {@link https://www.npmjs.com/package/simple-git simple-git} status object.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	printGitStatus(status) {
+		validateArgument('status', status, Joi.object().pattern(
+			Joi.string().valid(...Object.keys(STATUS_COLORS)),
+			Joi.array().items(
+				Joi.string(),
+				Joi.object({
+					from: Joi.string(),
+					to:   Joi.string()
+				})
+			)
+		).required());
+
+		const output = Object.keys(STATUS_COLORS)
+			.flatMap((type) => {
+				if (status[type] &amp;&amp; status[type].length !== 0) {
+					return status[type].map((file) => {
+						return `${STATUS_COLORS[type](pad(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`;
+					});
+				}
+
+				return [];
+			})
+			.join('\n')
+		;
+
+		return this
+			.spacer(2)
+			.echoIndent(output)
+			.spacer(2)
+		;
+	}
+
+
+	/**
+	 * Start the spinner with a given text.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	startSpinner(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		__(this).set('spinner', ora({
+			text,
+			spinner: this.theme.spinnerType,
+			color:   this.theme.spinnerColor
+		}).start());
+
+		return this;
+	}
+
+
+	/**
+	 * Stop the spinner.
+	 *
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	stopSpinner() {
+		const spinner = __(this).get('spinner');
+
+		if (spinner) {
+			spinner.stop();
+		}
+
+		__(this).set('spinner', undefined);
+
+		return this;
+	}
+
+
+	/**
+	 * Display an error message indicating not to use "sudo".
+	 *
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	dontSudoMe() {
+		return this.errorBox(`${translate(this, 'sudo')} ${emoji.get('cry')}`);
+	}
+
+
+	/**
+	 * Exit the process and show an optional exit message in an error box.
+	 *
+	 * @param {string} [message] - ErrorBox message to display.
+	 */
+	exit(message) {
+		validateArgument('message', message, Joi.string());
+
+		if (message) {
+			this.errorBox(message);
+		}
+
+		process.exit(2); // eslint-disable-line no-process-exit, unicorn/no-process-exit
+	}
+
+
+
+
+
+
+	/**
+	 * Print a text in a box.
+	 *
+	 * @param {string} text - Text to output.
+	 * @param {object} [options] - Options.
+	 * @param {Function} [options.colorizer=this.colorizeBackground] - A background colorizer.
+	 * @param {boolean} [options.padding=true] - Add vertical padding.
+	 * @param {boolean} [options.extraPadding=false] - Needs extra padding.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	box(text, { colorizer = this.colorizeBackground.bind(this), padding = true, extraPadding = false } = {}) {
+		validateArgument('text',                 text,         requiredStringSchema);
+		validateArgument('options.colorizer',    colorizer,    Joi.function());
+		validateArgument('options.padding',      padding,      Joi.boolean());
+		validateArgument('options.extraPadding', extraPadding, Joi.boolean());
+
+		let content = cleanUp(this, text).replace(/^\n+/ug, '').replace(/\n+\s*$/ug, '');
+		content     = padding ? `\n${content}\n` : content;
+
+		const lines     = content.split('\n');
+		const max       = Math.max(...lines.map((line) => { return stringWidth(line); }));
+		const padLength = max &lt; 79 ? 80 : max + 2;
+
+		const output = lines.map((line, i) => {
+			return colorizer(pad(line, padLength) + (extraPadding &amp;&amp; i === 2 ? ' ' : ''));
+		}).join('\n');
+
+		return this
+			.spacer()
+			.echo(output)
+			.spacer()
+		;
+	}
+
+
+	/**
+	 * Display a title in a box.
+	 * The logo will be shown as well.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	titleBox(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		startTimer(this);
+
+		const { logo }   = this.theme;
+		const { length } = logo;
+		const extraPadding = length === stringWidth(logo) &amp;&amp; length === stringLength(logo);
+
+		return this.box(`
+			${chalk.reset('        ')}${this.colorizeBackground(' ')}
+			${chalk.reset(`   ${logo}${extraPadding ? ' ' : ''}   `)}${this.colorizeBackground(' ')} ${text}
+			${chalk.reset('        ')}${this.colorizeBackground(' ')}
+		`, { padding: true, extraPadding: extraPadding &amp;&amp; length === 2 });
+	}
+
+
+	/**
+	 * Display an informative message box.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	infoBox(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.box(text);
+	}
+
+
+	/**
+	 * Display a confirmation message box.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	confirmationBox(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.box(text, { colorizer: COLORS.confirmationBackground });
+	}
+
+
+	/**
+	 * Display a warning message box.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	warningBox(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.box(text, { colorizer: COLORS.warningBackground });
+	}
+
+
+	/**
+	 * Display an error message box.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	errorBox(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.box(text, { colorizer: COLORS.errorBackground });
+	}
+
+
+	/**
+	 * Display a completion box by using the timer if wanted and started.
+	 *
+	 * @param {boolean} [showDuration=true] - Show amount of time since last TitleBox.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	completionBox(showDuration = true) {
+		validateArgument('showDuration', showDuration, Joi.boolean());
+
+		const time = showDuration &amp;&amp; __(this, 'timer') ? ` ${translate(this, 'after')} ${prettyMs(stopTimer(this))}` : '';
+
+		return this.infoBox(`${ICONS.success}  ${translate(this, 'completed')}${time}`).spacer(2);
+	}
+
+
+	/**
+	 * Display a bordered box.
+	 *
+	 * @param {string} text - Text to output.
+	 * @returns {AbsolunetTerminal} Current instance.
+	 */
+	borderedBox(text) {
+		validateArgument('text', text, requiredStringSchema);
+
+		return this.echo(boxen(this.colorizeText(text), {
+			padding:     1,
+			margin:      1,
+			align:       'center',
+			borderColor: this.theme.borderColor
+		}));
+	}
+
+}
+
+
+export default AbsolunetTerminal;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+		</div>
+	</div>
+
+	<footer>
+		MIT © 2011-2020 <span class="made">Made with <span class="adjective" data-component="adjective">&#x2764;</span> by <a href="https://absolunet.com" data-external="external">Absolunet</a></span>
+	</footer>
+
+	<script src="../assets__/main.js"></script>
+
+</body>
+</html>

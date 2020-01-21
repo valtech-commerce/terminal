@@ -3,7 +3,7 @@
   "version": "2.1.1",
   "description": "Terminal utilities",
   "definition": "",
-  "homepage": "https://github.com/absolunet/node-terminal",
+  "homepage": "https://documentation.absolunet.com/node-terminal",
   "author": {
     "name": "Absolunet",
     "url": "https://absolunet.com"
@@ -20,32 +20,43 @@
     "url": "https://github.com/absolunet/node-terminal/issues"
   },
   "engines": {
-    "node": ">= 12.9.1"
+    "node": ">= 12.0.0"
   },
-  "main": "index.js",
+  "main": "dist/node",
   "scripts": {
-    "test": "ava test/index.js",
-    "test:output": "node test/output.js",
-    "installer": "node manager.js --task=installer",
-    "outdated": "node manager.js --task=outdated",
-    "build": "node manager.js --task=build",
-    "deploy": "node manager.js --task=deploy"
+    "manager:install": "node manager --task=install",
+    "manager:outdated": "node manager --task=outdated",
+    "manager:build": "node manager --task=build",
+    "manager:watch": "node manager --task=watch",
+    "manager:documentation": "node manager --task=documentation",
+    "manager:prepare": "node manager --task=prepare",
+    "manager:rebuild": "node manager --task=rebuild",
+    "manager:publish": "node manager --task=publish",
+    "manager:publish:unsafe": "node manager --task=publish:unsafe",
+    "test": "node test --scope=all",
+    "test:standards": "node test --scope=standards",
+    "test:unit": "node test --scope=unit",
+    "test:feature": "node test --scope=feature",
+    "test:integration": "node test --scope=integration",
+    "test:endtoend": "node test --scope=endtoend"
   },
   "devDependencies": {
-    "@absolunet/manager": "1.1.0",
-    "@absolunet/tester": "2.6.9"
+    "@absolunet/manager": "2.0.0",
+    "@absolunet/tester": "3.1.1"
   },
   "dependencies": {
+    "@absolunet/joi": "^0.3.0",
+    "@absolunet/private-registry": "^2.0.0",
     "@absolunet/terminal-pad": "^1.0.0",
-    "boxen": "^4.1.0",
-    "chalk": "^2.4.2",
-    "cross-spawn": "^7.0.1",
-    "figures": "^3.0.0",
+    "boxen": "^4.2.0",
+    "camelcase": "^5.3.1",
+    "chalk": "^3.0.0",
+    "figures": "^3.1.0",
     "node-emoji": "^1.10.0",
-    "ora": "^3.4.0",
-    "pretty-ms": "^5.0.0",
+    "ora": "^4.0.3",
+    "pretty-ms": "^5.1.0",
     "redent": "^3.0.0",
     "string-length": "^3.1.0",
-    "string-width": "^4.1.0"
+    "string-width": "^4.2.0"
   }
 }
