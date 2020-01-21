@@ -37,7 +37,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Fira+Mono:400,500,700|Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
 	
-	<!-- @absolunet/manager@2.0.0 (c) 2011-2020 Absolunet -->
+	<!-- @absolunet/manager@2.0.1 (c) 2011-2020 Absolunet -->
 </head>
 <body>
 	
@@ -106,7 +106,7 @@ terminal
 	.startSpinner('Checking dependencies')
 ;
 
-terminal.runPromise('npm outdated', { silent:true }).then(({ stdout }) => {
+terminal.process.runAsync('npm outdated', { silent:true }).then(({ stdout }) => {
 	terminal.stopSpinner();
 
 	if (stdout) {
@@ -123,11 +123,16 @@ terminal.runPromise('npm outdated', { silent:true }).then(({ stdout }) => {
 
 
 // Extend it
-import { Terminal } from '@absolunet/terminal';
+import { Terminal, Process } from '@absolunet/terminal';
 
 class MyBetterTerminal extends Terminal {
 
 }
+
+class MyBetterProcess extends Process {
+
+}
+
 </code></pre>
 <h2>Documentation</h2>
 <p>View <a href="https://documentation.absolunet.com/node-terminal">documentation</a></p>
