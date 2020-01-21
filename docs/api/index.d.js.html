@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>index.js - @absolunet/terminal API documentation</title>
+	<title>index.d.js - @absolunet/terminal API documentation</title>
 
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta http-equiv="cleartype" content="on">
@@ -54,7 +54,7 @@
 
 		<div id="main">
 		
-			<h1 class="page-title">index.js</h1>
+			<h1 class="page-title">index.d.js</h1>
 		
 
 			
@@ -64,50 +64,69 @@
     
     <section>
         <article>
-            <pre id="line" class="line-numbers"><code class="language-js">//--------------------------------------------------------
-//-- @absolunet/terminal
-//--------------------------------------------------------
-import AbsolunetTerminal        from './AbsolunetTerminal';
-import AbsolunetTerminalProcess from './AbsolunetTerminalProcess';
-
-const terminal = new AbsolunetTerminal();
-
-
-
-
-
-
-/**
- * Exports a default instance of the terminal and also the main class.
+            <pre id="line" class="line-numbers"><code class="language-js">/**
+ * Language.
  *
- * @module @absolunet/terminal
+ * @typedef {string} Language
  */
 
 /**
- * Class definition of Terminal.
+ * Available languages.
  *
- * @name Terminal
- * @type {AbsolunetTerminal}
- **/
-export { AbsolunetTerminal as Terminal };
-
+ * @typedef {object} Languages
+ * @property {Language} english - English.
+ * @property {Language} francais - Français.
+ */
 
 /**
- * Class definition of Process.
+ * Basic terminal color.
  *
- * @name Process
- * @type {AbsolunetTerminalProcess}
- **/
-export { AbsolunetTerminalProcess as Process };
-
+ * @typedef {string} BasicColor
+ */
 
 /**
- * Instance of Terminal.
+ * Basic terminal colors (8 colors in normal and bright versions).
  *
- * @name terminal
- * @type {AbsolunetTerminal}
- **/
-export { terminal };
+ * @typedef {object} BasicColors
+ * @property {BasicColor} black - Normal black.
+ * @property {BasicColor} red - Normal red.
+ * @property {BasicColor} green - Normal green.
+ * @property {BasicColor} yellow - Normal yellow.
+ * @property {BasicColor} blue - Normal blue.
+ * @property {BasicColor} magenta - Normal magenta.
+ * @property {BasicColor} cyan - Normal cyan.
+ * @property {BasicColor} white - Normal white.
+ * @property {BasicColor} blackBright - Bright black.
+ * @property {BasicColor} redBright - Bright red.
+ * @property {BasicColor} greenBright - Bright green.
+ * @property {BasicColor} yellowBright - Bright yellow.
+ * @property {BasicColor} blueBright - Bright blue.
+ * @property {BasicColor} magentaBright - Bright magenta.
+ * @property {BasicColor} cyanBright - Bright cyan.
+ * @property {BasicColor} whiteBright - Bright white.
+ * @property {BasicColor} gray - A &lt;code>blackBright&lt;/code> alias.
+ * @property {BasicColor} grey - A &lt;code>blackBright&lt;/code> alias.
+ */
+
+/**
+ * A hex triplet color (ex: #0099cc).
+ *
+ * @typedef {string} HexColor
+ */
+
+/**
+ * A {@link https://www.npmjs.com/package/cli-spinners spinner type}.
+ *
+ * @typedef {object} SpinnerType
+ * @property {number} interval - Interval between frames in milliseconds.
+ * @property {Array&lt;string>} frames - List of each frame of the spinner.
+ */
+
+/**
+ * Available spinner types.
+ *
+ * @typedef {{string: SpinnerType}} SpinnerTypes
+ */
 </code></pre>
         </article>
     </section>
