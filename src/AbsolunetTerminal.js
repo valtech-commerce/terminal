@@ -218,7 +218,7 @@ class AbsolunetTerminal {
 		validateArgument('options', options, Joi.object({
 			language:              Joi.string().valid(...Object.values(this.language)),
 			indent:                Joi.number().integer().min(0),
-			logo:                  Joi.string().custom((value, helpers) => { return stringLength(value) === 1 ? value : helpers.message('Must be one character'); }),
+			logo:                  Joi.string(),
 			textColor:             colorSchema,
 			backgroundColor:       colorSchema,
 			textOnBackgroundColor: colorSchema,
