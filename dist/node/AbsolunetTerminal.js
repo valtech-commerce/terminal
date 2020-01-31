@@ -404,7 +404,7 @@ class AbsolunetTerminal {
    * Display the given files status depending if they were not added, created, modified, renamed or deleted, with a Git flavor.
    * The available status are: "not_added", "created", "modified", "renamed" and "deleted".
    *
-   * @param {{string: Array<string|{from: string, to: string}>}} status - A simple-git {@link https://github.com/steveukx/git-js/blob/master/typings/response.d.ts#L132 StatusResult} object.
+   * @param {StatusResult} status - A simple-git {@link https://github.com/steveukx/git-js/blob/master/typings/response.d.ts#L132 StatusResult} object.
    * @returns {AbsolunetTerminal} Current instance.
    */
 

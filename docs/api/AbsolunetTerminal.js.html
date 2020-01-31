@@ -485,20 +485,25 @@ class AbsolunetTerminal {
 	 * Display the given files status depending if they were not added, created, modified, renamed or deleted, with a Git flavor.
 	 * The available status are: "not_added", "created", "modified", "renamed" and "deleted".
 	 *
-	 * @param {{string: Array&lt;string|{from: string, to: string}>}} status - A {@link https://www.npmjs.com/package/simple-git simple-git} status object.
+	 * @param {StatusResult} status - A simple-git {@link https://github.com/steveukx/git-js/blob/master/typings/response.d.ts#L132 StatusResult} object.
 	 * @returns {AbsolunetTerminal} Current instance.
 	 */
 	printGitStatus(status) {
-		validateArgument('status', status, Joi.object().pattern(
-			Joi.string().valid(...Object.keys(STATUS_COLORS)),
-			Joi.array().items(
-				Joi.string(),
-				Joi.object({
-					from: Joi.string(),
-					to:   Joi.string()
-				})
-			)
-		).required());
+		validateArgument('status', status, Joi.object({
+			not_added:  Joi.array().items(Joi.string()),  // eslint-disable-line camelcase
+			conflicted: Joi.array().items(Joi.string()),
+			created:    Joi.array().items(Joi.string()),
+			deleted:    Joi.array().items(Joi.string()),
+			modified:   Joi.array().items(Joi.string()),
+			renamed:    Joi.array().items(Joi.object({ from: Joi.string(), to: Joi.string()	})),
+			staged:     Joi.array().items(Joi.string()),
+			files:      Joi.array().items(Joi.object({ path: Joi.string(), index: Joi.string(), working_dir: Joi.string() })),  // eslint-disable-line camelcase, unicorn/prevent-abbreviations
+			ahead:      Joi.number().integer().min(0),
+			behind:     Joi.number().integer().min(0),
+			current:    Joi.string(),
+			tracking:   Joi.string(),
+			isClean:    Joi.function()
+		}).required());
 
 		const output = Object.keys(STATUS_COLORS)
 			.flatMap((type) => {
