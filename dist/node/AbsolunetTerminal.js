@@ -404,16 +404,36 @@ class AbsolunetTerminal {
    * Display the given files status depending if they were not added, created, modified, renamed or deleted, with a Git flavor.
    * The available status are: "not_added", "created", "modified", "renamed" and "deleted".
    *
-   * @param {{string: Array<string|{from: string, to: string}>}} status - A {@link https://www.npmjs.com/package/simple-git simple-git} status object.
+   * @param {{string: Array<string|{from: string, to: string}>}} status - A simple-git {@link https://github.com/steveukx/git-js/blob/master/typings/response.d.ts#L132 StatusResult} object.
    * @returns {AbsolunetTerminal} Current instance.
    */
 
 
   printGitStatus(status) {
-    (0, _joi.validateArgument)('status', status, _joi.Joi.object().pattern(_joi.Joi.string().valid(...Object.keys(STATUS_COLORS)), _joi.Joi.array().items(_joi.Joi.string(), _joi.Joi.object({
-      from: _joi.Joi.string(),
-      to: _joi.Joi.string()
-    }))).required());
+    (0, _joi.validateArgument)('status', status, _joi.Joi.object({
+      not_added: _joi.Joi.array().items(_joi.Joi.string()),
+      // eslint-disable-line camelcase
+      conflicted: _joi.Joi.array().items(_joi.Joi.string()),
+      created: _joi.Joi.array().items(_joi.Joi.string()),
+      deleted: _joi.Joi.array().items(_joi.Joi.string()),
+      modified: _joi.Joi.array().items(_joi.Joi.string()),
+      renamed: _joi.Joi.array().items(_joi.Joi.object({
+        from: _joi.Joi.string(),
+        to: _joi.Joi.string()
+      })),
+      staged: _joi.Joi.array().items(_joi.Joi.string()),
+      files: _joi.Joi.array().items(_joi.Joi.object({
+        path: _joi.Joi.string(),
+        index: _joi.Joi.string(),
+        working_dir: _joi.Joi.string()
+      })),
+      // eslint-disable-line camelcase, unicorn/prevent-abbreviations
+      ahead: _joi.Joi.number().integer().min(0),
+      behind: _joi.Joi.number().integer().min(0),
+      current: _joi.Joi.string(),
+      tracking: _joi.Joi.string(),
+      isClean: _joi.Joi.function()
+    }).required());
     const output = Object.keys(STATUS_COLORS).flatMap(type => {
       if (status[type] && status[type].length !== 0) {
         return status[type].map(file => {
