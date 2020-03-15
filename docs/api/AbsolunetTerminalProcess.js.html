@@ -37,7 +37,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Fira+Mono:400,500,700|Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
 	
-	<!-- @absolunet/manager@2.0.1 (c) 2011-2020 Absolunet -->
+	<!-- @absolunet/manager@2.1.0 (c) 2011-2020 Absolunet -->
 </head>
 <body>
 	
@@ -164,7 +164,7 @@ class AbsolunetTerminalProcess {
 	 * @param {object} [options] - Options.
 	 * @param {string} [options.directory] - Current working directory of the command.
 	 * @param {object} [options.environment] - Environment key-value pairs to add.
-	 * @param {string} [options.ignoreError=''] - Error message string to ignore.
+	 * @param {string|RegExp} [options.ignoreError=''] - Error message string to ignore.
 	 * @param {boolean} [options.silent=false] - Silence all errors.
 	 * @returns {Promise&lt;{error: string, stdout: string, stderr: string}>} Terminal outputs.
 	 */
@@ -172,7 +172,7 @@ class AbsolunetTerminalProcess {
 		validateArgument('command',             command,     Joi.string().required());
 		validateArgument('options.directory',   directory,   Joi.string());
 		validateArgument('options.environment', environment, Joi.object().pattern(Joi.string(), Joi.string()));
-		validateArgument('options.ignoreError', ignoreError, Joi.string().allow(''));
+		validateArgument('options.ignoreError', ignoreError, Joi.alternatives().try(Joi.string().allow(''), Joi.object().instance(RegExp)));
 		validateArgument('options.silent',      silent,      Joi.boolean());
 
 		return new Promise((resolve) => {
