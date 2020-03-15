@@ -98,7 +98,7 @@ class AbsolunetTerminalProcess {
 	 * @param {object} [options] - Options.
 	 * @param {string} [options.directory] - Current working directory of the command.
 	 * @param {object} [options.environment] - Environment key-value pairs to add.
-	 * @param {string} [options.ignoreError=''] - Error message string to ignore.
+	 * @param {string|RegExp} [options.ignoreError=''] - Error message string to ignore.
 	 * @param {boolean} [options.silent=false] - Silence all errors.
 	 * @returns {Promise<{error: string, stdout: string, stderr: string}>} Terminal outputs.
 	 */
@@ -106,7 +106,7 @@ class AbsolunetTerminalProcess {
 		validateArgument('command',             command,     Joi.string().required());
 		validateArgument('options.directory',   directory,   Joi.string());
 		validateArgument('options.environment', environment, Joi.object().pattern(Joi.string(), Joi.string()));
-		validateArgument('options.ignoreError', ignoreError, Joi.string().allow(''));
+		validateArgument('options.ignoreError', ignoreError, Joi.alternatives().try(Joi.string().allow(''), Joi.object().instance(RegExp)));
 		validateArgument('options.silent',      silent,      Joi.boolean());
 
 		return new Promise((resolve) => {

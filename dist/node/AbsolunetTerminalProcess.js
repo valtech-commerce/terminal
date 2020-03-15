@@ -104,7 +104,7 @@ class AbsolunetTerminalProcess {
    * @param {object} [options] - Options.
    * @param {string} [options.directory] - Current working directory of the command.
    * @param {object} [options.environment] - Environment key-value pairs to add.
-   * @param {string} [options.ignoreError=''] - Error message string to ignore.
+   * @param {string|RegExp} [options.ignoreError=''] - Error message string to ignore.
    * @param {boolean} [options.silent=false] - Silence all errors.
    * @returns {Promise<{error: string, stdout: string, stderr: string}>} Terminal outputs.
    */
@@ -119,7 +119,7 @@ class AbsolunetTerminalProcess {
     (0, _joi.validateArgument)('command', command, _joi.Joi.string().required());
     (0, _joi.validateArgument)('options.directory', directory, _joi.Joi.string());
     (0, _joi.validateArgument)('options.environment', environment, _joi.Joi.object().pattern(_joi.Joi.string(), _joi.Joi.string()));
-    (0, _joi.validateArgument)('options.ignoreError', ignoreError, _joi.Joi.string().allow(''));
+    (0, _joi.validateArgument)('options.ignoreError', ignoreError, _joi.Joi.alternatives().try(_joi.Joi.string().allow(''), _joi.Joi.object().instance(RegExp)));
     (0, _joi.validateArgument)('options.silent', silent, _joi.Joi.boolean());
     return new Promise(resolve => {
       (0, _child_process.exec)(command, {
