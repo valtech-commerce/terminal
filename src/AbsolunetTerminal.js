@@ -435,7 +435,7 @@ class AbsolunetTerminal {
 			ahead:      Joi.number().integer().min(0),
 			behind:     Joi.number().integer().min(0),
 			current:    Joi.string(),
-			tracking:   Joi.string(),
+			tracking:   Joi.string().allow(null),
 			isClean:    Joi.function()
 		}).required());
 

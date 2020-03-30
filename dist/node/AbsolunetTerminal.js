@@ -431,7 +431,7 @@ class AbsolunetTerminal {
       ahead: _joi.Joi.number().integer().min(0),
       behind: _joi.Joi.number().integer().min(0),
       current: _joi.Joi.string(),
-      tracking: _joi.Joi.string(),
+      tracking: _joi.Joi.string().allow(null),
       isClean: _joi.Joi.function()
     }).required());
     const output = Object.keys(STATUS_COLORS).flatMap(type => {
