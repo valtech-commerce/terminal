@@ -56,7 +56,7 @@
     "ora": "^4.0.3",
     "pretty-ms": "^6.0.1",
     "redent": "^3.0.0",
-    "string-length": "^4.0.0",
+    "string-length": "^4.0.1",
     "string-width": "^4.2.0"
   }
 }
