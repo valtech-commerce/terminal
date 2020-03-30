@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+
+
+
+## [3.0.4] - 2020-03-30
 ### Changed
 - Maintenance updates
 
@@ -274,7 +278,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/absolunet/node-terminal/compare/3.0.3...HEAD
+[Unreleased]: https://github.com/absolunet/node-terminal/compare/3.0.4...HEAD
+[3.0.4]:      https://github.com/absolunet/node-terminal/compare/3.0.3...3.0.4
 [3.0.3]:      https://github.com/absolunet/node-terminal/compare/3.0.2...3.0.3
 [3.0.2]:      https://github.com/absolunet/node-terminal/compare/3.0.1...3.0.2
 [3.0.1]:      https://github.com/absolunet/node-terminal/compare/3.0.0...3.0.1
