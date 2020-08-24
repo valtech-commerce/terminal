@@ -463,6 +463,24 @@ class AbsolunetTerminal {
     return this;
   }
   /**
+   * Update the spinner text.
+   *
+   * @param {string} text - New text.
+   * @returns {AbsolunetTerminal} Current instance.
+   */
+
+
+  updateSpinnerText(text) {
+    (0, _joi.validateArgument)('text', text, requiredStringSchema);
+    const spinner = (0, _privateRegistry.default)(this).get('spinner');
+
+    if (typeof spinner !== 'undefined') {
+      spinner.text = text;
+    }
+
+    return this;
+  }
+  /**
    * Stop the spinner.
    *
    * @returns {AbsolunetTerminal} Current instance.
