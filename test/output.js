@@ -37,6 +37,12 @@ terminal
 
 setTimeout(() => {
 	terminal
+		.updateSpinnerText('yyyy')
+	;
+}, 1500);
+
+setTimeout(() => {
+	terminal
 		.stopSpinner()
 		.completionBox()
 		.print('Test1')
