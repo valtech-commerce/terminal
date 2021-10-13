@@ -10,7 +10,7 @@ const emoji        = require('node-emoji');
 
 
 terminal.setTheme({
-	logo: '🦊',
+	logo: '👨‍💻',
 	textColor: '#ffff88',
 	backgroundColor: '#008800',
 	textOnBackgroundColor: '#ff8888',

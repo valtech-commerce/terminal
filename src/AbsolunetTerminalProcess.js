@@ -71,7 +71,7 @@ class AbsolunetTerminalProcess {
 		const { directory } = options;
 		const environment   = options.environment || {};
 
-		return { cwd: directory, env: { ...process.env, ...environment } };  // eslint-disable-line unicorn/prevent-abbreviations, no-process-env
+		return { cwd: directory, env: { ...process.env, ...environment } };  // eslint-disable-line unicorn/prevent-abbreviations, node/no-process-env
 	}
 
 
@@ -121,28 +121,26 @@ class AbsolunetTerminalProcess {
 				}
 
 				// Error
-				if (!silent) {
-					if (errorMessage || errorOutput) {
-						if (output) {
-							this.terminal.echo(output);
+				if (!silent && (errorMessage || errorOutput)) {
+					if (output) {
+						this.terminal.echo(output);
+					}
+
+					if (errorMessage) {
+						if (!errorOutput) {
+							this.terminal.error(translate(this.terminal, 'silentError'));
 						}
 
-						if (errorMessage) {
-							if (!errorOutput) {
-								this.terminal.error(translate(this.terminal, 'silentError'));
-							}
+						this.terminal
+							.error(`
+								${errorMessage || ''}
+								${errorOutput || ''}
+							`)
+							.exit()
+						;
 
-							this.terminal
-								.error(`
-									${errorMessage || ''}
-									${errorOutput || ''}
-								`)
-								.exit()
-							;
-
-						} else {
-							this.terminal.warning(errorOutput);
-						}
+					} else {
+						this.terminal.warning(errorOutput);
 					}
 				}
 

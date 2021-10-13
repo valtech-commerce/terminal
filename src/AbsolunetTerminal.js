@@ -115,7 +115,7 @@ const startTimer = (self) => {
 
 const stopTimer = (self) => {
 	const start = __(self).get('timer');
-	__(self).set('timer', undefined);
+	__(self).set('timer');
 
 	return start ? Date.now() - start : 0;
 };
@@ -441,7 +441,7 @@ class AbsolunetTerminal {
 
 		const output = Object.keys(STATUS_COLORS)
 			.flatMap((type) => {
-				if (status[type] && status[type].length !== 0) {
+				if (status[type] && status[type].length > 0) {
 					return status[type].map((file) => {
 						return `${STATUS_COLORS[type](pad(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`;
 					});
@@ -510,7 +510,7 @@ class AbsolunetTerminal {
 			spinner.stop();
 		}
 
-		__(this).set('spinner', undefined);
+		__(this).set('spinner');
 
 		return this;
 	}
@@ -538,7 +538,7 @@ class AbsolunetTerminal {
 			this.errorBox(message);
 		}
 
-		process.exit(2); // eslint-disable-line no-process-exit, unicorn/no-process-exit
+		process.exit(2); // eslint-disable-line node/no-process-exit, unicorn/no-process-exit
 	}
 
 
@@ -569,8 +569,8 @@ class AbsolunetTerminal {
 		const max       = Math.max(...lines.map((line) => { return stringWidth(line); }));
 		const padLength = max < 79 ? 80 : max + 2;
 
-		const output = lines.map((line, i) => {
-			return colorizer(pad(line, padLength) + (extraPadding && i === 2 ? ' ' : ''));
+		const output = lines.map((line, index) => {
+			return colorizer(pad(line, padLength) + (extraPadding && index === 2 ? ' ' : ''));
 		}).join('\n');
 
 		return this

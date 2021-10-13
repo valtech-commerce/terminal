@@ -14,7 +14,7 @@ const terminal = new AbsolunetTerminal();
 /**
  * Exports a default instance of the terminal and also the main class.
  *
- * @module @absolunet/terminal
+ * @module absolunet/terminal
  */
 
 /**
