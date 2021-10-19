@@ -13,6 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [3.2.0] - 2021-10-18
+### Added
+- Add shell option to processes
+
+### Changed
+- Maintenance updates
+
+
+
 ## [3.1.0] - 2020-08-24
 ### Added
 - `.updateSpinnerText()` method
@@ -287,7 +296,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/absolunet/node-terminal/compare/3.1.0...HEAD
+[Unreleased]: https://github.com/absolunet/node-terminal/compare/3.2.0...HEAD
+[3.2.0]:      https://github.com/absolunet/node-terminal/compare/3.1.0...3.2.0
 [3.1.0]:      https://github.com/absolunet/node-terminal/compare/3.0.4...3.1.0
 [3.0.4]:      https://github.com/absolunet/node-terminal/compare/3.0.3...3.0.4
 [3.0.3]:      https://github.com/absolunet/node-terminal/compare/3.0.2...3.0.3

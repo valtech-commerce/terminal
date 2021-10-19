@@ -17,7 +17,8 @@ const DICTIONARY = {
 
 const runOptionsSchema = Joi.object({
 	directory:   Joi.string(),
-	environment: Joi.object().pattern(Joi.string(), Joi.string())
+	environment: Joi.object().pattern(Joi.string(), Joi.string()),
+	shell:       Joi.string().allow('')
 });
 
 
@@ -44,6 +45,7 @@ class AbsolunetTerminalProcess {
 		validateArgument('terminal', terminal, Joi.object().required());
 
 		__(this).set('terminal', terminal);
+		__(this).set('shell');
 	}
 
 
@@ -58,20 +60,44 @@ class AbsolunetTerminalProcess {
 
 
 	/**
+	 * Default shell to execute the commands with.
+	 *
+	 * @type {string}
+	 */
+	get shell() {
+		return __(this).get('shell') || '';
+	}
+
+
+	/**
+	 * Set the default shell to execute the commands with.
+	 *
+	 * @type {string}
+	 */
+	setShell(shell) {
+		validateArgument('shell', shell, Joi.string().allow('').required());
+
+		__(this).set('shell', shell === '' ? undefined : shell);
+	}
+
+
+	/**
 	 * Process run options.
 	 *
 	 * @param {object} [options] - Options.
 	 * @param {string} [options.directory] - Current working directory of the command.
 	 * @param {object} [options.environment] - Environment key-value pairs to add.
-	 * @returns {{ cwd: string, env: { string: string }}} Parsed run options.
+	 * @param {string} [options.shell] - Shell to execute the commands with.
+	 * @returns {{ cwd: string, env: { string: string }, shell: string }} Parsed run options.
 	 */
 	parseOptions(options) {
 		validateArgument('options', options, runOptionsSchema);
 
 		const { directory } = options;
 		const environment   = options.environment || {};
+		const shell         = options.shell || __(this).get('shell');
 
-		return { cwd: directory, env: { ...process.env, ...environment } };  // eslint-disable-line unicorn/prevent-abbreviations, no-process-env
+		return { cwd: directory, env: { ...process.env, ...environment }, shell };  // eslint-disable-line unicorn/prevent-abbreviations, node/no-process-env
 	}
 
 
@@ -121,28 +147,26 @@ class AbsolunetTerminalProcess {
 				}
 
 				// Error
-				if (!silent) {
-					if (errorMessage || errorOutput) {
-						if (output) {
-							this.terminal.echo(output);
+				if (!silent && (errorMessage || errorOutput)) {
+					if (output) {
+						this.terminal.echo(output);
+					}
+
+					if (errorMessage) {
+						if (!errorOutput) {
+							this.terminal.error(translate(this.terminal, 'silentError'));
 						}
 
-						if (errorMessage) {
-							if (!errorOutput) {
-								this.terminal.error(translate(this.terminal, 'silentError'));
-							}
+						this.terminal
+							.error(`
+								${errorMessage || ''}
+								${errorOutput || ''}
+							`)
+							.exit()
+						;
 
-							this.terminal
-								.error(`
-									${errorMessage || ''}
-									${errorOutput || ''}
-								`)
-								.exit()
-							;
-
-						} else {
-							this.terminal.warning(errorOutput);
-						}
+					} else {
+						this.terminal.warning(errorOutput);
 					}
 				}
 

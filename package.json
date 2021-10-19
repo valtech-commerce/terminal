@@ -1,6 +1,6 @@
 {
   "name": "@absolunet/terminal",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Terminal utilities",
   "definition": "",
   "homepage": "https://documentation.absolunet.com/node-terminal",
@@ -42,21 +42,22 @@
   },
   "devDependencies": {
     "@absolunet/manager": "2.1.0",
-    "@absolunet/tester": "3.2.2"
+    "@absolunet/tester": "4.2.0"
   },
   "dependencies": {
     "@absolunet/joi": "^0.3.0",
     "@absolunet/private-registry": "^2.0.0",
     "@absolunet/terminal-pad": "^1.0.0",
-    "boxen": "^4.2.0",
-    "camelcase": "^6.0.0",
-    "chalk": "^4.1.0",
+    "boxen": "^5.1.2",
+    "camelcase": "^6.2.0",
+    "chalk": "^4.1.2",
+    "cli-spinners": "^2.6.1",
     "figures": "^3.2.0",
-    "node-emoji": "^1.10.0",
-    "ora": "^5.0.0",
-    "pretty-ms": "^7.0.0",
+    "node-emoji": "^1.11.0",
+    "ora": "^5.4.1",
+    "pretty-ms": "^7.0.1",
     "redent": "^3.0.0",
-    "string-length": "^4.0.1",
-    "string-width": "^4.2.0"
+    "string-length": "^4.0.2",
+    "string-width": "^4.2.3"
   }
 }
