@@ -1,71 +1,5 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>AbsolunetTerminal.js - @absolunet/terminal API documentation</title>
-
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta http-equiv="cleartype" content="on">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<link rel="shortcut icon"    href="../assets__/icons/favicon.ico">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-57.png">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-72.png"  sizes="72x72">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-76.png"  sizes="76x76">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-114.png" sizes="114x114">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-120.png" sizes="120x120">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-144.png" sizes="144x144">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-152.png" sizes="152x152">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-167.png" sizes="167x167">
-	<link rel="apple-touch-icon" href="../assets__/icons/touch-180.png" sizes="180x180">
-	<link rel="image_src"        href="../assets__/icons/touch-512.png">
-	<link rel="icon"             href="../assets__/icons/icon-64.png"  sizes="64x64">
-	<link rel="icon"             href="../assets__/icons/icon-96.png"  sizes="96x96">
-	<link rel="icon"             href="../assets__/icons/icon-192.png" sizes="192x192">
-	<link rel="icon"             href="../assets__/icons/icon-195.png" sizes="195x195">
-	<link rel="icon"             href="../assets__/icons/icon-196.png" sizes="196x196">
-	<link rel="icon"             href="../assets__/icons/icon-228.png" sizes="228x228">
-
-	<meta name="application-name"                content="@absolunet/terminal">
-	<meta name="msapplication-TileColor"         content="#2b2d3c">
-	<meta name="msapplication-square70x70logo"   content="../assets__/icons/tile-small.png">
-	<meta name="msapplication-square150x150logo" content="../assets__/icons/tile-medium.png">
-	<meta name="msapplication-wide310x150logo"   content="../assets__/icons/tile-wide.png">
-	<meta name="msapplication-square310x310logo" content="../assets__/icons/tile-large.png">
-
-	<link href="../assets__/main.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Fira+Mono:400,500,700|Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-
-	
-	<!-- @absolunet/manager@2.1.0 (c) 2011-2021 Absolunet -->
-</head>
-<body>
-	
-
-	<header>
-		<p class="package"><a href="../">@absolunet/terminal</a><span class="version">3.2.0</span></p>
-		<a href="https://github.com/absolunet/node-terminal" class="github" data-external="external">View on GitHub</a>
-	</header>
-
-	<div class="container">
-		<nav><div>
-			<h2><a href="index.html">API Home</a></h2><h3>Modules</h3><ul><li><a href="module-absolunet_terminal.html">absolunet/terminal</a><ul class='members'><li data-type='member'><a href="module-absolunet_terminal.html#~Terminal">Terminal</a></li><li data-type='member'><a href="module-absolunet_terminal.html#~Process">Process</a></li><li data-type='member'><a href="module-absolunet_terminal.html#~terminal">terminal</a></li></ul></li></ul><h3>Classes</h3><ul><li><a href="AbsolunetTerminal.html">AbsolunetTerminal</a><ul class='members'><li data-type='member'><a href="AbsolunetTerminal.html#process">process</a></li><li data-type='member'><a href="AbsolunetTerminal.html#language">language</a></li><li data-type='member'><a href="AbsolunetTerminal.html#basicColor">basicColor</a></li><li data-type='member'><a href="AbsolunetTerminal.html#spinnerType">spinnerType</a></li><li data-type='member'><a href="AbsolunetTerminal.html#theme">theme</a></li></ul><ul class='methods'><li data-type='method'><a href="AbsolunetTerminal.html#setTheme">setTheme</a></li><li data-type='method'><a href="AbsolunetTerminal.html#colorizeText">colorizeText</a></li><li data-type='method'><a href="AbsolunetTerminal.html#colorizeBackground">colorizeBackground</a></li><li data-type='method'><a href="AbsolunetTerminal.html#echo">echo</a></li><li data-type='method'><a href="AbsolunetTerminal.html#echoIndent">echoIndent</a></li><li data-type='method'><a href="AbsolunetTerminal.html#print">print</a></li><li data-type='method'><a href="AbsolunetTerminal.html#spacer">spacer</a></li><li data-type='method'><a href="AbsolunetTerminal.html#confirmation">confirmation</a></li><li data-type='method'><a href="AbsolunetTerminal.html#warning">warning</a></li><li data-type='method'><a href="AbsolunetTerminal.html#error">error</a></li><li data-type='method'><a href="AbsolunetTerminal.html#success">success</a></li><li data-type='method'><a href="AbsolunetTerminal.html#failure">failure</a></li><li data-type='method'><a href="AbsolunetTerminal.html#printState">printState</a></li><li data-type='method'><a href="AbsolunetTerminal.html#printGitStatus">printGitStatus</a></li><li data-type='method'><a href="AbsolunetTerminal.html#startSpinner">startSpinner</a></li><li data-type='method'><a href="AbsolunetTerminal.html#updateSpinnerText">updateSpinnerText</a></li><li data-type='method'><a href="AbsolunetTerminal.html#stopSpinner">stopSpinner</a></li><li data-type='method'><a href="AbsolunetTerminal.html#dontSudoMe">dontSudoMe</a></li><li data-type='method'><a href="AbsolunetTerminal.html#exit">exit</a></li><li data-type='method'><a href="AbsolunetTerminal.html#box">box</a></li><li data-type='method'><a href="AbsolunetTerminal.html#titleBox">titleBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#infoBox">infoBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#confirmationBox">confirmationBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#warningBox">warningBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#errorBox">errorBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#completionBox">completionBox</a></li><li data-type='method'><a href="AbsolunetTerminal.html#borderedBox">borderedBox</a></li></ul></li><li><a href="AbsolunetTerminalProcess.html">AbsolunetTerminalProcess</a><ul class='members'><li data-type='member'><a href="AbsolunetTerminalProcess.html#terminal">terminal</a></li><li data-type='member'><a href="AbsolunetTerminalProcess.html#shell">shell</a></li></ul><ul class='methods'><li data-type='method'><a href="AbsolunetTerminalProcess.html#setShell">setShell</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#parseOptions">parseOptions</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#run">run</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAsync">runAsync</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndRead">runAndRead</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndReadLines">runAndReadLines</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndGet">runAndGet</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runAndEcho">runAndEcho</a></li><li data-type='method'><a href="AbsolunetTerminalProcess.html#runTask">runTask</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Language">Language</a></li><li><a href="global.html#Languages">Languages</a></li><li><a href="global.html#BasicColor">BasicColor</a></li><li><a href="global.html#BasicColors">BasicColors</a></li><li><a href="global.html#HexColor">HexColor</a></li><li><a href="global.html#SpinnerType">SpinnerType</a></li><li><a href="global.html#SpinnerTypes">SpinnerTypes</a></li></ul>
-		</div></nav>
-
-		<div id="main">
-		
-			<h1 class="page-title">AbsolunetTerminal.js</h1>
-		
-
-			
-
-
-
-    
-    <section>
-        <article>
-            <pre id="line" class="line-numbers"><code class="language-js">//--------------------------------------------------------
-//-- AbsolunetTerminal
+//--------------------------------------------------------
+//-- Terminal
 //--------------------------------------------------------
 import boxen                     from 'boxen';
 import camelCase                 from 'camelcase';
@@ -81,7 +15,7 @@ import stringWidth               from 'string-width';
 import { Joi, validateArgument } from '@absolunet/joi';
 import __                        from '@absolunet/private-registry';
 import pad                       from '@absolunet/terminal-pad';
-import AbsolunetTerminalProcess  from './AbsolunetTerminalProcess';
+import TerminalProcess           from './TerminalProcess';
 
 
 
@@ -194,7 +128,7 @@ const stopTimer = (self) => {
 /**
  * Terminal utilities.
  */
-class AbsolunetTerminal {
+class Terminal {
 
 	/**
 	 * Create a terminal instance.
@@ -212,14 +146,14 @@ class AbsolunetTerminal {
 			spinnerType:           this.spinnerType.dots3
 		});
 
-		__(this).set('process', new AbsolunetTerminalProcess(this));
+		__(this).set('process', new TerminalProcess(this));
 	}
 
 
 	/**
 	 * Get process methods.
 	 *
-	 * @type {AbsolunetTerminalProcess}
+	 * @type {TerminalProcess}
 	 */
 	get process() {
 		return __(this).get('process');
@@ -339,7 +273,7 @@ class AbsolunetTerminal {
 	 * Print a text in the terminal.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	echo(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -354,7 +288,7 @@ class AbsolunetTerminal {
 	 * Print a text after cleaning and indenting it.
 	 *
 	 * @param {string} text - Text to echo.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	echoIndent(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -367,7 +301,7 @@ class AbsolunetTerminal {
 	 * Print a string with default color and indentation.
 	 *
 	 * @param {string} text - Text to print.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	print(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -380,7 +314,7 @@ class AbsolunetTerminal {
 	 * Print one or multiple line breaks.
 	 *
 	 * @param {number} [number=1] - Number of line breaks to print.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	spacer(number = 1) {
 		validateArgument('number', number, Joi.number().integer().min(1));
@@ -393,7 +327,7 @@ class AbsolunetTerminal {
 	 * Display a confirmation message.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	confirmation(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -406,7 +340,7 @@ class AbsolunetTerminal {
 	 * Display a warning message.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	warning(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -419,7 +353,7 @@ class AbsolunetTerminal {
 	 * Display an error message.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	error(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -432,7 +366,7 @@ class AbsolunetTerminal {
 	 * Display a success message with a check mark icon.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	success(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -445,7 +379,7 @@ class AbsolunetTerminal {
 	 * Display a failure message with an ⨉ mark icon.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	failure(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -463,7 +397,7 @@ class AbsolunetTerminal {
 	 * @param {string}  options.name - Name of the property.
 	 * @param {string}  options.value - Value of the property.
 	 * @param {string}  [options.message] - Detailed error message in case of failure.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	printState(options) {
 		validateArgument('options', options, Joi.object({
@@ -486,7 +420,7 @@ class AbsolunetTerminal {
 	 * The available status are: "not_added", "created", "modified", "renamed" and "deleted".
 	 *
 	 * @param {StatusResult} status - A simple-git {@link https://github.com/steveukx/git-js/blob/master/typings/response.d.ts#L132 StatusResult} object.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	printGitStatus(status) {
 		validateArgument('status', status, Joi.object({
@@ -507,7 +441,7 @@ class AbsolunetTerminal {
 
 		const output = Object.keys(STATUS_COLORS)
 			.flatMap((type) => {
-				if (status[type] &amp;&amp; status[type].length > 0) {
+				if (status[type] && status[type].length > 0) {
 					return status[type].map((file) => {
 						return `${STATUS_COLORS[type](pad(`${type}:`, 12))} ${type === 'renamed' ? `${file.from} → ${file.to}` : file}`;
 					});
@@ -530,7 +464,7 @@ class AbsolunetTerminal {
 	 * Start the spinner with a given text.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	startSpinner(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -549,7 +483,7 @@ class AbsolunetTerminal {
 	 * Update the spinner text.
 	 *
 	 * @param {string} text - New text.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	updateSpinnerText(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -567,7 +501,7 @@ class AbsolunetTerminal {
 	/**
 	 * Stop the spinner.
 	 *
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	stopSpinner() {
 		const spinner = __(this).get('spinner');
@@ -585,7 +519,7 @@ class AbsolunetTerminal {
 	/**
 	 * Display an error message indicating not to use "sudo".
 	 *
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	dontSudoMe() {
 		return this.errorBox(`${translate(this, 'sudo')} ${emoji.get('cry')}`);
@@ -620,7 +554,7 @@ class AbsolunetTerminal {
 	 * @param {Function} [options.colorizer=this.colorizeBackground] - A background colorizer.
 	 * @param {boolean} [options.padding=true] - Add vertical padding.
 	 * @param {boolean} [options.extraPadding=false] - Needs extra padding.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	box(text, { colorizer = this.colorizeBackground.bind(this), padding = true, extraPadding = false } = {}) {
 		validateArgument('text',                 text,         requiredStringSchema);
@@ -633,10 +567,10 @@ class AbsolunetTerminal {
 
 		const lines     = content.split('\n');
 		const max       = Math.max(...lines.map((line) => { return stringWidth(line); }));
-		const padLength = max &lt; 79 ? 80 : max + 2;
+		const padLength = max < 79 ? 80 : max + 2;
 
 		const output = lines.map((line, index) => {
-			return colorizer(pad(line, padLength) + (extraPadding &amp;&amp; index === 2 ? ' ' : ''));
+			return colorizer(pad(line, padLength) + (extraPadding && index === 2 ? ' ' : ''));
 		}).join('\n');
 
 		return this
@@ -652,7 +586,7 @@ class AbsolunetTerminal {
 	 * The logo will be shown as well.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	titleBox(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -661,13 +595,13 @@ class AbsolunetTerminal {
 
 		const { logo }   = this.theme;
 		const { length } = logo;
-		const extraPadding = length === stringWidth(logo) &amp;&amp; length === stringLength(logo);
+		const extraPadding = length === stringWidth(logo) && length === stringLength(logo);
 
 		return this.box(`
 			${chalk.reset('        ')}${this.colorizeBackground(' ')}
 			${chalk.reset(`   ${logo}${extraPadding ? ' ' : ''}   `)}${this.colorizeBackground(' ')} ${text}
 			${chalk.reset('        ')}${this.colorizeBackground(' ')}
-		`, { padding: true, extraPadding: extraPadding &amp;&amp; length === 2 });
+		`, { padding: true, extraPadding: extraPadding && length === 2 });
 	}
 
 
@@ -675,7 +609,7 @@ class AbsolunetTerminal {
 	 * Display an informative message box.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	infoBox(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -688,7 +622,7 @@ class AbsolunetTerminal {
 	 * Display a confirmation message box.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	confirmationBox(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -701,7 +635,7 @@ class AbsolunetTerminal {
 	 * Display a warning message box.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	warningBox(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -714,7 +648,7 @@ class AbsolunetTerminal {
 	 * Display an error message box.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	errorBox(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -727,12 +661,12 @@ class AbsolunetTerminal {
 	 * Display a completion box by using the timer if wanted and started.
 	 *
 	 * @param {boolean} [showDuration=true] - Show amount of time since last TitleBox.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	completionBox(showDuration = true) {
 		validateArgument('showDuration', showDuration, Joi.boolean());
 
-		const time = showDuration &amp;&amp; __(this, 'timer') ? ` ${translate(this, 'after')} ${prettyMs(stopTimer(this))}` : '';
+		const time = showDuration && __(this, 'timer') ? ` ${translate(this, 'after')} ${prettyMs(stopTimer(this))}` : '';
 
 		return this.infoBox(`${ICONS.success}  ${translate(this, 'completed')}${time}`).spacer(2);
 	}
@@ -742,7 +676,7 @@ class AbsolunetTerminal {
 	 * Display a bordered box.
 	 *
 	 * @param {string} text - Text to output.
-	 * @returns {AbsolunetTerminal} Current instance.
+	 * @returns {Terminal} Current instance.
 	 */
 	borderedBox(text) {
 		validateArgument('text', text, requiredStringSchema);
@@ -758,22 +692,4 @@ class AbsolunetTerminal {
 }
 
 
-export default AbsolunetTerminal;
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-		</div>
-	</div>
-
-	<footer>
-		MIT © 2011-2021 <span class="made">Made with <span class="adjective" data-component="adjective">&#x2764;</span> by <a href="https://absolunet.com" data-external="external">Absolunet</a></span>
-	</footer>
-
-	<script src="../assets__/main.js"></script>
-
-</body>
-</html>
+export default Terminal;

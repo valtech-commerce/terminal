@@ -1,10 +1,10 @@
 //--------------------------------------------------------
-//-- @absolunet/terminal
+//-- @valtech-commerce/terminal
 //--------------------------------------------------------
-import AbsolunetTerminal        from './AbsolunetTerminal';
-import AbsolunetTerminalProcess from './AbsolunetTerminalProcess';
+import Terminal        from './Terminal';
+import TerminalProcess from './TerminalProcess';
 
-const terminal = new AbsolunetTerminal();
+const terminal = new Terminal();
 
 
 
@@ -14,31 +14,31 @@ const terminal = new AbsolunetTerminal();
 /**
  * Exports a default instance of the terminal and also the main class.
  *
- * @module absolunet/terminal
+ * @module valtech-commerce/terminal
  */
 
 /**
  * Class definition of Terminal.
  *
  * @name Terminal
- * @type {AbsolunetTerminal}
+ * @type {Terminal}
  **/
-export { AbsolunetTerminal as Terminal };
+export { Terminal as Terminal };
 
 
 /**
  * Class definition of Process.
  *
  * @name Process
- * @type {AbsolunetTerminalProcess}
+ * @type {TerminalProcess}
  **/
-export { AbsolunetTerminalProcess as Process };
+export { TerminalProcess as Process };
 
 
 /**
  * Instance of Terminal.
  *
  * @name terminal
- * @type {AbsolunetTerminal}
+ * @type {Terminal}
  **/
 export { terminal };

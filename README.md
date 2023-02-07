@@ -1,9 +1,9 @@
-# @absolunet/terminal
+# @valtech-commerce/terminal
 
-[![npm](https://img.shields.io/npm/v/@absolunet/terminal.svg)](https://www.npmjs.com/package/@absolunet/terminal)
-[![npm dependencies](https://david-dm.org/absolunet/node-terminal/status.svg)](https://david-dm.org/absolunet/node-terminal)
-[![npms](https://badges.npms.io/%40absolunet%2Fterminal.svg)](https://npms.io/search?q=%40absolunet%2Fterminal)
-[![Travis CI](https://api.travis-ci.org/absolunet/node-terminal.svg?branch=master)](https://travis-ci.org/absolunet/node-terminal/builds)
+[![npm](https://img.shields.io/npm/v/@valtech-commerce/terminal.svg)](https://www.npmjs.com/package/@valtech-commerce/terminal)
+[![npm dependencies](https://david-dm.org/valtech-commerce/terminal/status.svg)](https://david-dm.org/valtech-commerce/terminal)
+[![npms](https://badges.npms.io/%40valtech-commerce%2Fterminal.svg)](https://npms.io/search?q=%40valtech-commerce%2Fterminal)
+[![Travis CI](https://api.travis-ci.org/valtech-commerce/terminal.svg?branch=main)](https://travis-ci.org/valtech-commerce/terminal/builds)
 
 > Terminal utilities
 
@@ -11,14 +11,14 @@
 ## Install
 
 ```sh
-$ npm install @absolunet/terminal
+$ npm install @valtech-commerce/terminal
 ```
 
 
 ## Usage
 
 ```js
-import { terminal } from '@absolunet/terminal';
+import { terminal } from '@valtech-commerce/terminal';
 
 terminal.setTheme({
 	logo:                  '🍭',
@@ -50,7 +50,7 @@ terminal.process.runAsync('npm outdated', { silent:true }).then(({ stdout }) => 
 
 
 // Extend it
-import { Terminal, Process } from '@absolunet/terminal';
+import { Terminal, Process } from '@valtech-commerce/terminal';
 
 class MyBetterTerminal extends Terminal {
 
@@ -65,7 +65,7 @@ class MyBetterProcess extends Process {
 
 ## Documentation
 
-View [documentation](https://documentation.absolunet.com/node-terminal)
+View [documentation](https://valtech-commerce.github.io/terminal)
 
 
 
@@ -76,4 +76,4 @@ View [documentation](https://documentation.absolunet.com/node-terminal)
 
 ## License
 
-MIT © [Absolunet](https://absolunet.com)
+MIT © [Valtech Canada inc.](https://www.valtech.ca/)

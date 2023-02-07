@@ -1,23 +1,23 @@
 {
-  "name": "@absolunet/terminal",
+  "name": "@valtech-commerce/terminal",
   "version": "3.2.0",
   "description": "Terminal utilities",
   "definition": "",
-  "homepage": "https://documentation.absolunet.com/node-terminal",
+  "homepage": "https://valtech-commerce.github.io/terminal",
   "author": {
-    "name": "Absolunet",
-    "url": "https://absolunet.com"
+    "name": "Valtech Canada inc.",
+    "url": "https://www.valtech.ca/"
   },
   "keywords": [
     "terminal"
   ],
   "license": "MIT",
   "repository": {
-    "url": "git://github.com/absolunet/node-terminal.git",
+    "url": "git://github.com/valtech-commerce/terminal.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/absolunet/node-terminal/issues"
+    "url": "https://github.com/valtech-commerce/terminal/issues"
   },
   "engines": {
     "node": ">= 12"

@@ -1,5 +1,5 @@
 //--------------------------------------------------------
-//-- AbsolunetTerminalProcess
+//-- TerminalProcess
 //--------------------------------------------------------
 import { execSync, exec }        from 'child_process';
 import { Joi, validateArgument } from '@absolunet/joi';
@@ -34,12 +34,12 @@ const translate = (self, key) => {
 /**
  * Process utilities.
  */
-class AbsolunetTerminalProcess {
+class TerminalProcess {
 
 	/**
 	 * Create a process instance.
 	 *
-	 * @param {AbsolunetTerminal} terminal - Instance of AbsolunetTerminal.
+	 * @param {Terminal} terminal - Instance of Terminal.
 	 */
 	constructor(terminal) {
 		validateArgument('terminal', terminal, Joi.object().required());
@@ -52,7 +52,7 @@ class AbsolunetTerminalProcess {
 	/**
 	 * Terminal instance.
 	 *
-	 * @type {AbsolunetTerminal}
+	 * @type {Terminal}
 	 */
 	get terminal() {
 		return __(this).get('terminal');
@@ -265,4 +265,4 @@ class AbsolunetTerminalProcess {
 }
 
 
-export default AbsolunetTerminalProcess;
+export default TerminalProcess;
